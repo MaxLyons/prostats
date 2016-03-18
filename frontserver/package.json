@@ -1,0 +1,11 @@
+{
+  "name": "vikings",
+  "version": "0.0.1",
+  "description": "viking multiplayer",
+  "dependencies": {
+    "express": "^4.10.2",
+    "mongoose": "^4.4.6",
+    "node-csgo-gsi": "0.0.1",
+    "socket.io": "^1.4.5"
+  }
+}
