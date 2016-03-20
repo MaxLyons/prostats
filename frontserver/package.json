@@ -1,8 +1,9 @@
 {
-  "name": "vikings",
+  "name": "PROStats",
   "version": "0.0.1",
-  "description": "viking multiplayer",
+  "description": "CSGO Pro player stats",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.10.2",
     "mongoose": "^4.4.6",
     "node-csgo-gsi": "0.0.1",

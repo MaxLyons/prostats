@@ -12,6 +12,7 @@ html, body {
 
 video#bgvid {
     position: fixed;
+
     margin-top: -115px;
     z-index: -100;
     /*-ms-transform: translateX(-50%) translateY(-50%);
@@ -28,4 +29,11 @@ video#bgvid {
     background-color: rgba(0, 0, 0, 0.5);
     min-width: 100%;
     min-height: 100%;
+}
+
+.container{
+  /*position: absolute;*/
+  margin-top:50px;
+
+  background-color: grey;
 }
