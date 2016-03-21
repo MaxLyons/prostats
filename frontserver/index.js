@@ -10,17 +10,18 @@ var pg = require('pg');
 
 var conString = dbKey();
 
-pg.connect(conString, function(err, client, done) {
-  if(err) {
-    return console.error('error fetching client from pool', err);
-  }
-  client.query('SELECT * FROM fire LIMIT 1', function(err,results){
-    if(err) {
-      return console.error('error occurred');
-    }
-    console.log(results);
-  })
-});
+// pg.connect(conString, function(err, client, done) {
+//   if(err) {
+//     return console.error('error fetching client from pool', err);
+//   }
+//   client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+//     if(err) {
+//       return console.error('error occurred');
+//     }
+//     console.log(results);
+//     return results;
+//   });
+// });
 
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
@@ -30,6 +31,34 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   socket.emit('idAssign', socket.id);
 
+  socket.on('wantTable', function(tableId){
+    console.log('client wants table ' + tableId);
+    // console.log('db');
+
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit("tableResults", results);
+      console.log(results);
+      return results;
+    });
+  });
+
+
+
+
+
+  });
+
+  // socket.emit('getTable', function(){
+
+  // });
+  console.log("done doing");
   // socket.on('move', function(data) {
   //   io.emit('move', data);
   // });
