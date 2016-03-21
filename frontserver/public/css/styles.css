@@ -55,8 +55,8 @@ video#bgvid {
 }
 
 .liveStatTable .liveStatTableTabs {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   background-color: transparent;
   border-radius: 5%;
   border-color: grey;

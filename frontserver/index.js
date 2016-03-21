@@ -7,8 +7,15 @@ var fs = require('fs');
 var jsgo = require('jsgo');
 var dbKey = require('./dbKey.js');
 var pg = require('pg');
+var highcharts = require('highcharts');
 
 var conString = dbKey();
+
+// Load module after Highcharts is loaded
+// require('highcharts/modules/exporting')(Highcharts);
+
+// Create the chart
+// Highcharts.chart('container', { /*Highcharts options*/ });
 
 // pg.connect(conString, function(err, client, done) {
 //   if(err) {

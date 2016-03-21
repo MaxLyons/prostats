@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script src="js/scripts.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
   </head>
 
 
@@ -56,10 +58,10 @@
       <div class="col s3 offset-s1 liveStatTable">
         <br/>
         <div>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable1">Tab1</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable2">Tab2</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable3">Tab3</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable4">Tab4</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable1">ROUND</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable2">TEAM1</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable3">TEAM2</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable4">MATCH</a>
         </div>
 <!-- FRIST TABLE -->
         <table class="highlight mainLiveStat">
@@ -185,11 +187,13 @@
               </tbody>
             </table>
           </div>
+  <!-- THIRD TABLE -->
+  <!-- -->
         </div> 
 
       </div>
 
-      <div class="col s6 offset-s1 liveMap">
+      <div class="col s6 offset-s1 liveMap" id="container" >
         Teal page content 
       </div>
 
