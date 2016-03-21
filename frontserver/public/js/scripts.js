@@ -8,4 +8,10 @@ $(function() {
     id = data;
   });
 
+  $(".liveStatTableTabs").on('click',function(){
+    var table = $(this)[0].id;
+    $("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
+  });
+
 });
+

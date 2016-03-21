@@ -1,13 +1,26 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var request = require('request');
+var fs = require('fs');
+var jsgo = require('jsgo');
+var dbKey = require('./dbKey.js');
+var pg = require('pg');
 
-request('', function (error, response, body) {
-    console.log(body) // Show the HTML for the Google homepage.
-})
+var conString = dbKey();
 
+pg.connect(conString, function(err, client, done) {
+  if(err) {
+    return console.error('error fetching client from pool', err);
+  }
+  client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+    if(err) {
+      return console.error('error occurred');
+    }
+    console.log(results);
+  })
+});
 
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
