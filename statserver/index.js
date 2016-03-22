@@ -5,21 +5,30 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var jsgo = require('jsgo');
-
+var dbKey = require('./dbKey.js');
 var pg = require('pg');
-var conString = "";
+
+var conString = dbKey();
+
 pg.connect(conString, function(err, client, done) {
   if(err) {
     return console.error('error fetching client from pool', err);
   }
-  client.query('SELECT $1::int AS number', ['1'], function(err, result) {
-    done();
-
+  client.query('SELECT * FROM fire LIMIT 1', function(err,results){
     if(err) {
-      return console.error('error running query', err);
+      return console.error('error occurred');
     }
-    console.log(result.rows[0].number);
-  });
+    console.log(results);
+  })
+
+  // client.query('SELECT $1::int AS number', ['1'], function(err, result) {
+  //   done();
+  //
+  //   if(err) {
+  //     return console.error('error running query', err);
+  //   }
+  //   console.log(result.rows[0].number);
+  // });
 });
 
 
@@ -34,19 +43,19 @@ app.post('/', function(req, res) {
     console.log(req.body);
 });
 
-fs.readFile('demo.dem', function(err, data) {
+// fs.readFile('demo.dem', function(err, data) {
 
-  new jsgo.Demo().on('game.weapon_fire', function(event) {
+//   new jsgo.Demo().on('game.weapon_fire', function(event) {
 
-    var player = event.player;
-    var position = player.getPosition();
+//     var player = event.player;
+//     var position = player.getPosition();
 
-    // console.log(player.getName() + ' used weapon ' +
-    //             event.weapon + ' at ' + position.x + ', ' + position.y + ', ' + position.z);
+//     // console.log(player.getName() + ' used weapon ' +
+//     //             event.weapon + ' at ' + position.x + ', ' + position.y + ', ' + position.z);
 
-  }).parse(data);
+//   }).parse(data);
 
-});
+// });
 
 // io.on('connection', function(socket){
 //   socket.emit('idAssign', socket.id);
@@ -66,6 +75,6 @@ fs.readFile('demo.dem', function(err, data) {
 
 // });
 
-http.listen(8888, function() {
-  console.log('Listening to port:  ' + 8888);
+http.listen(3000, function() {
+  console.log('Listening to port:  ' + 3000);
 });

@@ -54,3 +54,98 @@ video#bgvid {
   position:relative;
   float:left;
 }
+
+
+
+
+
+/* LIVE STAT TAB STARTS */
+.liveTable {
+  /*background-color: blue; */
+  height: 70vh;
+  border-style: solid;
+  border-radius: 1%;
+  border-width: 3px;
+  border-color: grey;
+  color: grey;
+  overflow-y: hidden;
+}
+
+.liveTable .liveTableTabs {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+  border-radius: 5%;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  color:grey;
+}
+
+
+.liveMap {
+  height: 70vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+}
+
+.scrollTd {
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.scrollTd::-webkit-scrollbar {
+ display: none;
+}
+
+.fade {
+  display: none;
+}
+/* LIVE STAT TAB ENDS HERE */
+
+/* STATIC STAT TAB ENDS HERE */
+.statTable {
+  /*background-color: blue; */
+  height: 80vh;
+  border-style: solid;
+  border-radius: 1%;
+  border-width: 3px;
+  border-color: grey;
+  color: grey;
+  overflow-y: hidden;
+}
+
+.statTable .statTableTabs {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+  border-radius: 5%;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  color:grey;
+}
+
+.statTeamIconContainer {
+  height: 35vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+  margin-bottom: 5vh;
+  margin-right: 2vw;
+}
+
+.statProfileContainer {
+  height: 35vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+  margin-bottom: 5vh;
+  margin-right: 2vw;
+}
+
+.statGraph {
+  height: 40vh;
+}
+/* STATIC STAT TAB ENDS HERE */

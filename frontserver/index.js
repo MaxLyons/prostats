@@ -7,7 +7,29 @@ var fs = require('fs');
 var jsgo = require('jsgo');
 var dbKey = require('./dbKey.js');
 var pg = require('pg');
+var highcharts = require('highcharts');
+
 var conString = dbKey();
+
+// Load module after Highcharts is loaded
+// require('highcharts/modules/exporting')(Highcharts);
+
+// Create the chart
+// Highcharts.chart('container', { /*Highcharts options*/ });
+
+// pg.connect(conString, function(err, client, done) {
+//   if(err) {
+//     return console.error('error fetching client from pool', err);
+//   }
+//   client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+//     if(err) {
+//       return console.error('error occurred');
+//     }
+//     console.log(results);
+//     return results;
+//   });
+// });
+>>>>>>> db0b1173b602fc4c44fe8f343c8b13c7b54e84bc
 
 //rendering /index.html at '/' route;
 app.use(express.static(__dirname + '/public'));
@@ -18,10 +40,18 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   socket.emit('idAssign', socket.id);
 
+
+
+  socket.on('wantTable', function(tableId){
+    console.log('client wants table ' + tableId);
+    // console.log('db');
+
+
   pg.connect(conString, function(err, client, done) {
     if(err) {
       return console.error('error fetching client from pool', err);
     }
+
     client.query('SELECT weapon FROM fire', function(err,results){
       if(err) {
         return console.error('Your query is flawed');
@@ -31,6 +61,27 @@ io.on('connection', function(socket){
       });
     });
   });
+
+    client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit("tableResults", results);
+      console.log(results);
+      return results;
+    });
+  });
+
+
+
+
+
+  });
+
+  // socket.emit('getTable', function(){
+
+  // });
+  console.log("done doing");
 
   // socket.on('move', function(data) {
   //   io.emit('move', data);
