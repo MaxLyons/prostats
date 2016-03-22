@@ -29,7 +29,7 @@ var conString = dbKey();
 //     return results;
 //   });
 // });
-c
+
 
 //rendering /index.html at '/' route;
 app.use(express.static(__dirname + '/public'));
@@ -47,36 +47,32 @@ io.on('connection', function(socket){
     // console.log('db');
 
 
-  pg.connect(conString, function(err, client, done) {
-    if(err) {
-      return console.error('error fetching client from pool', err);
-    }
+  // pg.connect(conString, function(err, client, done) {
+  //   if(err) {
+  //     return console.error('error fetching client from pool', err);
+  //   }
 
-    client.query('SELECT weapon FROM fire', function(err,results){
-      if(err) {
-        return console.error('Your query is flawed');
-      }
-      // console.log(results);
-      socket.emit('frontpgstats', results);
-      });
-    });
+  //   client.query('SELECT weapon FROM fire', function(err,results){
+  //     if(err) {
+  //       return console.error('Your query is flawed');
+  //     }
+  //     // console.log(results);
+  //     socket.emit('frontpgstats', results);
+  //     });
+  //   });
   });
 
-    client.query('SELECT * FROM fire LIMIT 1', function(err,results){
-      if(err) {
-        return console.error('error occurred');
-      }
-      socket.emit("tableResults", results);
-      console.log(results);
-      return results;
-    });
+    // client.query('SELECT * FROM fire LIMIT 1', function(err,results){
+    //   if(err) {
+    //     return console.error('error occurred');
+    //   }
+    //   socket.emit("tableResults", results);
+    //   console.log(results);
+    //   return results;
+    // });
   });
 
 
-
-
-
-  });
 
   // socket.emit('getTable', function(){
 
