@@ -32,8 +32,25 @@ video#bgvid {
 }
 
 .container{
+  /*display:none;*/
   /*position: absolute;*/
   margin-top:50px;
+  margin:auto;
+  text-align:center;
+  /*background-color: grey;*/
 
-  background-color: grey;
+}
+
+.ulelement{
+  text-align:center;
+}
+
+.input-field{
+  float:right;
+  width:300px;
+}
+
+#logo{
+  position:relative;
+  float:left;
 }
