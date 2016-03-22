@@ -51,20 +51,20 @@
  -->
 
 
-<!-- LIVE STATS -->
+<!-- LIVE STATS TAB STARTS HERE
     <div style="height: 5vh;"></div>
 
     <div class="row">
-      <div class="col s3 offset-s1 liveStatTable">
+      <div class="col s3 offset-s1 liveTable">
         <br/>
         <div>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable1">ROUND</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable2">TEAM1</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable3">TEAM2</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveStatTableTabs" id="liveTable4">MATCH</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable1">ROUND</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable2">TEAM1</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable3">TEAM2</a>
+          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable4">MATCH</a>
         </div>
-<!-- FRIST TABLE -->
-        <table class="highlight mainLiveStat">
+//FRIST TABLE 
+        <table class="highlight mainlive">
           <thead>
             <tr>
                 <th > GAME STATUS </th>
@@ -130,7 +130,7 @@
               </tbody>
             </table>
           </div>
-  <!-- SECOND TABLE -->
+//SECOND TABLE 
           <div class="scrollTd fade" data-tableNum="liveTable2">
             <table>
               <tbody>
@@ -187,17 +187,173 @@
               </tbody>
             </table>
           </div>
-  <!-- THIRD TABLE -->
-  <!-- -->
+//THIRD TABLE 
+
         </div> 
 
       </div>
 
-      <div class="col s6 offset-s1 liveMap" id="container" >
+//CONTAINER FOR MAP
+      <div class="col s6 offset-s1 liveMap" id="liveGraphContainer" >
         Teal page content 
       </div>
-
     </div>
+LIVE STAT TAB ENDS HERE-->
+
+<!-- STATIC STATISTICS STARTS HERE -->
+    <div style="height: 5vh;"></div>
+
+    <div class="row">
+      <div class="col s5 offset-s1 statTable">
+        <br/>
+        <div>
+          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable1">ROUND</a>
+          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable2">TEAM1</a>
+          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable3">TEAM2</a>
+          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable4">MATCH</a>
+        </div>
+<!-- FRIST TABLE  -->
+        <table class="highlight mainstat">
+          <thead>
+            <tr>
+                <th > GAME STATUS </th>
+                <th data-field="name"> TEAM A </th>
+                <th data-field="price"> TEAM B </th>
+            </tr>
+          </thead>
+        </table>
+        <div style="height: 70%;">
+          <div class="scrollTd" data-tableNum="statTable1">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Team Name</td>
+                  <td>Eclair</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Rounds Won</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Side</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Kills This Round</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Total Kills</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Average Kills</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Money Spend</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$123.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+<!-- SECOND TABLE  -->
+          <div class="scrollTd fade" data-tableNum="statTable2">
+            <table>
+              <tbody>
+                <tr>
+                  <td>SFASFASFA</td>
+                  <td>EasFASFAS</td>
+                  <td>$0.87</td>
+                </tr>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                  <td>$3.76</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>              
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$7.00</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                  <td>$123.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+<!-- THIRD TABLE  -->
+
+        </div> 
+
+      </div>
+
+<!-- CONTAINER FOR MAP -->
+      <div class="col s2 offset-s1 statTeamIconContainer" >
+        Teal page content 
+      </div>
+      <div class="col s2 statProfileContainer" >
+        Teal page content 
+      </div>
+      <div class="col s6 statGraph" id="statGraphContainer" >
+        Teal page content 
+      </div>
+    </div>
+
 
   </body>
 
