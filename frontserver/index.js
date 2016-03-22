@@ -29,7 +29,7 @@ var conString = dbKey();
 //     return results;
 //   });
 // });
->>>>>>> db0b1173b602fc4c44fe8f343c8b13c7b54e84bc
+c
 
 //rendering /index.html at '/' route;
 app.use(express.static(__dirname + '/public'));

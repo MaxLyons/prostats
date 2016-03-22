@@ -1,4 +1,4 @@
-var express = require('express');
+}var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
@@ -14,11 +14,20 @@ pg.connect(conString, function(err, client, done) {
   if(err) {
     return console.error('error fetching client from pool', err);
   }
+
   client.query('SELECT * FROM fire LIMIT 1', function(err,results){
     if(err) {
       return console.error('error occurred');
     }
     console.log(results);
+
+  client.query('SELECT weapon FROM fire', function(err,results){
+    if(err) {
+      return console.error('Your query is flawed');
+    }
+    // console.log((results));
+
+
   })
 
   // client.query('SELECT $1::int AS number', ['1'], function(err, result) {
@@ -43,17 +52,12 @@ app.post('/', function(req, res) {
     console.log(req.body);
 });
 
+
 // fs.readFile('demo.dem', function(err, data) {
 
 //   new jsgo.Demo().on('game.weapon_fire', function(event) {
 
-//     var player = event.player;
-//     var position = player.getPosition();
 
-//     // console.log(player.getName() + ' used weapon ' +
-//     //             event.weapon + ' at ' + position.x + ', ' + position.y + ', ' + position.z);
-
-//   }).parse(data);
 
 // });
 
