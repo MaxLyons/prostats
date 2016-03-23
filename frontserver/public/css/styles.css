@@ -35,10 +35,11 @@ video#bgvid {
 .container{
   /*display:none;*/
   /*position: absolute;*/
-  color:white;
+  background-color: rgba(0,0,0,0.5);
+
   margin:auto;
   text-align:center;
-  /*background-color: grey;*/
+  height: 75vh;
 
 }
 
