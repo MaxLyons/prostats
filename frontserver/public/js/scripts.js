@@ -29,6 +29,14 @@ $(function() {
   });
 
 
+  // backup for maintab button
+  // $(".mainTab").on('click',function(){
+  //   var table = $(this)[0].id;
+  //   var page = $('navBar')
+  //   $(this).closest("#navBar").find("[data-mainTab=" + table + "]").removeClass('fade').siblings().addClass('fade');
+  //
+  // });
+
 /* LIVE STATS TAB
   function addData (stat){
     console.log("I AM READING THE DATA");
@@ -130,6 +138,7 @@ LIVE STATS TAB */
       addData(stat);
     });
   });
+
 
 
   //STATIC GRAPH

@@ -11,6 +11,11 @@ html, body {
   overflow: hidden;
 }
 
+/*setting background color*/
+body{
+  background-image: url("")
+}
+
 video#bgvid {
     position: absolute;
 
@@ -36,8 +41,8 @@ video#bgvid {
   /*display:none;*/
   /*position: absolute;*/
   background-color: rgba(0,0,0,0.5);
-
-  margin:auto;
+  color: white;
+  margin-top: 100px;
   text-align:center;
   height: 75vh;
 
@@ -46,7 +51,6 @@ video#bgvid {
 .ulelement{
   text-align:center;
 }
-
 .input-field{
   float:right;
   width:300px;
