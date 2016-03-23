@@ -21,10 +21,11 @@ $(function() {
     id = data;
   });
 
+//when you click on a maintab button it fades in 'this' info and hides all siblings info;
   $(".mainTab").on('click',function(){
     var table = $(this)[0].id;
     var page = $('navBar')
-    $(this).closest("#navBar").find("[data-mainTab=" + table + "]").removeClass('fade').siblings().addClass('fade');
+    $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
 
   });
 
@@ -138,6 +139,19 @@ LIVE STATS TAB */
       addData(stat);
     });
   });
+  // backup for the statTableTabs
+  // $(".statTableTabs").on('click',function(){
+  //   var table = $(this)[0].id;
+  //   $("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
+  //
+  //   socket.emit('wantTable', table);
+  //
+  //   socket.on('getTable', function(stat){
+  //     console.log('addData');
+  //     addData(stat);
+  //   });
+  // });
+
 
 
 
