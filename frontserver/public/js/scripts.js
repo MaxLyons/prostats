@@ -30,7 +30,7 @@ $(function() {
   });
 
   $(".prevPage").on('click',function(){
-    // get the current width element css 
+    // get the current width element css
     var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
     var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
     // calculate the width of the screen
@@ -42,7 +42,7 @@ $(function() {
   });
 
   $(".nextPage").on('click',function(){
-    // get the current width element css 
+    // get the current width element css
     var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
     var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
     // calculate the width of the screen
