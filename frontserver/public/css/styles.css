@@ -68,11 +68,11 @@ video#bgvid {
 }
 
 .slideContainer {
-  height: 100vh;
+  height: 80vh;
   width: 300vw;
   position: relative;
   left: -100vw;
-  z-index:-1;
+  margin-top:100px;
 }
 
 .prevPage {
