@@ -1,4 +1,4 @@
-var express = require('express');
+}var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
@@ -13,7 +13,6 @@ app.use(express.static(__dirname + '/public'));
 app.post('/', function(req, res) {
     console.log(req.body);
 });
-
 pg.connect(conString, function(err, client, done) {
 
     if(err) {
@@ -160,7 +159,6 @@ pg.connect(conString, function(err, client, done) {
 
 
 // });
-
-http.listen(8889, function() {
-  console.log('Listening to port:  ' + 8889);
+http.listen(3000, function() {
+  console.log('Listening to port:  ' + 3000);
 });

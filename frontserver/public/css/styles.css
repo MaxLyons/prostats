@@ -8,11 +8,18 @@ html, body {
   color: black;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+/*setting background color*/
+body{
+  background-image: url("")
 }
 
 video#bgvid {
-    position: fixed;
-    margin-top: -115px;
+    position: absolute;
+
+    margin-top: -30px;
     z-index: -100;
     /*-ms-transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
@@ -29,3 +36,122 @@ video#bgvid {
     min-width: 100%;
     min-height: 100%;
 }
+
+.container{
+  /*display:none;*/
+  /*position: absolute;*/
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  margin-top: 100px;
+  text-align:center;
+  height: 75vh;
+
+}
+
+.ulelement{
+  text-align:center;
+}
+.input-field{
+  float:right;
+  width:300px;
+}
+
+#logo{
+  position:relative;
+  float:left;
+}
+
+.page {
+  margin-top: 60px;
+}
+
+/* LIVE STAT TAB STARTS */
+.liveTable {
+  /*background-color: blue; */
+  height: 70vh;
+  border-style: solid;
+  border-radius: 1%;
+  border-width: 3px;
+  border-color: grey;
+  color: grey;
+  overflow-y: hidden;
+}
+
+.liveTable .liveTableTabs {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+  border-radius: 5%;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  color:grey;
+}
+
+
+.liveMap {
+  height: 70vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+}
+
+.scrollTd {
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.scrollTd::-webkit-scrollbar {
+ display: none;
+}
+
+.fade {
+  display: none;
+}
+/* LIVE STAT TAB ENDS HERE */
+
+/* STATIC STAT TAB ENDS HERE */
+.statTable {
+  /*background-color: blue; */
+  height: 80vh;
+  border-style: solid;
+  border-radius: 1%;
+  border-width: 3px;
+  border-color: grey;
+  color: grey;
+  overflow-y: hidden;
+}
+
+.statTable .statTableTabs {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+  border-radius: 5%;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  color:grey;
+}
+
+.statTeamIconContainer {
+  height: 35vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+  margin-bottom: 5vh;
+  margin-right: 2vw;
+}
+
+.statProfileContainer {
+  height: 35vh;
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+  margin-bottom: 5vh;
+  margin-right: 2vw;
+}
+
+.statGraph {
+  height: 40vh;
+}
+/* STATIC STAT TAB ENDS HERE */
