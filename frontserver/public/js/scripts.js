@@ -26,31 +26,7 @@ $(function() {
     var table = $(this)[0].id;
     var page = $('navBar')
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
-
-  });
-
-  $(".prevPage").on('click',function(){
-    // get the current width element css 
-    var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
-    var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
-    // calculate the width of the screen
-    var winWidthPx = $(this).closest(".page").css("width");
-    var winWidth = Number(winWidthPx.substring(0, winWidthPx.length -2));
-    //replace the css width element
-    var newPostion = currPosition + winWidth;
-    $(this).closest(".slideContainer").css('left', newPostion);
-  });
-
-  $(".nextPage").on('click',function(){
-    // get the current width element css 
-    var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
-    var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
-    // calculate the width of the screen
-    var winWidthPx = $(this).closest(".page").css("width");
-    var winWidth = Number(winWidthPx.substring(0, winWidthPx.length -2));
-    //replace the css width element
-    var newPostion = currPosition - winWidth;
-    $(this).closest(".slideContainer").css('left', newPostion);
+    console.log('clicked');
   });
 
 /* LIVE STATS TAB
