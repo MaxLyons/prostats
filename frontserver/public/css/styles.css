@@ -13,7 +13,7 @@ html, body {
 
 /*setting background color*/
 body{
-  background-image: url("")
+  background-image: url("/image/6791702-free-cs-go-wallpaper.jpg")
 }
 
 video#bgvid {
@@ -80,7 +80,7 @@ video#bgvid {
 
 /* LIVE STAT TAB STARTS */
 .liveScoreBoard {
-  height: 50vh;   
+  height: 50vh;
   border-style: solid;
   border-radius: 1%;
   border-width: 3px;
