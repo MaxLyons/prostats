@@ -83,7 +83,8 @@ video#bgvid {
 
 /* LIVE STAT TAB STARTS */
 .liveScoreBoard{
-  height: 89vh;
+
+  height: 90vh;
   border-style: solid;
   /*border-radius: 1%;*/
   border-width: 1px;
@@ -92,7 +93,7 @@ video#bgvid {
   /*border-color: grey;*/
   background-color: black;
   /*margin-bottom: 5vh;*/
-  margin-top:1vh;
+  /*margin-top:1vh;*/
   margin-bottom:1vh;
   overflow:hidden;
 }
@@ -119,13 +120,18 @@ video#bgvid {
 .liveScoreBoard .ct tr td{
   background-color: #233D4E;
   color: #96BCD3;
+  padding:0.5em 0.5em 0.5em 0.5em;
 }
 /*terrorist table*/
 .terrorist{
   background-color: #9A8F6F;
   color:#E8DA8F;
+
 }
 
+.terrorist tr td{
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
 .liveTable {
   /*background-color: blue; */
   height: 30vh;
