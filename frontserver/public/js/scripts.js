@@ -25,6 +25,8 @@ $(function() {
   $(".mainTab").on('click',function(){
     var table = $(this)[0].id;
     var page = $('navBar')
+    $(this).css('background-color','grey');
+    $(this).closest('li').siblings().find('a').css('background-color','black');
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
 
   });
