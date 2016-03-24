@@ -8,7 +8,7 @@ html, body {
   color: black;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 /*setting background color*/
@@ -120,12 +120,10 @@ video#bgvid {
 .liveScoreBoard .ct tr td{
   background-color: #233D4E;
   color: #96BCD3;
-<<<<<<< HEAD
   padding:0.5em 0.5em 0.5em 0.5em;
 }
-=======
-  }
->>>>>>> statpage
+
+
 /*terrorist table*/
 .terrorist{
   background-color: #9A8F6F;

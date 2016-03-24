@@ -25,8 +25,6 @@ $(function() {
   $(".mainTab").on('click',function(){
     var table = $(this)[0].id;
     var page = $('navBar')
-    $(this).css('background-color','grey');
-    $(this).closest('li').siblings().find('a').css('background-color','black');
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
 
   });
@@ -55,7 +53,20 @@ $(function() {
     $(this).closest(".slideContainer").css('left', newPostion);
   });
 
+
+/*append new information to a table to append*/
+
+
 /* LIVE STATS TAB
+  function addData (stat){
+    console.log("I AM READING THE DATA");
+  };
+
+  socket.on('tableResults', function(results){
+    console.log(results);
+  });
+
+
   // CLICKING TABS ON TABLE TO CHANGE DATA
   $(".liveTableTabs").on('click',function(){
     var table = $(this)[0].id;
@@ -210,6 +221,16 @@ LIVE STATS TAB */
       data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
     }]
   });
+
+//infinite scroll scoreboard
+
+
+var options = [
+    {selector: '.liveScoreBoard', offset: 50, callback: 'Materialize.toast("This is when we append another table!", 1500 )' }
+  ];
+  Materialize.scrollFire(options);
+
+
 
 
 });
