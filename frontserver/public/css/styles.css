@@ -82,26 +82,46 @@ video#bgvid {
 }
 
 /* LIVE STAT TAB STARTS */
-.liveScoreBoard {
-  height: 86vh;
-  /*border-style: solid;*/
+.liveScoreBoard{
+  height: 88vh;
+  border-style: solid;
   /*border-radius: 1%;*/
-  border-width: 3px;
+  border-width: 1px;
+  border-color:white;
   color:white;
   /*border-color: grey;*/
-  background-color: #050505;
-  margin-bottom: 5vh;
-  margin-top:2vh;
+  background-color: black;
+  /*margin-bottom: 5vh;*/
+  margin-top:1vh;
   overflow:hidden;
 }
+
+/*scoreBoard for Terrorists*/
+
+/*teamScore*/
+.matchScore{
+  text-align:center;
+  color:red;
+  background-color:#030303;
+
+}
+
+.team1{
+  position:relative;
+  float:left;
+}
+.team2{
+  postion:relative;
+  float:right;
+}
 /*ct table*/
-.liveScoreBoard .ct{
+.liveScoreBoard .ct tr td{
   background-color: #233D4E;
   color: #96BCD3;
 }
 /*terrorist table*/
-.liveScoreBoard .terrorist{
-  background-color: #2C2721;
+.terrorist{
+  background-color: #9A8F6F;
   color:#E8DA8F;
 }
 
