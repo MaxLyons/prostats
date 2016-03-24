@@ -54,15 +54,6 @@ $(function() {
   });
 
 /* LIVE STATS TAB
-  function addData (stat){
-    console.log("I AM READING THE DATA");
-  };
-
-  socket.on('tableResults', function(results){
-    console.log(results);
-  });
-
-
   // CLICKING TABS ON TABLE TO CHANGE DATA
   $(".liveTableTabs").on('click',function(){
     var table = $(this)[0].id;

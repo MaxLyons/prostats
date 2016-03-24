@@ -170,13 +170,12 @@ video#bgvid {
 
 /* STATIC STAT TAB ENDS HERE */
 .statTable {
-  /*background-color: blue; */
+  background-color: #373328;
   height: 80vh;
   border-style: solid;
   border-radius: 1%;
   border-width: 3px;
-  border-color: grey;
-  color: grey;
+  border-color: 373328;
   overflow-y: hidden;
 }
 
@@ -185,10 +184,10 @@ video#bgvid {
   padding-right: 5px;
   background-color: transparent;
   border-radius: 5%;
-  border-color: grey;
+  border-color: #86813C;
   border-style: solid;
   border-width: 1px 1px 0px 1px;
-  color:grey;
+  color: #96BCD3;
 }
 
 .statTeamIconContainer {
@@ -212,6 +211,26 @@ video#bgvid {
 .statGraph {
   height: 40vh;
 }
+
+
+
+.mainStat tr{
+  color: #96BCD3;
+  background-color: #667783;
+  border-width: 4px;
+  border-color: #373328;
+  border-style: solid;
+}
+
+.mainStat td{
+  color: #96BCD3;
+  background-color: #667783;
+  border-width: 4px;
+  border-color: #373328;
+  border-style: solid;
+}
+
+
 /* STATIC STAT TAB ENDS HERE */
 
 /*@media only screen and (max-width: 768px) {
