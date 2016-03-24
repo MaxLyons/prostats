@@ -8,7 +8,7 @@ html, body {
   color: black;
   width: 100%;
   height: 100%;
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 /*setting background color*/
@@ -120,8 +120,12 @@ video#bgvid {
 .liveScoreBoard .ct tr td{
   background-color: #233D4E;
   color: #96BCD3;
+<<<<<<< HEAD
   padding:0.5em 0.5em 0.5em 0.5em;
 }
+=======
+  }
+>>>>>>> statpage
 /*terrorist table*/
 .terrorist{
   background-color: #9A8F6F;
@@ -131,34 +135,6 @@ video#bgvid {
 
 .terrorist tr td{
   padding: 0.5em 0.5em 0.5em 0.5em;
-}
-.liveTable {
-  /*background-color: blue; */
-  height: 30vh;
-  border-style: solid;
-  border-radius: 1%;
-  border-width: 3px;
-  border-color: grey;
-  color: grey;
-  overflow-y: hidden;
-}
-
-.liveTable .liveTableTabs {
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: transparent;
-  border-radius: 5%;
-  border-color: grey;
-  border-style: solid;
-  border-width: 1px 1px 0px 1px;
-  color:grey;
-}
-
-.liveMap {
-  height: 30vh;
-  border-style: solid;
-  border-width: 3px;
-  border-color: grey;
 }
 
 .scrollTd {
@@ -177,12 +153,12 @@ video#bgvid {
 
 /* STATIC STAT TAB ENDS HERE */
 .statTable {
-  background-color: #373328;
+  background-color: black;
   height: 80vh;
   border-style: solid;
   border-radius: 1%;
   border-width: 3px;
-  border-color: 373328;
+  border-color: white;
   overflow-y: hidden;
 }
 
@@ -191,10 +167,10 @@ video#bgvid {
   padding-right: 5px;
   background-color: transparent;
   border-radius: 5%;
-  border-color: #86813C;
+  border-color: white;
   border-style: solid;
   border-width: 1px 1px 0px 1px;
-  color: #96BCD3;
+  color: white;
 }
 
 .statTeamIconContainer {
@@ -222,55 +198,17 @@ video#bgvid {
 
 
 .mainStat tr{
+  background-color: #233D4E;
   color: #96BCD3;
-  background-color: #667783;
   border-width: 4px;
-  border-color: #373328;
+  border-color: black;
   border-style: solid;
 }
 
 .mainStat td{
+  background-color: #233D4E;
   color: #96BCD3;
-  background-color: #667783;
   border-width: 4px;
-  border-color: #373328;
+  border-color: black;
   border-style: solid;
 }
-
-
-/* STATIC STAT TAB ENDS HERE */
-
-/*@media only screen and (max-width: 768px) {
-  video#bgvid {
-    display: none;
-  }
-
-  #breaker {
-    width: 100vw;
-    height: 100vh;
-  }
-
-  .page .liveTable{
-    width: 300px;
-  }
-
-  .livemap {
-    width: 80vw;
-    display: none;
-  }
-
-  [class*="s"] {
-      width: 300px;
-  }
-
-
-  body{
-    background-color: black;
-  }
-  #logo {
-    font-size: 10px;
-  }
-  form {
-    display: none;
-  }
-}*/
