@@ -21,6 +21,8 @@ $(function() {
     id = data;
   });
 
+  
+
 //when you click on a maintab button it fades in 'this' info and hides all siblings info;
   $(".mainTab").on('click',function(){
     var table = $(this)[0].id;
@@ -28,31 +30,6 @@ $(function() {
     $(this).css('background-color','grey');
     $(this).closest('li').siblings().find('a').css('background-color','black');
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
-
-  });
-
-  $(".prevPage").on('click',function(){
-    // get the current width element css
-    var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
-    var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
-    // calculate the width of the screen
-    var winWidthPx = $(this).closest(".page").css("width");
-    var winWidth = Number(winWidthPx.substring(0, winWidthPx.length -2));
-    //replace the css width element
-    var newPostion = currPosition + winWidth;
-    $(this).closest(".slideContainer").css('left', newPostion);
-  });
-
-  $(".nextPage").on('click',function(){
-    // get the current width element css
-    var currPositionPx = $(this).closest(".slideContainer").css("left").toString();
-    var currPosition = Number(currPositionPx.substring(0, currPositionPx.length - 2));
-    // calculate the width of the screen
-    var winWidthPx = $(this).closest(".page").css("width");
-    var winWidth = Number(winWidthPx.substring(0, winWidthPx.length -2));
-    //replace the css width element
-    var newPostion = currPosition - winWidth;
-    $(this).closest(".slideContainer").css('left', newPostion);
   });
 
 /* LIVE STATS TAB
@@ -165,13 +142,12 @@ LIVE STATS TAB */
 
   //STATIC GRAPH
   $('#statGraphContainer').highcharts({
+    chart: {
+        backgroundColor: 'rgba(255,225,225,0.8)',
+    },    
     title: {
-      text: 'Monthly Average Temperature',
+      text: 'Player\'s Rating',
       x: -20 //center
-    },
-    subtitle: {
-      text: 'Source: WorldClimate.com',
-      x: -20
     },
     xAxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -179,16 +155,13 @@ LIVE STATS TAB */
     },
     yAxis: {
       title: {
-        text: 'Temperature (°C)'
+        text: 'Score'
       },
       plotLines: [{
         value: 0,
         width: 1,
         color: '#808080'
       }]
-    },
-    tooltip: {
-      valueSuffix: '°C'
     },
     legend: {
       layout: 'vertical',
@@ -197,17 +170,11 @@ LIVE STATS TAB */
       borderWidth: 0
     },
     series: [{
-      name: 'Tokyo',
-      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+      name: 'ProStatScore',
+      data: [170, 169, 195, 145, 182, 215, 252, 265, 233, 183, 139, 296]
     }, {
-      name: 'New York',
-      data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-    }, {
-      name: 'Berlin',
-      data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-    }, {
-      name: 'London',
-      data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+      name: 'Most Valuable Player',
+      data: [200, 300, 500, 1100, 1700, 1200, 1248, 1241, 1201, 1141, 1806, 1525]
     }]
   });
 

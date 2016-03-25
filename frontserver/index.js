@@ -11,18 +11,18 @@ var highcharts = require('highcharts');
 
 var conString = dbKey();
 
-// pg.connect(conString, function(err, client, done) {
-//   if(err) {
-//     return console.error('error fetching client from pool', err);
-//   }
-//   client.query('SELECT * FROM fire LIMIT 1', function(err,results){
-//     if(err) {
-//       return console.error('error occurred');
-//     }
-//     console.log(results);
-//     return results;
-//   });
-// });
+pg.connect(conString, function(err, client, done) {
+  if(err) {
+    return console.error('error fetching client from pool', err);
+  }
+  client.query('SELECT * FROM player_rounds LIMIT 20', function(err,results){
+    if(err) {
+      return console.error('error occurred');
+    }
+    console.log(results);
+    return results;
+  });
+});
 
 
 //rendering /index.html at '/' route;
