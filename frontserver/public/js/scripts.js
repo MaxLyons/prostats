@@ -1,4 +1,7 @@
 $(function() {
+  //counter to see what page you're on.
+  var current_tab = 'initial pageload';
+
   var id = "";
   var socket = io();
   socket.on('connectedUsers', function(data) {
@@ -13,8 +16,6 @@ $(function() {
     for(var i = 0; i < results.length; i++){
       console.log(results[i]);
     }
-
-
   })
 
   socket.on('idAssign', function(data) {
@@ -24,9 +25,9 @@ $(function() {
 //when you click on a maintab button it fades in 'this' info and hides all siblings info;
   $(".mainTab").on('click',function(){
     var table = $(this)[0].id;
-    var page = $('navBar')
+    var page = $('navBar');
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
-
+    current_tab = table;
   });
 
   $(".prevPage").on('click',function(){
@@ -223,12 +224,24 @@ LIVE STATS TAB */
   });
 
 //infinite scroll scoreboard
+// var callbackFunc = new Function(callback);
+// function callbackFunc(){
+//   alert("hello");
+// }
 
-
-var options = [
-    {selector: '.liveScoreBoard', offset: 50, callback: 'Materialize.toast("This is when we append another table!", 1500 )' }
-  ];
-  Materialize.scrollFire(options);
+$(window).scroll(function () {
+   if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 50) {
+      console.log($(window).scrollTop());//Add something at the end of the page
+      var p = $('<p>').text('hello');
+      $('#sb').append(p);
+   }
+});
+//
+// var options = [
+//     {selector: '.liveScoreBoard', offset: 50, callback:
+//     this.callbackFunc()}
+//   ];
+//   Materialize.scrollFire(options);
 
 
 

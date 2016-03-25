@@ -83,8 +83,8 @@ video#bgvid {
 
 /* LIVE STAT TAB STARTS */
 .liveScoreBoard{
-
-  height: 90vh;
+  float:left;
+  /*height: 90vh;*/
   border-style: solid;
   /*border-radius: 1%;*/
   border-width: 1px;
