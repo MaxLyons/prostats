@@ -6,23 +6,24 @@ $(function() {
   var socket = io();
   socket.on('connectedUsers', function(data) {
   });
-  //
-  // socket.on('idAssign', function(data) {
-  //   id = data;
-  // });
-  // listening for frontpgstats;
-  socket.on('frontpgstats', function(results){
-    // console.log(results);
-    for(var i = 0; i < results.length; i++){
-      console.log(results[i]);
-    }
-  })
 
-  socket.on('idAssign', function(data) {
-    id = data;
+//get alias
+  socket.on('getAlias', function(results){
+    // console.log(results.rows);
+    var playerArr = [];
+    for(var i = 0; i<results.rows.length; i++){
+      playerArr.push(results.rows[i].alias);
+    }
+    playerArr.sort();
+    console.log(playerArr);
+    $('liveScoreBoard')
   });
 
-  
+  socket.on('getKills', function(results) {
+    console.log(results);
+  });
+
+
 
 //when you click on a maintab button it fades in 'this' info and hides all siblings info;
   $(".mainTab").on('click',function(){
@@ -30,8 +31,17 @@ $(function() {
     var page = $('navBar');
     $(this).closest("#navBar").find("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
     current_tab = table;
+
   });
 
+
+
+    console.log(current_tab);
+    // remove the appended tables on live_tab if you move away to another page
+    if(current_tab != "mainLiveTab"){
+      $('.container_data').remove();
+    }
+  });
 
 
 
@@ -159,7 +169,7 @@ LIVE STATS TAB */
   $('#statGraphContainer').highcharts({
     chart: {
         backgroundColor: 'rgba(255,225,225,0.8)',
-    },    
+    },
     title: {
       text: 'Player\'s Rating',
       x: -20 //center
@@ -193,26 +203,23 @@ LIVE STATS TAB */
     }]
   });
 
-//infinite scroll scoreboard
-// var callbackFunc = new Function(callback);
-// function callbackFunc(){
-//   alert("hello");
-// }
-
+//global variable counter for last 10 games
+var counter = 0;
 $(window).scroll(function () {
-   if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 50) {
+   if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
       console.log($(window).scrollTop());//Add something at the end of the page
-      var p = $('<p>').text('hello');
-      $('#sb').append(p);
+
+      if(counter < 10){
+      var table = $('#sb_table').html()
+      $(table).hide().appendTo('#parent_sb').fadeIn(1000);
+      counter += 1
+      console.log(counter);
+      // $('#parent_sb').append(table).hide().fadeIn(500);
+    }else{
+      console.log("last 10 done");
+    }
    }
 });
-//
-// var options = [
-//     {selector: '.liveScoreBoard', offset: 50, callback:
-//     this.callbackFunc()}
-//   ];
-//   Materialize.scrollFire(options);
-
 
 
 
