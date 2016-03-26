@@ -12,7 +12,18 @@ var pg = require('pg');
 
 var conString = dbKey();
 
-
+// pg.connect(conString, function(err, client, done) {
+//   if(err) {
+//     return console.error('error fetching client from pool', err);
+//   }
+//   client.query('SELECT * FROM games LIMIT 10', function(err,results){
+//     if(err) {
+//       return console.error('error occurred');
+//     }
+//     console.log(results);
+//     return results;
+//   });
+// });
 
 
 //rendering /index.html at '/' route;
@@ -29,22 +40,29 @@ io.on('connection', function(socket){
       return console.error('error fetching client from pool', err);
     }
 
-    //querying alias'
-    client.query('SELECT alias FROM player_rounds GROUP BY alias', function(err,results){
+    client.query('SELECT * FROM games LIMIT 1', function(err,results){
       if(err) {
         return console.error('Your query is flawed');
       }
-      // console.log(results.rows);
-      socket.emit('getAlias', results);
-    //querying total kills
-    client.query('SELECT SUM(kills) AS Kills FROM player_rounds GROUP BY Kills ')
-      if(err){
-        return console.error('Your query is flawed');
+      console.log(results);
+      // socket.emit('frontpgstats', results);
+      });
+    });
+
+    //PULLING DATA FOR STATISTIC PAGE
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
       }
-      socket.emit('getKills', results)
+      client.query('SELECT * FROM players JOIN teams ON players.team = teams.id LIMIT 1', function(err,results){
+        if(err) {
+          return console.error('error occurred');
+        }
+        // console.log(results);
+        socket.emit('statData', results);
+      });
     });
   });
-});
 
 
 

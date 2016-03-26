@@ -153,15 +153,6 @@ float:left;
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
-.scrollTd {
-  max-height: 100%;
-  overflow-y: scroll;
-}
-
-.scrollTd::-webkit-scrollbar {
- display: none;
-}
-
 .fade {
   display: none;
 }
@@ -175,7 +166,6 @@ float:left;
   border-radius: 1%;
   border-width: 3px;
   border-color: white;
-  overflow-y: hidden;
 }
 
 .statTable .statTableTabs {
@@ -187,6 +177,32 @@ float:left;
   border-style: solid;
   border-width: 1px 1px 0px 1px;
   color: white;
+}
+
+.mainStat {
+    display: table;
+    width: 100%;
+}
+.mainStat thead, .mainStat tbody {
+    float: left;
+    width: 100%;
+}
+.mainStat tbody {
+    overflow: auto;
+    height: 50vh;
+}
+
+.mainStat tbody::-webkit-scrollbar {
+ display: none;
+}
+
+.mainStat tr {
+    width: 100%;
+    display: table;
+    text-align: left;
+}
+.mainStat th, .mainStat td {
+    width: 33%;
 }
 
 .statTeamIconContainer {
@@ -211,15 +227,7 @@ float:left;
   height: 40vh;
 }
 
-.mainStat tr{
-  background-color: #233D4E;
-  color: #96BCD3;
-  border-width: 4px;
-  border-color: black;
-  border-style: solid;
-}
-
-.mainStat td{
+.mainStat tr, .mainStat td{
   background-color: #233D4E;
   color: #96BCD3;
   border-width: 4px;
