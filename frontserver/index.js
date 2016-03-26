@@ -49,8 +49,7 @@ io.on('connection', function(socket){
       // console.log(results.rows);
       socket.emit('getAlias', results);
     //querying total kills
-    client.query('SELECT SUM(kills) AS Kills FROM player_rounds
-    GROUP BY Kills ')
+    client.query('SELECT SUM(kills) AS Kills FROM player_rounds GROUP BY Kills ')
       if(err){
         return console.error('Your query is flawed');
       }

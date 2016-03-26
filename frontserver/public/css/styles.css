@@ -14,8 +14,8 @@ html, body {
 /*setting background color*/
 body{
   max-width:100vw;
-  
-  background-image: url("/image/6791702-free-cs-go-wallpaper.jpg")
+  background-image: url("/image/6791702-free-cs-go-wallpaper.jpg");
+  background-attachment: fixed;
 }
 
 video#bgvid {
