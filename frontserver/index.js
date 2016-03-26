@@ -11,18 +11,18 @@ var highcharts = require('highcharts');
 
 var conString = dbKey();
 
-pg.connect(conString, function(err, client, done) {
-  if(err) {
-    return console.error('error fetching client from pool', err);
-  }
-  client.query('SELECT * FROM player_rounds LIMIT 20', function(err,results){
-    if(err) {
-      return console.error('error occurred');
-    }
-    console.log(results);
-    return results;
-  });
-});
+// pg.connect(conString, function(err, client, done) {
+//   if(err) {
+//     return console.error('error fetching client from pool', err);
+//   }
+//   client.query('SELECT * FROM games LIMIT 10', function(err,results){
+//     if(err) {
+//       return console.error('error occurred');
+//     }
+//     console.log(results);
+//     return results;
+//   });
+// });
 
 
 //rendering /index.html at '/' route;
@@ -36,34 +36,38 @@ io.on('connection', function(socket){
 
 
 
-  socket.on('wantTable', function(tableId){
-    console.log('client wants table ' + tableId);
+  // socket.on('wantTable', function(tableId){
+  //   console.log('client wants table ' + tableId);
     // console.log('db');
 
 
-  // pg.connect(conString, function(err, client, done) {
-  //   if(err) {
-  //     return console.error('error fetching client from pool', err);
-  //   }
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
 
-  //   client.query('SELECT weapon FROM fire', function(err,results){
-  //     if(err) {
-  //       return console.error('Your query is flawed');
-  //     }
-  //     // console.log(results);
-  //     socket.emit('frontpgstats', results);
-  //     });
-  //   });
-  });
+    client.query('SELECT * FROM games LIMIT 1', function(err,results){
+      if(err) {
+        return console.error('Your query is flawed');
+      }
+      console.log(results);
+      // socket.emit('frontpgstats', results);
+      });
+    });
 
-    // client.query('SELECT * FROM fire LIMIT 1', function(err,results){
-    //   if(err) {
-    //     return console.error('error occurred');
-    //   }
-    //   socket.emit("tableResults", results);
-    //   console.log(results);
-    //   return results;
-    // });
+    //PULLING DATA FOR STATISTIC PAGE
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query('SELECT * FROM players JOIN teams ON players.team = teams.id LIMIT 1', function(err,results){
+        if(err) {
+          return console.error('error occurred');
+        }
+        // console.log(results);
+        socket.emit('statData', results);
+      });
+    });
   });
 
 

@@ -34,104 +34,72 @@ $(function() {
 
 
 
+//////////////////////////////////
+///* STATIC STATS STARTS HERE *///
+//////////////////////////////////  
+  
+//GETTING DATA FROM DB RAW AND PARSING INTO VARIABLES
+  var elo, avatar, alias, teamName, psr, logo;
+  socket.on('statData', function(data){
+    var parse = data.rows
+    var i = 0;
 
-/*append new information to a table to append*/
+    elo = parse[i].elo;
+    avatar = parse[i].picture;
+    alias = parse[i].alias;
+    teamName = parse[i].name;
+    psr = parse[i].psr;
+    logo = parse[i].logo; 
 
-
-/* LIVE STATS TAB
-  function addData (stat){
-    console.log("I AM READING THE DATA");
-  };
-
-  socket.on('tableResults', function(results){
-    console.log(results);
-  });
-
-
-  // CLICKING TABS ON TABLE TO CHANGE DATA
-  $(".liveTableTabs").on('click',function(){
-    var table = $(this)[0].id;
-    $("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
-
-    socket.emit('wantTable', table);
-
-    socket.on('getTable', function(stat){
-      console.log('addData');
-      addData(stat);
-    });
 
   });
 
-  //CREATE BUBBLE GRAPHS FOR PLAYERS KILLS
-  $('#liveGraphContainer').highcharts({
+  //LOADS STAT PAGE
+  $("#mainStatTab").on('click', function(){
+    console.log('this is the stat page');
+    //APPENDING PICTURE
+    $('#teamLogo').append('<img src='+ +'/>');        //need to added image to this line of code
+    //APPENDING LOGO
+    $('#teamLogo').append('<img src='+ +'/>');        //need to added image to this line of code
+  
+    //CHANGING TABLE
+    $('.mainStat').find('tbody').find('tr:nth-child(1)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(1)').find('td:nth-child(3)').text('HELLO');
 
-    chart: {
-      type: 'bubble',
-      plotBorderWidth: 1,
-      zoomType: 'xy'
-    },
+    $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(3)').text('HELLO');
 
-    title: {
-      text: "=Match Kill On Each Team="
-    },
+    $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(3)').text('HELLO');
 
-    xAxis: {
-      title: {text: 'Team1 kills on Team2'},
-      gridLineWidth: 1,
-      categories: ['Player1', 'Player2', 'Player3', 'Player4', 'Player5']
-    },
+    $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(3)').text('HELLO');
 
-    yAxis: {
-      title: {text: 'Team2'},
-      startOnTick: false,
-      endOnTick: false,
-      categories: ['Player1', 'Player2', 'Player3', 'Player4', 'Player5']
-    },
-    series: [{
-      name: 'Team1 kills on Team2',
-      enableMouseTracking: false,
-      data: [
-        [1, 2, 5],
-        [4,4,1],
-        [2,4,2]
-      ],
-      marker: {
-        fillColor: {
-          radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
-          stops: [
-            [0, 'rgba(255,255,255,0.5)'],
-            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get('rgba')]
-          ]
-        }
-      }
-    }, {
-      name: 'Team2 kills on Team1',
-      enableMouseTracking: false,
-      data: [
-        [1, 0, 1],
-        [0,0,2]
-      ],
-      marker: {
-        fillColor: {
-          radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
-          stops: [
-            [0, 'rgba(255,255,255,0.5)'],
-            [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.5).get('rgba')]
-          ]
-        }
-      }
-    }]
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text('HELLO');
 
+    $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(3)').text('HELLO');
+
+    $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(3)').text('HELLO');
+
+    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(3)').text('HELLO');
+
+    $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(3)').text('HELLO');
+
+    $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(2)').text('HELLO');
+    $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(3)').text('HELLO');
   });
 
-LIVE STATS TAB */
 
-/* STATIC STATS STARTS HERE */
   // CLICKING TABS ON TABLE TO CHANGE DATA
   $(".statTableTabs").on('click',function(){
     var table = $(this)[0].id;
-    $("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
-
+    //$("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
+ 
     socket.emit('wantTable', table);
 
     socket.on('getTable', function(stat){
@@ -139,23 +107,11 @@ LIVE STATS TAB */
       addData(stat);
     });
   });
-  // backup for the statTableTabs
-  // $(".statTableTabs").on('click',function(){
-  //   var table = $(this)[0].id;
-  //   $("*[data-tableNum=" + table + "]").removeClass('fade').siblings().addClass('fade');
-  //
-  //   socket.emit('wantTable', table);
-  //
-  //   socket.on('getTable', function(stat){
-  //     console.log('addData');
-  //     addData(stat);
-  //   });
-  // });
-
-
-
 
   //STATIC GRAPH
+  var PSR = [170, 169, 195, 145, 182, 215, 252, 265, 233, 183, 139, 296];
+  var MVP = [200, 300, 500, 1100, 1700, 1200, 1248, 1241, 1201, 1141, 1806, 1525];
+ 
   $('#statGraphContainer').highcharts({
     chart: {
         backgroundColor: 'rgba(255,225,225,0.8)',
@@ -165,8 +121,7 @@ LIVE STATS TAB */
       x: -20 //center
     },
     xAxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      categories: []
     },
     yAxis: {
       title: {
@@ -185,13 +140,20 @@ LIVE STATS TAB */
       borderWidth: 0
     },
     series: [{
-      name: 'ProStatScore',
-      data: [170, 169, 195, 145, 182, 215, 252, 265, 233, 183, 139, 296]
+      name: 'ProStatRanking',
+      data: PSR
     }, {
       name: 'Most Valuable Player',
-      data: [200, 300, 500, 1100, 1700, 1200, 1248, 1241, 1201, 1141, 1806, 1525]
+      data: MVP
     }]
   });
+
+//////////////////////////////////
+///* STATIC STATS ENDS HERE *///
+//////////////////////////////////  
+
+
+
 
 //infinite scroll scoreboard
 // var callbackFunc = new Function(callback);
