@@ -90,11 +90,12 @@ float:left;
 }
 #map{
   display:inline;
+  
 }
-.header2{
+/*.header2{
   display:inline;
-  float:left;
-}
+  float:right;
+}*/
 
 .scoreHeader tr{
   text-align:center;

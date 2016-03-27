@@ -7,6 +7,7 @@ var fs = require('fs');
 var jsgo = require('jsgo');
 var dbKey = require('./dbKey.js');
 var pg = require('pg');
+var fs = require('fs');
 // var highcharts = require('highcharts');
 // var partials = require('express-partials');
 
@@ -41,21 +42,78 @@ io.on('connection', function(socket){
     if(err) {
       return console.error('error fetching client from pool', err);
     }
-    //querying alias'
-    client.query('SELECT alias FROM player_rounds GROUP BY alias', function(err,results){
+    //querying player_rounds
+    // client.query('SELECT * FROM player_rounds', function(err,results){
+    //   if(err) {
+    //     return console.error('Your query is flawed');
+    //   }
+    //   console.log('done');
+    //   console.log(results);
+    //   socket.emit('getAlias', results);
+    //
+    //
+    // });
+    //
+    //querying from players
+    // client.query('SELECT * FROM players', function(err,results){
+    //   if(err) {
+    //     return console.error('Your query is flawed');
+    //   }
+    //   console.log('done');
+    //   console.log(results);
+    //   socket.emit('getAlias', results);
+    //
+    //
+    // });
+    //
+    //querying from teams
+    // client.query('SELECT * FROM teams', function(err,results){
+    //   if(err) {
+    //     return console.error('Your query is flawed');
+    //   }
+    //   console.log('done');
+    //   console.log(results);
+    //   socket.emit('getAlias', results);
+    //
+    //
+    // });
+    //
+    // querying from rounds
+    // client.query('SELECT * FROM rounds', function(err,results){
+    //   if(err) {
+    //     return console.error('Your query is flawed');
+    //   }
+    //   console.log('done');
+    //   console.log(results);
+    //   socket.emit('getAlias', results);
+    // });
+    //
+    //
+    // INNER JOIN games as g ON g.match_id= r.game_id
+    //querying from games
+    client.query('SELECT p.alias, pr.kills, pr.assists, pr.deaths, pr.damage  FROM players AS p INNER JOIN player_rounds AS pr ON pr.player_id = p.steam_id ', function(err,results){
+
+
       if(err) {
         return console.error('Your query is flawed');
       }
-      // console.log(results.rows);
+      // console.log('done');
+      console.log(results);
       socket.emit('getAlias', results);
-    //querying total kills
-    client.query('SELECT SUM(kills) AS Kills FROM player_rounds GROUP BY Kills ')
+    });
+
+    client.query('SELECT games.event, games.team1, games.team2, rounds.team_won FROM games INNER JOIN rounds ON games.match_id = rounds.game_id', function(err, results){
       if(err){
         return console.error('Your query is flawed');
       }
-      socket.emit('getKills', results)
+      console.log(results)
+      socket.emit('getAlias', results);
     });
+
+
+
   });
+
 });
 
 
