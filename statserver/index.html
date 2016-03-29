@@ -14,16 +14,80 @@
 
   <body>
 
-    <!-- <div class="container">
-      <div class="box">
-        <div class="dank z-depth-3">
-          <img class="meme" src="">
-        </div>
-        <div class="info">
-          <a id="but" class="waves-effect waves-orange btn-flat blue">Meme.</a>
-        </div>
+    <div class="container">
+      <div class="row">
+        <form id="team" class="col s12">
+          <div class="row">
+            <div class="input-field col s5">
+              <input placeholder="Ex. Cloud 9" id="team_name" type="text">
+              <label for="team_name">Team Name</label>
+            </div>
+            <div class="input-field col s5">
+              <input placeholder="Ex. http://wiki.teamliquid.net/commons/images/f/fd/Cloud9.png" id="logo_url" type="text">
+              <label for="logo_url">Logo URL</label>
+            </div>
+            <div class="col s2">
+              <button id="team-submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <form id="player" class="col s12">
+          <div class="row">
+            <div class="input-field col s3">
+              <select id="team_list" class="icons">
+                <option value="" disabled selected>Choose your option</option>
+              </select>
+              <label>Team</label>
+            </div>
+            <div class="input-field col s2">
+              <input placeholder="Ex. N0thing" id="player_name" type="text">
+              <label for="player_name">Player Name</label>
+            </div>
+            <div class="input-field col s2">
+              <input placeholder="Ex. STEAM_0:0:377643" id="steam_id" type="text">
+              <label for="steam_id">Steam ID</label>
+            </div>
+            <div class="input-field col s3">
+              <input placeholder="Ex. http://wiki.teamliquid.net/commons/images/f/fd/Cloud9.png" id="picture_url" type="text">
+              <label for="picture_url">Player Picture URL</label>
+            </div>
+            <div class="col s2">
+              <button id="team-submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <form id="game" class="col s12">
+          <div class="row">
+            <div class="input-field col s2">
+              <input placeholder="ESEA Pro League Season 22" id="title" type="text">
+              <label for="title">Game Name</label>
+            </div>
+            <div class="input-field col s3">
+              <select id="team1_name" class="icons">
+                <option value="" disabled selected>Choose your option</option>
+              </select>
+              <label>Team 1</label>
+            </div>
+
+            <div class="input-field col s3">
+              <select id="team2_name" class="icons">
+                <option value="" disabled selected>Choose your option</option>
+              </select>
+              <label>Team 2</label>
+            </div>
+            <div class="col s2">
+              <button id="game-submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </div> -->
+    </div>
 
   </body>
 </html>

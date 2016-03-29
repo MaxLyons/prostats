@@ -3,9 +3,15 @@
 * {
   margin: 0;
   padding: 0;
-  cursor: none;
 }
 
 html, body {
   background-color: grey;
+}
+
+.container {
+}
+
+#team {
+  width: 600px;
 }
