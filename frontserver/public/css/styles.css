@@ -8,12 +8,14 @@ html, body {
   color: black;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 /*setting background color*/
 body{
-  background-image: url("")
+  max-width:100vw;
+  background-image: url("/image/6791702-free-cs-go-wallpaper.jpg");
+  background-attachment: fixed;
 }
 
 video#bgvid {
@@ -47,7 +49,9 @@ video#bgvid {
   height: 75vh;
 
 }
-
+.nav-wrapper{
+  background-color: black;
+}
 .ulelement{
   text-align:center;
 }
@@ -63,46 +67,91 @@ video#bgvid {
 
 .page {
   margin-top: 60px;
+  width: 100vw;
+  float: left;
+}
+
+.slideContainer {
+  height: 80vh;
+  width: 300vw;
+  position: relative;
+  left: -100vw;
+  margin-top:100px;
+}
+
+.prevPage {
+  height: 40vh;
+}
+
+/*headers for scoreboard*/
+.header1{
+display:inline;
+float:left;
+}
+#map{
+  display:inline;
+  
+}
+/*.header2{
+  display:inline;
+  float:right;
+}*/
+
+.scoreHeader tr{
+  text-align:center;
 }
 
 /* LIVE STAT TAB STARTS */
-.liveTable {
-  /*background-color: blue; */
-  height: 70vh;
+.liveScoreBoard{
+  /*float:left;*/
+  min-height: 80vh;
   border-style: solid;
-  border-radius: 1%;
-  border-width: 3px;
-  border-color: grey;
-  color: grey;
-  overflow-y: hidden;
+  /*border-radius: 1%;*/
+  border-width: 1px;
+  border-color:white;
+  color:white;
+  /*border-color: grey;*/
+  background-color: black;
+  /*margin-top:1vh;*/
+  margin-bottom:1vh;
+  overflow:hidden;
 }
 
-.liveTable .liveTableTabs {
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: transparent;
-  border-radius: 5%;
-  border-color: grey;
-  border-style: solid;
-  border-width: 1px 1px 0px 1px;
-  color:grey;
+/*scoreBoard for Terrorists*/
+
+/*teamScore*/
+.matchScore{
+  text-align:center;
+  color:red;
+  background-color:#030303;
+
+}
+
+.team1{
+  position:relative;
+  float:left;
+}
+.team2{
+  postion:relative;
+  float:right;
+}
+/*ct table*/
+.liveScoreBoard .ct tr td{
+  background-color: #233D4E;
+  color: #96BCD3;
+  padding:0.5em 0.5em 0.5em 0.5em;
 }
 
 
-.liveMap {
-  height: 70vh;
-  border-style: solid;
-  border-width: 3px;
-  border-color: grey;
+/*terrorist table*/
+.terrorist{
+  background-color: #9A8F6F;
+  color:#E8DA8F;
+
 }
 
-.scrollTd {
-  max-height: 100%;
-  overflow-y: scroll;
-}
-
-.scrollTd::-webkit-scrollbar {
- display: none;
+.terrorist tr td{
+  padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
 .fade {
@@ -112,14 +161,12 @@ video#bgvid {
 
 /* STATIC STAT TAB ENDS HERE */
 .statTable {
-  /*background-color: blue; */
+  background-color: black;
   height: 80vh;
   border-style: solid;
   border-radius: 1%;
   border-width: 3px;
-  border-color: grey;
-  color: grey;
-  overflow-y: hidden;
+  border-color: white;
 }
 
 .statTable .statTableTabs {
@@ -127,10 +174,36 @@ video#bgvid {
   padding-right: 5px;
   background-color: transparent;
   border-radius: 5%;
-  border-color: grey;
+  border-color: white;
   border-style: solid;
   border-width: 1px 1px 0px 1px;
-  color:grey;
+  color: white;
+}
+
+.mainStat {
+    display: table;
+    width: 100%;
+}
+.mainStat thead, .mainStat tbody {
+    float: left;
+    width: 100%;
+}
+.mainStat tbody {
+    overflow: auto;
+    height: 50vh;
+}
+
+.mainStat tbody::-webkit-scrollbar {
+ display: none;
+}
+
+.mainStat tr {
+    width: 100%;
+    display: table;
+    text-align: left;
+}
+.mainStat th, .mainStat td {
+    width: 33%;
 }
 
 .statTeamIconContainer {
@@ -154,4 +227,11 @@ video#bgvid {
 .statGraph {
   height: 40vh;
 }
-/* STATIC STAT TAB ENDS HERE */
+
+.mainStat tr, .mainStat td{
+  background-color: #233D4E;
+  color: #96BCD3;
+  border-width: 4px;
+  border-color: black;
+  border-style: solid;
+}

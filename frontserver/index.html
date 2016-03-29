@@ -1,399 +1,472 @@
 <!doctype html>
 <html>
-  <head>
-    <title>PROStats</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/materialize.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script src="js/scripts.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/styles.css" />
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-  </head>
+<head>
+  <title>PROStats</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script src="js/scripts.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+</head>
 
 
-  <body>
-<!--
-    <div class="overlay" ></div>
+<body>
+
+  <!--
+  <div class="overlay" ></div>
 -->
-
-    <div class="navbar-fixed z-depth-0 grey darken-4" id="navBar">
-
-      <nav class="transparent z-depth-0">
-        <div class="nav-wrapper z-depth-0">
-
-          <a href="" id="logo" class="brand-logo mainTab">PROstats |</a>
-          <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a class="mainTab" id="mainLiveTab">Live</a></li>
-            <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
-            <!-- <li class="active"><a href="collapsible.html">JavaScript</a></li> -->
-          </ul>
-          <form>
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-
-        <!-- <div class="container">
-
-            <div class="row">
-              <div class="col s12"><h2>Prostats</h2></div>
-              <div class="col s6"><h5>MVP: Forest-K/D/A</h5></div>
-              <div class="col s6"><h5>MVP TEAM: FANATIC W/L</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-              <div class="col s6"><h5>This div is 6-columns wide</h5></div>
-            </div> -->
-
-
-</nav>
-
 <div>
-  <div>
-    <video autoplay loop id="bgvid" class="responsive-video" data-mainTab="logo">
-      <source src="images/back.webm" type="video/webm">
-    </video>
-    <div style="height: 10px;"></div>
-    <div class="row container page">
-      <div class="col s12"><h2>TITLE</h2></div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-      <div class="col s6">This div is 6-columns wide</div>
-    </div>
-  </div>
+  <div class="navbar-fixed z-depth-0 grey darken-4" id="navBar">
 
-<div class="fade" data-mainTab="mainLiveTab">
-    <div style="height: 10px;"></div>
+    <nav class="transparent z-depth-0">
+      <div class="nav-wrapper z-depth-0">
 
-    <div class="row page">
-      <div class="col s3 offset-s1 liveTable">
-        <br/>
-        <div>
-          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable1">ROUND</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable2">TEAM1</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable3">TEAM2</a>
-          <a class="waves-effect waves-light btn z-depth-0 liveTableTabs" id="liveTable4">MATCH</a>
-        </div>
-<!-- FRIST TABLE -->
-        <table class="highlight mainlive">
-          <thead>
-            <tr>
-                <th > GAME STATUS </th>
-                <th data-field="name"> TEAM A </th>
-                <th data-field="price"> TEAM B </th>
-            </tr>
-          </thead>
-        </table>
-        <div style="height: 70%;">
-          <div class="scrollTd" data-tableNum="liveTable1">
-            <table>
-              <tbody>
-                <tr>
-                  <td>Team Name</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Rounds Won</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Side</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Kills This Round</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Total Kills</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Average Kills</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Money Spend</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$123.00</td>
-                </tr>
-              </tbody>
-            </table>
+        <a href="" id="logo" class="brand-logo mainTab">PROstats |</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a class="mainTab" id="mainLiveTab">Live</a></li>
+          <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
+          <!-- <li class="active"><a href="collapsible.html">JavaScript</a></li> -->
+        </ul>
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required>
+            <label for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
           </div>
-<!-- SECOND TABLE -->
-          <div class="scrollTd fade" data-tableNum="liveTable2">
-            <table>
-              <tbody>
-                <tr>
-                  <td>SFASFASFA</td>
-                  <td>EasFASFAS</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$123.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-<!-- THIRD TABLE -->
+        </form>
+      </nav>
 
+
+      <div id="parent_sb">
+        <div data-mainTab="logo">
+          <div style="height: 10px;" ></div>
+          <div class="row container">
+            <div class="col s12"><h2>TITLE</h2></div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+            <div class="col s6">This div is 6-columns wide</div>
+          </div>
         </div>
 
-      </div>
+        <div id="sb_table" class="fade" data-mainTab="mainLiveTab">
+          <div style="height: 10px;" ></div>
 
-<!-- CONTAINER FOR MAP -->
-      <div class="col s6 offset-s1 liveMap" id="liveGraphContainer" >
-        Teal page content
-      </div>
-    </div>
-    </div>
+          <div  class="row page">
+            <!-- counterterrorist table -->
+            <div class="col s10 offset-s1 liveScoreBoard">
+              <table class="table text-center ">
+                <tr>
+                  <thead class="scoreHeader">
+                    <tr>
+                      <h2 class="header1">Event</h2><h2 class ="col span9"id ="map">de_inferno</h2>
+                      <!-- <h2 class="header2">team 2</h2> -->
+                    </tr>
+                  </thead>
 
-<!-- STATIC STATISTICS STARTS HERE -->
-<div class="fade" data-mainTab="mainStatTab">
-    <div style="height: 10px;"></div>
+                </tr>
+                <thead>
+                  <tr>
+                    <th class="text-center">Team</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">K</th>
+                    <th class="text-center">D</th>
+                    <th class="text-center">A</th>
+                    <th class="text-center">K/D</th>
+                    <th class="text-center">MVP</th>
+                    <th class="text-center">PSR</th>
+                    <!-- <th class="text-right">VS team</th> -->
+                  </tr>
+                </thead>
+                <tbody class="ct">
+                  <tr>
+                    <td>19.03.2016</td>
+                    <td>cache</td>
+                    <td class="success">win</td>
+                    <td>19</td>
+                    <td>14</td>
+                    <td>7</td>
+                    <td>1.4</td>
+                    <td>47%</td>
+                    <!-- <td class="text-right">
+                      <a href="/teams/33" class="text-info t_dec_n">
+                        <img src="">
+                        SK </a>
+                      </td> -->
+                    </tr>
+                    <tr>
+                      <td>19.03.2016</td>
+                      <td>mirage</td>
+                      <td class="success">win</td>
+                      <td>23</td>
+                      <td>23</td>
+                      <td>7</td>
+                      <td>1.0</td>
+                      <td>57%</td>
+                      <!-- <td class="text-right">
+                        <a href="/teams/33" class="text-info t_dec_n">
+                          <img src="">
+                          SK </a>
+                        </td> -->
+                      </tr>
+                      <tr>
+                        <td>16.03.2016</td>
+                        <td>cache</td>
+                        <td class="success">win</td>
+                        <td>16</td>
+                        <td>14</td>
+                        <td>6</td>
+                        <td>1.1</td>
+                        <td>44%</td>
+                        <!-- <td class="text-right">
+                          <a href="/teams/2" class="text-info t_dec_n">
+                            <img src="">
+                            Fnatic </a>
+                          </td> -->
+                        </tr>
+                        <tr>
+                          <td>16.03.2016</td>
+                          <td>inferno</td>
+                          <td class="">$$</td>
+                          <td>19</td>
+                          <td>22</td>
+                          <td>2</td>
+                          <td>0.9</td>
+                          <td>47%</td>
+                          <!-- <td class="text-right">
+                            <a href="/teams/2" class="text-info t_dec_n">
+                              <img src="">
+                              Fnatic </a>
+                            </td> -->
+                          </tr>
+                          <tr>
+                            <td>09.03.2016</td>
+                            <td>cache</td>
+                            <td class="success">win</td>
+                            <td>17</td>
+                            <td>11</td>
+                            <td>6</td>
+                            <td>1.5</td>
+                            <td>35%</td>
+                            <!-- <td class="text-right">
+                              <a href="/teams/3" class="text-info t_dec_n">
+                                <img src="">
+                                Virtus.pro </a>
+                              </td> -->
+                            </tbody>
 
-    <div class="row page">
-      <div class="col s5 offset-s1 statTable">
-        <br/>
-        <div>
-          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable1">ROUND</a>
-          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable2">TEAM1</a>
-          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable3">TEAM2</a>
-          <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable4">MATCH</a>
-        </div>
-<!-- FRIST TABLE  -->
-        <table class="highlight mainstat">
-          <thead>
-            <tr>
-                <th > GAME STATUS </th>
-                <th data-field="name"> TEAM A </th>
-                <th data-field="price"> TEAM B </th>
-            </tr>
-          </thead>
-        </table>
-        <div style="height: 70%;">
-          <div class="scrollTd" data-tableNum="statTable1">
-            <table>
-              <tbody>
-                <tr>
-                  <td>Team Name</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Rounds Won</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Side</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Kills This Round</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Total Kills</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Average Kills</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Money Spend</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$123.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-<!-- SECOND TABLE  -->
-          <div class="scrollTd fade" data-tableNum="statTable2">
-            <table>
-              <tbody>
-                <tr>
-                  <td>SFASFASFA</td>
-                  <td>EasFASFAS</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$123.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-<!-- THIRD TABLE  -->
+                            <!--scoreboard in between ct and terrorist table  -->
+                            <tr>
+                              <td colspan="9">
+                                <div class="matchScore">
+                                  <ul>
+                                    <span class="team1">team 1</span>
 
-        </div>
+                                    <span class="score">match score</span>
 
-      </div>
+                                    <span class="team2">team 2</span>
+                                  </ul>
+                                </div>
+                              </td>
+                            </tr>
 
-<!-- CONTAINER FOR MAP -->
-      <div class="col s2 offset-s1 statTeamIconContainer" >
-        Teal page content
-      </div>
-      <div class="col s2 statProfileContainer" >
-        Teal page content
-      </div>
-      <div class="col s6 statGraph" id="statGraphContainer" >
-        Teal page content
-      </div>
-    </div>
-</div>
+                            <!--terrorist table  -->
 
 
-</div>
-  </body>
+                            <tbody class="terrorist">
+                              <tr>
+                                <td>08.03.2016</td>
+                                <td>dust2</td>
+                                <td class="success">win</td>
+                                <td>14</td>
+                                <td>15</td>
+                                <td>5</td>
+                                <td>0.9</td>
+                                <td>50%</td>
+                                <!-- <td class="text-right">
+                                  <a href="/teams/43" class="text-info t_dec_n">
+                                    <img src="">
+                                    FaZe </a>
+                                  </td> -->
+                                </tr>
+                                <tr>
+                                  <td>08.03.2016</td>
+                                  <td>train</td>
+                                  <td class="success">win</td>
+                                  <td>19</td>
+                                  <td>14</td>
+                                  <td>3</td>
+                                  <td>1.4</td>
+                                  <td>42%</td>
+                                  <!-- <td class="text-right">
+                                    <a href="/teams/43" class="text-info t_dec_n">
+                                      <img src="">
+                                      FaZe </a>
+                                    </td> -->
+                                  </tr>
+                                  <tr>
+                                    <td>02.03.2016</td>
+                                    <td>mirage</td>
+                                    <td class="danger">lose</td>
+                                    <td>19</td>
+                                    <td>18</td>
+                                    <td>2</td>
+                                    <td>1.1</td>
+                                    <td>68%</td>
+                                    <!-- <td class="text-right">
+                                      <a href="/teams/9" class="text-info t_dec_n">
+                                        <img src="">
+                                        mousesports </a>
+                                      </td> -->
+                                    </tr>
+                                    <tr>
+                                      <td>02.03.2016</td>
+                                      <td>inferno</td>
+                                      <td class="danger">lose</td>
+                                      <td>21</td>
+                                      <td>20</td>
+                                      <td>4</td>
+                                      <td>1.1</td>
+                                      <td>57%</td>
+                                      <!-- <td class="text-right">
+                                        <a href="/teams/2" class="text-info t_dec_n">
+                                          <img src="">
+                                          Fnatic </a>
+                                        </td> -->
+                                      </tr>
+                                      <tr>
+                                        <td>02.03.2016</td>
+                                        <td>overpass</td>
+                                        <td class="danger">lose</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>1</td>
+                                        <td>1.4</td>
+                                        <td>32%</td>
+                                        <!-- <td class="text-right">
+                                          <a href="/teams/5" class="text-info t_dec_n">
+                                            <img src="">
+                                            Natus Vincere </a>
+                                          </td> -->
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
 
-</html>
+                              <!-- STATIC STATISTICS STARTS HERE -->
+                              <div class="fade" data-mainTab="mainStatTab">
+                                <div class="row page">
+                                  <div class="col s5 offset-s1 statTable">
+                                    <br/>
+                                    <div>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable1">Total</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable2">MAP 1</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable3">MAP 2</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable4">MAP 3</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable5">MAP 4</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable6">MAP 5</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable7">MAP 6</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable8">MAP 7</a>
+                                      <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable9">MAP 8</a>
+                                    </div>
+                                    <!-- FRIST TABLE  -->
+                                    <table class="highlight mainStat">
+                                      <thead>
+                                        <tr>
+                                          <th > = GAME STATUS / MATCH = </th>
+                                          <th data-field="name"> = Player = </th>
+                                          <th data-field="price"> = All Players Average = </th>
+                                        </tr>
+                                      </thead>
+                                    </table>
+                                    <div style="height: 70%;">
+                                      <div class="scrollTd" data-tableNum="statTable1">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>ProStat Ranking</td>
+                                              <td>Eclair</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Win/Loss %</td>
+                                              <td>Jellybean</td>
+                                              <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                              <td>MVP</td>
+                                              <td>Lollipop</td>
+                                              <td>$7.00</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Accuracy %</td>
+                                              <td>Lollipop</td>
+                                              <td>$7.00</td>
+                                            </tr>
+                                            <tr>
+                                              <tr>
+                                                <td>KDA</td>
+                                                <td>Lollipop</td>
+                                                <td>$7.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Average Kills</td>
+                                                <td>Lollipop</td>
+                                                <td>$7.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Average Deaths</td>
+                                                <td>Lollipop</td>
+                                                <td>$7.00</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Average Assists</td>
+                                                <td>Lollipop</td>
+                                                <td>$7.00</td>
+                                              </tr>
+                                              <td>Kill Participation</td>
+                                              <td>Lollipop</td>
+                                              <td>$7.00</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Killing Spree</td>
+                                              <td>Lollipop</td>
+                                              <td>$123.00</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <!-- SECOND TABLE  -->
+                                      <div class="scrollTd fade" data-tableNum="statTable2">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable2</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable3">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable3</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable4">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable4</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable5">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable5</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable6">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable6</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable7">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable7</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable8">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable8</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="scrollTd fade" data-tableNum="statTable9">
+                                        <table class="mainStat">
+                                          <tbody>
+                                            <tr>
+                                              <td>SFASFASFA</td>
+                                              <td>statTable9</td>
+                                              <td>$0.87</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <!-- END TABLE  -->
+
+                                    </div>
+
+                                  </div>
+
+                                  <!-- CONTAINER FOR MAP -->
+                                  <div class="col s2 offset-s1 statTeamIconContainer" >
+                                    Teal page content
+                                  </div>
+                                  <div class="col s2 statProfileContainer" >
+                                    Teal page content
+                                  </div>
+                                  <div class="col s6 statGraph" id="statGraphContainer" >
+                                    Teal page content
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+                          </body>
+
+                          </html>
 
 
 
 
-  </body>
+                        </body>
 
-</html>
+                        </html>
