@@ -5,17 +5,14 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.10.2",
-<<<<<<< HEAD
     "jsgo": "^2.0.1",
     "mongoose": "^4.4.6",
     "node-csgo-gsi": "0.0.1",
     "pg": "^4.5.1",
-=======
     "highcharts": "^4.2.3",
     "mongoose": "^4.4.6",
     "node-csgo-gsi": "0.0.1",
     "request": "^2.69.0",
->>>>>>> db0b1173b602fc4c44fe8f343c8b13c7b54e84bc
     "socket.io": "^1.4.5"
   }
 }
