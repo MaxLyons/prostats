@@ -24,6 +24,76 @@ $(function() {
     $(".landstats").fadeIn(600);
   });
 
+
+
+
+  var liveScoreboard = "";
+  liveScoreboard += "<table class='table' cellspacing='0' cellpadding='0' text-center >";
+  liveScoreboard += "<tr>";
+  liveScoreboard += "<thead class='scoreheader'>";
+  liveScoreboard += "<tr>";
+  liveScoreboard += "<div class='gameheader'>";
+  liveScoreboard += "<ul>";
+  liveScoreboard += "<span class='matchname'>ESEA PRO League Season 21</span>";
+  liveScoreboard += "<span class='map'>de_dust2</span>";
+  liveScoreboard += "</ul>";
+  liveScoreboard += "</div>";
+  liveScoreboard += "</tr>";
+  liveScoreboard += "<tr>";
+  liveScoreboard += "<th class='text-center'>Picture</th>";
+  liveScoreboard += "<th class='text-center'>Alias</th>";
+  liveScoreboard += "<th class='text-center'>K</th>";
+  liveScoreboard += "<th class='text-center'>D</th>";
+  liveScoreboard += "<th class='text-center'>A</th>";
+  liveScoreboard += "<th class='text-center'>K/D</th>";
+  liveScoreboard += "<th class='text-center'>PSR</th>";
+  liveScoreboard += "</tr>";
+  liveScoreboard += "</thead>";
+  liveScoreboard += "<tbody class="ct">";
+  for (var i > 0; data.length; i ++) {
+    liveScoreboard += "<tr>";
+    liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
+    liveScoreboard += "<td class='alias_row'>n0thing</td>";
+    liveScoreboard += "<td class='k_row'>18</td>";
+    liveScoreboard += "<td class='d_row'>7</td>";
+    liveScoreboard += "<td class='a_row'>5</td>";
+    liveScoreboard += "<td class='kd_row'>7</td>";
+    liveScoreboard += "<td class='psr_row'>47%</td>";
+    liveScoreboard += "</tr>";
+  }
+  liveScoreboard += "</tbody>";
+  liveScoreboard += "<tr>";
+  liveScoreboard += "<td class='scoremiddle' colspan='9'>";
+  liveScoreboard += "<div class='ct_score'>";
+  liveScoreboard += "<ul>";
+  liveScoreboard += "<span class='score'>16</span>";
+  liveScoreboard += "<span class='team_score'>Cloud 9 <img class='teamavatar' src='image/cloud9.png'></span>";
+  liveScoreboard += "</ul>";
+  liveScoreboard += "</div>";
+  liveScoreboard += "</br>";
+  liveScoreboard += "<div class='t_score'>";
+  liveScoreboard += "<ul>";
+  liveScoreboard += "<span class='score'>10</span>";
+  liveScoreboard += "<span class='team_score'>Luminosity <img class='teamavatar' src='image/luminosity.png'></span>";
+  liveScoreboard += "</ul>";
+  liveScoreboard += "</div>";
+  liveScoreboard += "</td>";
+  liveScoreboard += "</tr>";
+  liveScoreboard += "<tbody class='terrorist'>";
+  for (var i > 0; data.length; i ++) {
+    liveScoreboard += "<tr>";
+    liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
+    liveScoreboard += "<td class='alias_row'>n0thing</td>";
+    liveScoreboard += "<td class='k_row'>18</td>";
+    liveScoreboard += "<td class='d_row'>7</td>";
+    liveScoreboard += "<td class='a_row'>5</td>";
+    liveScoreboard += "<td class='kd_row'>7</td>";
+    liveScoreboard += "<td class='psr_row'>47%</td>";
+    liveScoreboard += "</tr>";
+  }
+  liveScoreboard += "</tbody>";
+  liveScoreboard += "</table>";
+
 // get alias
   socket.on('getAlias', function(results){
     for(var i = 0; i<results.rows.length; i++){
