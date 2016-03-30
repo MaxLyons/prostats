@@ -65,6 +65,9 @@ $(function() {
   // });
 
   $("#mainLiveTab").on('click', function(){
+    table = $(this)[0].id;
+    $("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
+    console.log(games_collection);
     // for (var game > 0; games_collection.length; game ++) {
       var liveScoreboard = "";
       liveScoreboard += "<table class='table' cellspacing='0' cellpadding='0' text-center >";
@@ -88,7 +91,7 @@ $(function() {
       liveScoreboard += "<th class='text-center'>PSR</th>";
       liveScoreboard += "</tr>";
       liveScoreboard += "</thead>";
-      liveScoreboard += "<tbody class="ct">";
+      liveScoreboard += "<tbody class='ct'>";
       // for (var i > 0; data.length; i ++) {
         liveScoreboard += "<tr>";
         liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
