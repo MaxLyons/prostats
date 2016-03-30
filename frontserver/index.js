@@ -19,7 +19,32 @@ app.get('/', function(req, res){
 //socket on connection
 io.on('connection', function(socket){
   socket.emit('idAssign', socket.id);
-
+  pg.connect(conString, function(err, client, done) {
+    if(err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query("SELECT count(*) AS exact_count FROM games",
+      function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit('game count', results.rows[0].exact_count);
+    });
+    client.query("SELECT count(*) AS exact_count FROM teams",
+      function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit('team count', results.rows[0].exact_count);
+    });
+    client.query("SELECT count(*) AS exact_count FROM players",
+      function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit('player count', results.rows[0].exact_count);
+    });
+  });
 /* ??????
     client.query('SELECT p.alias, pr.kills, pr.assists, pr.deaths, pr.damage  FROM players AS p INNER JOIN player_rounds AS pr ON pr.player_id = p.steam_id ', function(err,results){
     socket.emit('getAlias', results);
@@ -85,7 +110,7 @@ io.on('connection', function(socket){
         var str = "(";
         results.rows.map(function(num){
           str += "'" + num.match_id + "',";
-        }); 
+        });
         str = str.slice(0,-1) + ")";
         client.query(
           "SELECT players.team, SUM(player_rounds.kills) AS sum_team_kills FROM rounds \

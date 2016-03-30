@@ -38,6 +38,7 @@ html, body {
 }
 
 .landstats {
+  display: none;
   font-weight: lighter;
   color: white;
   font-size: 25px;
