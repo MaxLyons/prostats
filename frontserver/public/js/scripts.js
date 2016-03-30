@@ -24,77 +24,24 @@ $(function() {
     $(".landstats").fadeIn(600);
   });
 
+  var games_collection = [];
 
 
+  socket.on('getEvents', function(results){
+    console.log(results);
+    for(var i = 0; i < results.rows.length; i++){
+      if(games_collection[i] === undefined || results.rows[i].match_id != games_collection[i].match_id){
+        games_collection[i] = new Object();
+        games_collection[i].match_id = results.rows[i].match_id;
+        games_collection[i].event = results.rows[i].event;
+        games_collection[i].map = results.rows[i].map;
+        games_collection[i].team1 = results.rows[i].t1name;
+        games_collection[i].team2 = results.rows[i].t2name;
 
-  var liveScoreboard = "";
-  liveScoreboard += "<table class='table' cellspacing='0' cellpadding='0' text-center >";
-  liveScoreboard += "<tr>";
-  liveScoreboard += "<thead class='scoreheader'>";
-  liveScoreboard += "<tr>";
-  liveScoreboard += "<div class='gameheader'>";
-  liveScoreboard += "<ul>";
-  liveScoreboard += "<span class='matchname'>ESEA PRO League Season 21</span>";
-  liveScoreboard += "<span class='map'>de_dust2</span>";
-  liveScoreboard += "</ul>";
-  liveScoreboard += "</div>";
-  liveScoreboard += "</tr>";
-  liveScoreboard += "<tr>";
-  liveScoreboard += "<th class='text-center'>Picture</th>";
-  liveScoreboard += "<th class='text-center'>Alias</th>";
-  liveScoreboard += "<th class='text-center'>K</th>";
-  liveScoreboard += "<th class='text-center'>D</th>";
-  liveScoreboard += "<th class='text-center'>A</th>";
-  liveScoreboard += "<th class='text-center'>K/D</th>";
-  liveScoreboard += "<th class='text-center'>PSR</th>";
-  liveScoreboard += "</tr>";
-  liveScoreboard += "</thead>";
-  liveScoreboard += "<tbody class="ct">";
-  for (var i > 0; data.length; i ++) {
-    liveScoreboard += "<tr>";
-    liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
-    liveScoreboard += "<td class='alias_row'>n0thing</td>";
-    liveScoreboard += "<td class='k_row'>18</td>";
-    liveScoreboard += "<td class='d_row'>7</td>";
-    liveScoreboard += "<td class='a_row'>5</td>";
-    liveScoreboard += "<td class='kd_row'>7</td>";
-    liveScoreboard += "<td class='psr_row'>47%</td>";
-    liveScoreboard += "</tr>";
-  }
-  liveScoreboard += "</tbody>";
-  liveScoreboard += "<tr>";
-  liveScoreboard += "<td class='scoremiddle' colspan='9'>";
-  liveScoreboard += "<div class='ct_score'>";
-  liveScoreboard += "<ul>";
-  liveScoreboard += "<span class='score'>16</span>";
-  liveScoreboard += "<span class='team_score'>Cloud 9 <img class='teamavatar' src='image/cloud9.png'></span>";
-  liveScoreboard += "</ul>";
-  liveScoreboard += "</div>";
-  liveScoreboard += "</br>";
-  liveScoreboard += "<div class='t_score'>";
-  liveScoreboard += "<ul>";
-  liveScoreboard += "<span class='score'>10</span>";
-  liveScoreboard += "<span class='team_score'>Luminosity <img class='teamavatar' src='image/luminosity.png'></span>";
-  liveScoreboard += "</ul>";
-  liveScoreboard += "</div>";
-  liveScoreboard += "</td>";
-  liveScoreboard += "</tr>";
-  liveScoreboard += "<tbody class='terrorist'>";
-  for (var i > 0; data.length; i ++) {
-    liveScoreboard += "<tr>";
-    liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
-    liveScoreboard += "<td class='alias_row'>n0thing</td>";
-    liveScoreboard += "<td class='k_row'>18</td>";
-    liveScoreboard += "<td class='d_row'>7</td>";
-    liveScoreboard += "<td class='a_row'>5</td>";
-    liveScoreboard += "<td class='kd_row'>7</td>";
-    liveScoreboard += "<td class='psr_row'>47%</td>";
-    liveScoreboard += "</tr>";
-  }
-  liveScoreboard += "</tbody>";
-  liveScoreboard += "</table>";
+      }
+    };
+  })
 
-// get alias
   socket.on('getAlias', function(results){
     for(var i = 0; i<results.rows.length; i++){
       console.log(results.rows[i]);
@@ -107,32 +54,105 @@ $(function() {
 
 
 
-//when you click on a maintab button it fades in 'this' info and hides all siblings info;
-  $(".mainTab").on('click',function(){
-    console.log('click');
-    var table = $(this)[0].id;
-    var page = $('navBar');
-    $("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
-    current_tab = table;
+  //when you click on a maintab button it fades in 'this' info and hides all siblings info;
+  // $(".mainTab").on('click',function(){
+  //   console.log('click');
+  //   var table = $(this)[0].id;
+  //   var page = $('navBar');
+  //   $("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
+  //   current_tab = table;
+  //
+  // });
 
-  });
+  $("#mainLiveTab").on('click', function(){
+    // for (var game > 0; games_collection.length; game ++) {
+      var liveScoreboard = "";
+      liveScoreboard += "<table class='table' cellspacing='0' cellpadding='0' text-center >";
+      liveScoreboard += "<tr>";
+      liveScoreboard += "<thead class='scoreheader'>";
+      liveScoreboard += "<tr>";
+      liveScoreboard += "<div class='gameheader'>";
+      liveScoreboard += "<ul>";
+      liveScoreboard += "<span class='matchname'>ESEA PRO League Season 21</span>";
+      liveScoreboard += "<span class='map'>de_dust2</span>";
+      liveScoreboard += "</ul>";
+      liveScoreboard += "</div>";
+      liveScoreboard += "</tr>";
+      liveScoreboard += "<tr>";
+      liveScoreboard += "<th class='text-center'>Picture</th>";
+      liveScoreboard += "<th class='text-center'>Alias</th>";
+      liveScoreboard += "<th class='text-center'>K</th>";
+      liveScoreboard += "<th class='text-center'>D</th>";
+      liveScoreboard += "<th class='text-center'>A</th>";
+      liveScoreboard += "<th class='text-center'>K/D</th>";
+      liveScoreboard += "<th class='text-center'>PSR</th>";
+      liveScoreboard += "</tr>";
+      liveScoreboard += "</thead>";
+      liveScoreboard += "<tbody class="ct">";
+      // for (var i > 0; data.length; i ++) {
+        liveScoreboard += "<tr>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
+        liveScoreboard += "<td class='alias_row'>n0thing</td>";
+        liveScoreboard += "<td class='k_row'>18</td>";
+        liveScoreboard += "<td class='d_row'>7</td>";
+        liveScoreboard += "<td class='a_row'>5</td>";
+        liveScoreboard += "<td class='kd_row'>7</td>";
+        liveScoreboard += "<td class='psr_row'>47%</td>";
+        liveScoreboard += "</tr>";
+      // }
+      liveScoreboard += "</tbody>";
+      liveScoreboard += "<tr>";
+      liveScoreboard += "<td class='scoremiddle' colspan='9'>";
+      liveScoreboard += "<div class='ct_score'>";
+      liveScoreboard += "<ul>";
+      liveScoreboard += "<span class='score'>16</span>";
+      liveScoreboard += "<span class='team_score'>Cloud 9 <img class='teamavatar' src='image/cloud9.png'></span>";
+      liveScoreboard += "</ul>";
+      liveScoreboard += "</div>";
+      liveScoreboard += "</br>";
+      liveScoreboard += "<div class='t_score'>";
+      liveScoreboard += "<ul>";
+      liveScoreboard += "<span class='score'>10</span>";
+      liveScoreboard += "<span class='team_score'>Luminosity <img class='teamavatar' src='image/luminosity.png'></span>";
+      liveScoreboard += "</ul>";
+      liveScoreboard += "</div>";
+      liveScoreboard += "</td>";
+      liveScoreboard += "</tr>";
+      liveScoreboard += "<tbody class='terrorist'>";
+      // for (var i > 0; data.length; i ++) {
+        liveScoreboard += "<tr>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
+        liveScoreboard += "<td class='alias_row'>n0thing</td>";
+        liveScoreboard += "<td class='k_row'>18</td>";
+        liveScoreboard += "<td class='d_row'>7</td>";
+        liveScoreboard += "<td class='a_row'>5</td>";
+        liveScoreboard += "<td class='kd_row'>7</td>";
+        liveScoreboard += "<td class='psr_row'>47%</td>";
+        liveScoreboard += "</tr>";
+      // }
+      liveScoreboard += "</tbody>";
+      liveScoreboard += "</table>";
+    // }
+
+    $(".livescoreboard").append(liveScoreboard);
+  })
 
 
 
 
-    // remove the appended tables on live_tab if you move away to another page
-    if(current_tab != "mainLiveTab"){
-      $('.container_data').remove();
-    }
+  // remove the appended tables on live_tab if you move away to another page
+  if(current_tab != "mainLiveTab"){
+    $('.container_data').remove();
+  }
 
 
 
 
-//////////////////////////////////
-///* STATIC STATS STARTS HERE *///
-//////////////////////////////////
+  //////////////////////////////////
+  ///* STATIC STATS STARTS HERE *///
+  //////////////////////////////////
 
-//GETTING DATA FROM DB RAW AND PARSING INTO VARIABLES
+  //GETTING DATA FROM DB RAW AND PARSING INTO VARIABLES
   var elo, avatar, alias, teamName, psr, logo;
   socket.on('statData', function(data){
     var parse = data.rows
@@ -269,7 +289,7 @@ $(function() {
 
 
 
-/*LIVE STATS TAB */
+  /*LIVE STATS TAB */
 
 
   // CLICKING TABS ON TABLE TO CHANGE DATA
@@ -291,7 +311,7 @@ $(function() {
 
   $('#statGraphContainer').highcharts({
     chart: {
-        backgroundColor: 'rgba(255,225,225,0.8)',
+      backgroundColor: 'rgba(255,225,225,0.8)',
     },
     title: {
       text: 'Player\'s Rating',
@@ -327,161 +347,220 @@ $(function() {
 
 
 
-////////////////////////////////
-///* STATIC STATS ENDS HERE *///
-////////////////////////////////
+  ////////////////////////////////
+  ///* STATIC STATS ENDS HERE *///
+  ////////////////////////////////
 
-//global variable counter for last 10 games
+  //global variable counter for last 10 games
 
-//global variable to stop appending after the last 10 games
+  //global variable to stop appending after the last 10 games
+  //Felix
+  //global function for games table players data nased on game_id
+  var eventmap = [];
+  var gtp1Arr = [];
+  var gtp2Arr = [];
+  var kda = [];
+  var team_sides = [];
 
-var counter = 0;
+  //collection of games we pulled from the database
 
-$(window).scroll(function () {
-   if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+
+
+  socket.on('getKDAmatches', function(results){
+    console.log(results);
+
+
+    for(var j = 0; j < games_collection.length; j++){
+      games_collection[j].team1players = [];
+      games_collection[j].team2players = [];
+
+      for(var i = 0; i < results.rows.length; i++){
+
+        if(games_collection[j].match_id == results.rows[i].game_id){
+          if (games_collection[j].team1 ==  results.rows[i].team) {
+
+            games_collection[j].team1players.push(results.rows[i]);
+          } else {
+            games_collection[j].team2players.push(results.rows[i]);
+          }
+        }
+      }
+    }
+    console.log("now logging games_collection");
+    console.log(games_collection);
+  });
+
+
+  //catching information about team sides
+  socket.on('team_side', function(results){
+    console.log(results.rows);
+    for(var i = 0; i < results.rows.length; i ++){
+      if(games_collection[i] === undefined || results.rows[i].ct_score != games_collection[i].ct_score){
+        games_collection[i].ct_score = results.rows[i].ct_score;
+        games_collection[i].t_score = results.rows[i].t_score;
+        games_collection[i].team_won = results.rows[i].team_won;
+        games_collection[i].winning_side = results.rows[i].winning_side;
+      }
+    }
+    console.log(games_collection);
+  });
+
+  //comparing length of uniqueGame_Arr as a secondary counter to the number of games to append
+  var uniqueGame_Arr = [];
+  socket.on('game_ids',function(results){
+    for(var i = 0; i < results.rows.length; i++){
+      uniqueGame_Arr.push(results.rows[i].match_id);
+    }
+    console.log('there are ' + uniqueGame_Arr.length + " games to append");
+  });
+
+  var counter = 0;
+
+  $(window).scroll(function () {
+    if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
       console.log($(window).scrollTop());//Add something at the end of the page
 
-    if(counter < 10){
-      //html() doesn't work in this case. changes the html into an object. USE CLONE();
-      var template = $('#sb_table').clone();
-      var tableClone = template;
+      if(counter < 10 && counter < games_collection.length){
+        //html() doesn't work in this case. changes the html into an object. USE CLONE();
+        var template = $('#sb_table').clone();
+        var tableClone = template;
 
-      //finding clone thead event header
-      var header = ($(tableClone).find('.header1').text(''));
+        //finding clone thead event header
+        var header = ($(tableClone).find('.header1').text(''));
 
-      //finding clone map header
-      var map = ($(tableClone).find('#map').text(''));
+        //finding clone map header
+        var map = ($(tableClone).find('#map').text(''));
 
-      //finding ct player 1-5
-      var ctOne = $(tableClone).find('.ct tr').eq(0);
-      var ctTwo = $(tableClone).find('.ct tr').eq(1);
-      var ctThree = $(tableClone).find('.ct tr').eq(2);
-      var ctFour = $(tableClone).find('.ct tr').eq(3);
-      var ctFive = $(tableClone).find('.ct tr').eq(4);
+        //finding ct player 1-5
+        var ctOne = $(tableClone).find('.ct tr').eq(0);
+        var ctTwo = $(tableClone).find('.ct tr').eq(1);
+        var ctThree = $(tableClone).find('.ct tr').eq(2);
+        var ctFour = $(tableClone).find('.ct tr').eq(3);
+        var ctFive = $(tableClone).find('.ct tr').eq(4);
 
-      //data fields 1-8
-      //player 1
-      var fieldOne = ($(ctOne).find('td').eq(0).text(''));
-      var fieldTwo = ($(ctOne).find('td').eq(1).text(''));
-      var fieldThree = ($(ctOne).find('td').eq(2).text(''));
-      var fieldFour = ($(ctOne).find('td').eq(3).text(''));
-      var fieldFive = ($(ctOne).find('td').eq(4).text(''));
-      var fieldSix = ($(ctOne).find('td').eq(5).text(''));
-      var fieldSeven = ($(ctOne).find('td').eq(6).text(''));
-      var fieldEight = ($(ctOne).find('td').eq(7).text(''));
+        //data fields 1-8
+        //player 1
+        var fieldOne = ($(ctOne).find('td').eq(0).text(''));
+        var fieldTwo = ($(ctOne).find('td').eq(1).text(''));
+        var fieldThree = ($(ctOne).find('td').eq(2).text(''));
+        var fieldFour = ($(ctOne).find('td').eq(3).text(''));
+        var fieldFive = ($(ctOne).find('td').eq(4).text(''));
+        var fieldSix = ($(ctOne).find('td').eq(5).text(''));
+        var fieldSeven = ($(ctOne).find('td').eq(6).text(''));
+        var fieldEight = ($(ctOne).find('td').eq(7).text(''));
 
-      //player2
-      var fieldOne = ($(ctTwo).find('td').eq(0).text(''));
-      var fieldTwo = ($(ctTwo).find('td').eq(1).text(''));
-      var fieldThree = ($(ctTwo).find('td').eq(2).text(''));
-      var fieldFour = ($(ctTwo).find('td').eq(3).text(''));
-      var fieldFive = ($(ctTwo).find('td').eq(4).text(''));
-      var fieldSix = ($(ctTwo).find('td').eq(5).text(''));
-      var fieldSeven = ($(ctTwo).find('td').eq(6).text(''));
-      var fieldEight = ($(ctTwo).find('td').eq(7).text(''));
+        //player2
+        var fieldOne = ($(ctTwo).find('td').eq(0).text(''));
+        var fieldTwo = ($(ctTwo).find('td').eq(1).text(''));
+        var fieldThree = ($(ctTwo).find('td').eq(2).text(''));
+        var fieldFour = ($(ctTwo).find('td').eq(3).text(''));
+        var fieldFive = ($(ctTwo).find('td').eq(4).text(''));
+        var fieldSix = ($(ctTwo).find('td').eq(5).text(''));
+        var fieldSeven = ($(ctTwo).find('td').eq(6).text(''));
+        var fieldEight = ($(ctTwo).find('td').eq(7).text(''));
 
-      //player3
-      var fieldOne = ($(ctThree).find('td').eq(0).text(''));
-      var fieldTwo = ($(ctThree).find('td').eq(1).text(''));
-      var fieldThree = ($(ctThree).find('td').eq(2).text(''));
-      var fieldFour = ($(ctThree).find('td').eq(3).text(''));
-      var fieldFive = ($(ctThree).find('td').eq(4).text(''));
-      var fieldSix = ($(ctThree).find('td').eq(5).text(''));
-      var fieldSeven = ($(ctThree).find('td').eq(6).text(''));
-      var fieldEight = ($(ctThree).find('td').eq(7).text(''));
+        //player3
+        var fieldOne = ($(ctThree).find('td').eq(0).text(''));
+        var fieldTwo = ($(ctThree).find('td').eq(1).text(''));
+        var fieldThree = ($(ctThree).find('td').eq(2).text(''));
+        var fieldFour = ($(ctThree).find('td').eq(3).text(''));
+        var fieldFive = ($(ctThree).find('td').eq(4).text(''));
+        var fieldSix = ($(ctThree).find('td').eq(5).text(''));
+        var fieldSeven = ($(ctThree).find('td').eq(6).text(''));
+        var fieldEight = ($(ctThree).find('td').eq(7).text(''));
 
-      //player4
-      var fieldOne = ($(ctFour).find('td').eq(0).text(''));
-      var fieldTwo = ($(ctFour).find('td').eq(1).text(''));
-      var fieldThree = ($(ctFour).find('td').eq(2).text(''));
-      var fieldFour = ($(ctFour).find('td').eq(3).text(''));
-      var fieldFive = ($(ctFour).find('td').eq(4).text(''));
-      var fieldSix = ($(ctFour).find('td').eq(5).text(''));
-      var fieldSeven = ($(ctFour).find('td').eq(6).text(''));
-      var fieldEight = ($(ctFour).find('td').eq(7).text(''));
+        //player4
+        var fieldOne = ($(ctFour).find('td').eq(0).text(''));
+        var fieldTwo = ($(ctFour).find('td').eq(1).text(''));
+        var fieldThree = ($(ctFour).find('td').eq(2).text(''));
+        var fieldFour = ($(ctFour).find('td').eq(3).text(''));
+        var fieldFive = ($(ctFour).find('td').eq(4).text(''));
+        var fieldSix = ($(ctFour).find('td').eq(5).text(''));
+        var fieldSeven = ($(ctFour).find('td').eq(6).text(''));
+        var fieldEight = ($(ctFour).find('td').eq(7).text(''));
 
-      //player5 fields
-      var fieldOne = ($(ctFive).find('td').eq(0).text(''));
-      var fieldTwo = ($(ctFive).find('td').eq(1).text(''));
-      var fieldThree = ($(ctFive).find('td').eq(2).text(''));
-      var fieldFour = ($(ctFive).find('td').eq(3).text(''));
-      var fieldFive = ($(ctFive).find('td').eq(4).text(''));
-      var fieldSix = ($(ctFive).find('td').eq(5).text(''));
-      var fieldSeven = ($(ctFive).find('td').eq(6).text(''));
-      var fieldEight = ($(ctFive).find('td').eq(7).text(''));
-
-
-
-      /////// TERRORIST SIDE /////////
-
-      var terroristOne = $(tableClone).find('.terrorist tr').eq(0);
-      var terroristTwo = $(tableClone).find('.terrorist tr').eq(1);
-      var terroristThree = $(tableClone).find('.terrorist tr').eq(2);
-      var terroristFour = $(tableClone).find('.terrorist tr').eq(3);
-      var terroristFive = $(tableClone).find('.terrorist tr').eq(4);
-
-      //data fields 1-8
-      //player 1
-      var tfieldOne = ($(terroristOne).find('td').eq(0).text(''));
-      var tfieldTwo = ($(terroristOne).find('td').eq(1).text(''));
-      var tfieldThree = ($(terroristOne).find('td').eq(2).text(''));
-      var tfieldFour = ($(terroristOne).find('td').eq(3).text(''));
-      var tfieldFive = ($(terroristOne).find('td').eq(4).text(''));
-      var tfieldSix = ($(terroristOne).find('td').eq(5).text(''));
-      var tfieldSeven = ($(terroristOne).find('td').eq(6).text(''));
-      var tfieldEight = ($(terroristOne).find('td').eq(7).text(''));
-
-      //player2
-      var tfieldOne = ($(terroristTwo).find('td').eq(0).text(''));
-      var tfieldTwo = ($(terroristTwo).find('td').eq(1).text(''));
-      var tfieldThree = ($(terroristTwo).find('td').eq(2).text(''));
-      var tfieldFour = ($(terroristTwo).find('td').eq(3).text(''));
-      var tfieldFive = ($(terroristTwo).find('td').eq(4).text(''));
-      var tfieldSix = ($(terroristTwo).find('td').eq(5).text(''));
-      var tfieldSeven = ($(terroristTwo).find('td').eq(6).text(''));
-      var tfieldEight = ($(terroristTwo).find('td').eq(7).text(''));
-
-      //player3
-      var tfieldOne = ($(terroristThree).find('td').eq(0).text(''));
-      var tfieldTwo = ($(terroristThree).find('td').eq(1).text(''));
-      var tfieldThree = ($(terroristThree).find('td').eq(2).text(''));
-      var tfieldFour = ($(terroristThree).find('td').eq(3).text(''));
-      var tfieldFive = ($(terroristThree).find('td').eq(4).text(''));
-      var tfieldSix = ($(terroristThree).find('td').eq(5).text(''));
-      var tfieldSeven = ($(terroristThree).find('td').eq(6).text(''));
-      var tfieldEight = ($(terroristThree).find('td').eq(7).text(''));
-
-      //player4
-      var tfieldOne = ($(terroristFour).find('td').eq(0).text(''));
-      var tfieldTwo = ($(terroristFour).find('td').eq(1).text(''));
-      var tfieldThree = ($(terroristFour).find('td').eq(2).text(''));
-      var tfieldFour = ($(terroristFour).find('td').eq(3).text(''));
-      var tfieldFive = ($(terroristFour).find('td').eq(4).text(''));
-      var tfieldSix = ($(terroristFour).find('td').eq(5).text(''));
-      var tfieldSeven = ($(terroristFour).find('td').eq(6).text(''));
-      var tfieldEight = ($(terroristFour).find('td').eq(7).text(''));
-
-      //player5 fields
-      var tfieldOne = ($(terroristFive).find('td').eq(0).text(''));
-      var tfieldTwo = ($(terroristFive).find('td').eq(1).text(''));
-      var tfieldThree = ($(terroristFive).find('td').eq(2).text(''));
-      var tfieldFour = ($(terroristFive).find('td').eq(3).text(''));
-      var tfieldFive = ($(terroristFive).find('td').eq(4).text(''));
-      var tfieldSix = ($(terroristFive).find('td').eq(5).text(''));
-      var tfieldSeven = ($(terroristFive).find('td').eq(6).text(''));
-      var tfieldEight = ($(terroristFive).find('td').eq(7).text(''));
+        //player5 fields
+        var fieldOne = ($(ctFive).find('td').eq(0).text(''));
+        var fieldTwo = ($(ctFive).find('td').eq(1).text(''));
+        var fieldThree = ($(ctFive).find('td').eq(2).text(''));
+        var fieldFour = ($(ctFive).find('td').eq(3).text(''));
+        var fieldFive = ($(ctFive).find('td').eq(4).text(''));
+        var fieldSix = ($(ctFive).find('td').eq(5).text(''));
+        var fieldSeven = ($(ctFive).find('td').eq(6).text(''));
+        var fieldEight = ($(ctFive).find('td').eq(7).text(''));
 
 
+
+        /////// TERRORIST SIDE /////////
+
+        var terroristOne = $(tableClone).find('.terrorist tr').eq(0);
+        var terroristTwo = $(tableClone).find('.terrorist tr').eq(1);
+        var terroristThree = $(tableClone).find('.terrorist tr').eq(2);
+        var terroristFour = $(tableClone).find('.terrorist tr').eq(3);
+        var terroristFive = $(tableClone).find('.terrorist tr').eq(4);
+
+        //data fields 1-8
+        //player 1
+        var tfieldOne = ($(terroristOne).find('td').eq(0).text(''));
+        var tfieldTwo = ($(terroristOne).find('td').eq(1).text(''));
+        var tfieldThree = ($(terroristOne).find('td').eq(2).text(''));
+        var tfieldFour = ($(terroristOne).find('td').eq(3).text(''));
+        var tfieldFive = ($(terroristOne).find('td').eq(4).text(''));
+        var tfieldSix = ($(terroristOne).find('td').eq(5).text(''));
+        var tfieldSeven = ($(terroristOne).find('td').eq(6).text(''));
+        var tfieldEight = ($(terroristOne).find('td').eq(7).text(''));
+
+        //player2
+        var tfieldOne = ($(terroristTwo).find('td').eq(0).text(''));
+        var tfieldTwo = ($(terroristTwo).find('td').eq(1).text(''));
+        var tfieldThree = ($(terroristTwo).find('td').eq(2).text(''));
+        var tfieldFour = ($(terroristTwo).find('td').eq(3).text(''));
+        var tfieldFive = ($(terroristTwo).find('td').eq(4).text(''));
+        var tfieldSix = ($(terroristTwo).find('td').eq(5).text(''));
+        var tfieldSeven = ($(terroristTwo).find('td').eq(6).text(''));
+        var tfieldEight = ($(terroristTwo).find('td').eq(7).text(''));
+
+        //player3
+        var tfieldOne = ($(terroristThree).find('td').eq(0).text(''));
+        var tfieldTwo = ($(terroristThree).find('td').eq(1).text(''));
+        var tfieldThree = ($(terroristThree).find('td').eq(2).text(''));
+        var tfieldFour = ($(terroristThree).find('td').eq(3).text(''));
+        var tfieldFive = ($(terroristThree).find('td').eq(4).text(''));
+        var tfieldSix = ($(terroristThree).find('td').eq(5).text(''));
+        var tfieldSeven = ($(terroristThree).find('td').eq(6).text(''));
+        var tfieldEight = ($(terroristThree).find('td').eq(7).text(''));
+
+        //player4
+        var tfieldOne = ($(terroristFour).find('td').eq(0).text(''));
+        var tfieldTwo = ($(terroristFour).find('td').eq(1).text(''));
+        var tfieldThree = ($(terroristFour).find('td').eq(2).text(''));
+        var tfieldFour = ($(terroristFour).find('td').eq(3).text(''));
+        var tfieldFive = ($(terroristFour).find('td').eq(4).text(''));
+        var tfieldSix = ($(terroristFour).find('td').eq(5).text(''));
+        var tfieldSeven = ($(terroristFour).find('td').eq(6).text(''));
+        var tfieldEight = ($(terroristFour).find('td').eq(7).text(''));
+
+        //player5 fields
+        var tfieldOne = ($(terroristFive).find('td').eq(0).text(''));
+        var tfieldTwo = ($(terroristFive).find('td').eq(1).text(''));
+        var tfieldThree = ($(terroristFive).find('td').eq(2).text(''));
+        var tfieldFour = ($(terroristFive).find('td').eq(3).text(''));
+        var tfieldFive = ($(terroristFive).find('td').eq(4).text(''));
+        var tfieldSix = ($(terroristFive).find('td').eq(5).text(''));
+        var tfieldSeven = ($(terroristFive).find('td').eq(6).text(''));
+        var tfieldEight = ($(terroristFive).find('td').eq(7).text(''));
 
 
 
 
 
-      $(tableClone).hide().appendTo('#parent_sb').fadeIn(1000);
-      counter += 1;
-    }else{
-      console.log("last 10 done");
+
+
+        $(tableClone).hide().appendTo('#parent_sb').fadeIn(1000);
+        counter += 1;
+      }else{
+        console.log("last 10 done");
+      }
     }
-  }
-});
+  });
 })
