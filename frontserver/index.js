@@ -53,18 +53,6 @@ io.on('connection', function(socket){
     });
 
     //Felix's queries
-    // querying team order by last rounds in rounds table
-    client.query("select r1.* from rounds as r1\
-    left join rounds as r2 ON (r1.game_id = r2.game_id and r1.round_num < r2.round_num) \
-    WHERE r2.id IS NULL;",
-
-    function(err, results){
-      if(err){
-        console.log('Your query is flawed')
-      }
-      console.log(results);
-      socket.emit('team_side', results);
-    })
 
     //events
     client.query("SELECT g.match_id, g.map AS map, g.event, t1.name AS t1name, t1.id AS t1id, t2.name AS t2name, t2.id AS t2id\
@@ -80,6 +68,19 @@ io.on('connection', function(socket){
       console.log(results);
       socket.emit('getEvents', results);
     });
+
+    // querying team order by last rounds in rounds table
+    client.query("select r1.* from rounds as r1\
+    left join rounds as r2 ON (r1.game_id = r2.game_id and r1.round_num < r2.round_num) \
+    WHERE r2.id IS NULL;",
+
+    function(err, results){
+      if(err){
+        console.log('Your query is flawed')
+      }
+      console.log(results);
+      socket.emit('team_side', results);
+    })
 
     //kda for all games played/ all 10 players per game
     var uniqueGame_id = "(";
