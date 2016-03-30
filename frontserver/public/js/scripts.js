@@ -359,11 +359,7 @@ $(function() {
   //global variable to stop appending after the last 10 games
   //Felix
   //global function for games table players data nased on game_id
-  var eventmap = [];
-  var gtp1Arr = [];
-  var gtp2Arr = [];
-  var kda = [];
-  var team_sides = [];
+
 
   //collection of games we pulled from the database
 
@@ -396,7 +392,7 @@ $(function() {
 
   //catching information about team sides
   socket.on('team_side', function(results){
-    console.log(results.rows);
+    console.log(results);
     for(var i = 0; i < results.rows.length; i ++){
       if(games_collection[i] === undefined || results.rows[i].ct_score != games_collection[i].ct_score){
         games_collection[i].ct_score = results.rows[i].ct_score;
