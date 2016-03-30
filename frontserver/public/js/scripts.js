@@ -15,6 +15,10 @@ $(function() {
     $("#totalteamstracked").text(data);
   });
 
+  socket.on('n0thing', function(data) {
+    $("#n0thing").attr("src", data);
+  });
+
   socket.on('player count', function(data) {
     $("#totalplayerstracked").text(data);
     $(".landstats").fadeIn(300);

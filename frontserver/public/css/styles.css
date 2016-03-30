@@ -100,14 +100,10 @@ html, body {
 display:inline;
 float:left;
 }
+
 #map{
   display:inline;
-
 }
-/*.header2{
-  display:inline;
-  float:right;
-}*/
 
 .scoreHeader tr{
   text-align:center;
@@ -115,41 +111,57 @@ float:left;
 
 /* LIVE STAT TAB STARTS */
 .liveScoreBoard{
-  /*float:left;*/
-  min-height: 80vh;
-  border-style: solid;
-  /*border-radius: 1%;*/
-  border-width: 1px;
-  border-color:white;
-  color:white;
-  /*border-color: grey;*/
-  background-color: black;
-  /*margin-top:1vh;*/
-  margin-bottom:1vh;
-  overflow:hidden;
+  height: 700px;
+  color: rgba(255, 255, 255, 0.4);;
+  background-color: rgba(0, 0, 0, 0.6);;
+  overflow: hidden;
 }
 
 /*scoreBoard for Terrorists*/
 
 /*teamScore*/
-.matchScore{
+.ct_score{
+  height: 50px;
   text-align:center;
-  color:red;
-  background-color:#030303;
-
+  color: #96BCD3;
 }
 
-.team1{
-  position:relative;
-  float:left;
+.t_score{
+  height: 50px;
+  text-align:center;
+  color: #E8DA8F;
 }
-.team2{
-  postion:relative;
+
+.score {
+  font-size: 25px;
+  float: left;
+}
+
+.team_score{
   float:right;
+  font-size: 20px;
+}
+
+.teamavatar {
+  height: 30px;
+}
+
+.avatar_row {
+  text-align: center;
+  width: 50px;
+}
+
+.k_row, .d_row, .a_row, .kd_row, .mvp_row, .psr_row {
+  width: 75px;
+}
+
+.playeravatar {
+  height: 30px;
+  border-radius: 50%;
 }
 /*ct table*/
 .liveScoreBoard .ct tr td{
-  background-color: #233D4E;
+  background-color: rgba(35, 61, 78, 0.8);
   color: #96BCD3;
   padding:0.5em 0.5em 0.5em 0.5em;
 }
@@ -157,7 +169,7 @@ float:left;
 
 /*terrorist table*/
 .terrorist{
-  background-color: #9A8F6F;
+  background-color: rgba(154, 143, 111, 0.8);
   color:#E8DA8F;
 
 }

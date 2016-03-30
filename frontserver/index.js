@@ -44,6 +44,13 @@ io.on('connection', function(socket){
       }
       socket.emit('player count', results.rows[0].exact_count);
     });
+    client.query("SELECT picture FROM players WHERE alias = 'n0thing'",
+      function(err,results){
+      if(err) {
+        return console.error('error occurred');
+      }
+      socket.emit('n0thing', results.rows[0].picture);
+    });
   });
 /* ??????
     client.query('SELECT p.alias, pr.kills, pr.assists, pr.deaths, pr.damage  FROM players AS p INNER JOIN player_rounds AS pr ON pr.player_id = p.steam_id ', function(err,results){
