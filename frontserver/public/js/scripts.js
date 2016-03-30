@@ -21,7 +21,7 @@ $(function() {
 
   socket.on('player count', function(data) {
     $("#totalplayerstracked").text(data);
-    $(".landstats").fadeIn(300);
+    $(".landstats").fadeIn(600);
   });
 
 // get alias

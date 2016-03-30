@@ -117,6 +117,11 @@ float:left;
   overflow: hidden;
 }
 
+.table {
+  border: none;
+  border-radius: 0px;
+}
+
 /*scoreBoard for Terrorists*/
 
 /*teamScore*/
@@ -178,12 +183,16 @@ float:left;
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
+td{
+  border-radius: 0px;
+}
+
 .fade {
   display: none;
 }
 /* LIVE STAT TAB ENDS HERE */
 
-/* STATIC STAT TAB ENDS HERE */
+/* STATIC STAT TAB STARTS HERE */
 .statTable {
   background-color: black;
   height: 80vh;
