@@ -151,7 +151,7 @@ $(function() {
   //////////////////////////////////
 
   //load player page by player name
-  function clearOtherPage(page){
+  function clearOtherPage(callback){
     $(".landing").fadeOut();
     $("[data-mainTab=mainLiveTab]").fadeOut();
     $("[data-mainTab=mainStatTab]").fadeOut();
@@ -161,6 +161,10 @@ $(function() {
     $("#teamLogo").find('img').remove();
     $("#statPlayerName").find('h1').remove();
 
+    callback();
+  };
+
+  function fadeInPage(page){
     $("[data-mainTab="+page+"]").fadeIn();
   };
 
@@ -171,7 +175,7 @@ $(function() {
   //Load Stat Page Function
   function LoadStatPage(searchPlayer){
     table = $(this)[0].id;
-    clearOtherPage("mainStatTab");
+    clearOtherPage(function(){ fadeInPage("mainStatTab")});
 
     var trHeadName = ['GAME STATS', 'Player', 'All Player Average'];
     var trBodyName = ['ProStat Ranking', 'Win', 'Winning as Terrorist', 'Winning as Counter-Terrorist',
@@ -204,16 +208,10 @@ $(function() {
     }
   }
 
-
-
-
   //navbar search bar
-  $('#searchbar').on('input', function(){
-    clearOtherPage("mainStatTab");
-    if ($('#search').val() != '') {
+  $('#searchbar').on('submit', function(){
       var player = $('#search').val();
       searchPlayer(player);
-    }
     return false;
   });
 
@@ -223,9 +221,9 @@ $(function() {
   });
 
   socket.on('getPlayerName', function(data){
-    // var thisId = "mainStatTab";
-    // changeMainTabs(thisId);
-    LoadStatPage(data.rows[0].alias);
+    if (data.rows[0] != undefined){
+      LoadStatPage(data.rows[0].alias);
+    }
   });
 
   //GETTING DATA FROM DB RAW AND PARSING INTO VARIABLES
@@ -238,11 +236,6 @@ $(function() {
     alias = parse[i].alias;
     teamName = parse[i].name;
     logo = parse[i].logo;
-
-    console.log(avatar);
-    console.log(alias);
-    console.log(teamName);
-    console.log(logo);
 
     //APPENDING NAME
     $('<div class="playname" >').text(alias).appendTo('#statPlayerName');
