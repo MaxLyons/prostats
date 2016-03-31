@@ -65,7 +65,6 @@ io.on('connection', function(socket){
         console.error("Your query is flawed");
 
       }
-      console.log(results);
       socket.emit('getEvents', results);
     });
 
@@ -78,7 +77,6 @@ io.on('connection', function(socket){
       if(err){
         console.log('Your query is flawed')
       }
-      console.log(results);
       socket.emit('team_side', results);
     })
 
@@ -108,7 +106,6 @@ io.on('connection', function(socket){
           if(err) {
             return console.error('error occurred');
           }
-          // console.log(results);
           socket.emit('getKDAmatches', results)
         });
 
@@ -116,160 +113,204 @@ io.on('connection', function(socket){
     });
 
 
-    //returns Win Loss to stat table
-    socket.on('getWinLossData', function(player){
-      pg.connect(conString, function(err, client, done) {
-        if(err) {
-          return console.error('error fetching client from pool', err);
-        }
-        client.query(
-          "SELECT rounds.team_won, \
-          rounds.winning_side, \
-          player_rounds.kills \
-          FROM player_rounds \
-          JOIN rounds ON player_rounds.round_id=rounds.id \
-          WHERE player_rounds.alias LIKE'%"+player+"%'",
-          function(err,results){
-            if(err) {
-              return console.error('error occurred');
-            }
-            socket.emit('printWinLoss', results);
-          });
+  //returns Win Loss to stat table
+  socket.on('getWinLossData', function(player){
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query(
+        "SELECT rounds.team_won, \
+        rounds.winning_side, \
+        player_rounds.kills \
+        FROM player_rounds \
+        JOIN rounds ON player_rounds.round_id=rounds.id \
+        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        function(err,results){
+          // done();
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('printWinLoss', results);
+      });
+      client.query(
+        "SELECT rounds.team_won, \
+        rounds.winning_side, \
+        player_rounds.kills \
+        FROM player_rounds \
+        JOIN rounds ON player_rounds.round_id=rounds.id",
+        function(err,results){
+          // done();
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('printWinLossALL', results);
+      });
+      done();
+    });
+  });
+
+  //return kill Participations
+  socket.on('getKillPart', function(data){
+    var player = data.query;
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query(
+        "SELECT DISTINCT games.match_id, players.team FROM player_rounds \
+        JOIN rounds ON player_rounds.round_id=rounds.id \
+        JOIN games ON rounds.game_id=games.match_id \
+        JOIN players ON player_rounds.player_id=players.steam_id \
+        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          var teamNum = results.rows[0].team;
+          var numOfGame = results.rows.length;
+          var str = "(";
+          results.rows.map(function(num){
+            str += "'" + num.match_id + "',";
+          }); 
+          str = str.slice(0,-1) + ")";
           client.query(
-            "SELECT rounds.team_won, \
-            rounds.winning_side, \
-            player_rounds.kills \
-            FROM player_rounds \
-            JOIN rounds ON player_rounds.round_id=rounds.id",
+            "SELECT players.team, SUM(player_rounds.kills) AS sum_team_kills FROM rounds \
+            JOIN player_rounds ON rounds.id=player_rounds.round_id \
+            JOIN players ON player_rounds.player_id=players.steam_id \
+            WHERE game_id IN " + str + " AND players.team = '" + teamNum + "' \
+            GROUP BY players.team",
             function(err,results){
               if(err) {
                 return console.error('error occurred');
               }
-              socket.emit('printWinLossALL', results);
-            });
+              socket.emit('printKillPart', {res: results, sk: data.sk});
           });
-        });
+          client.query(
+            "SELECT player_rounds.alias AS name,\
+            SUM(player_rounds.kills) AS sum_kills, \
+            SUM(player_rounds.deaths) AS sum_deaths, \
+            SUM(player_rounds.damage) AS sum_damage \
+            FROM rounds\
+            JOIN player_rounds ON rounds.id=player_rounds.round_id\
+            JOIN players ON player_rounds.player_id=players.steam_id\
+            WHERE game_id IN " + str + " and player_rounds.alias LIKE '%"+player+"%'\
+            GROUP BY player_rounds.alias, game_id",
+            function(err,results){
+              if(err) {
+                return console.error('error occurred');
+              }
+              socket.emit('PSR', {res: results, sk: data.sk});
+          });
+          client.query(
+            "select r1.game_id, sum(pr1.kills) as sum_kills, sum(pr1.deaths) as sum_deaths, sum(pr1.damage) as sum_damage \
+            from players p1\
+            join player_rounds pr1 on pr1.player_id = p1.steam_id \
+            join rounds r1 on pr1.round_id=r1.id \
+            group by r1.game_id",
+            function(err,results){
+              if(err) {
+                return console.error('error occurred');
+              }
+              socket.emit('PSRALL', {res: results, sk: numOfGame});
+          });
+      });
+      done();
+    });
+  });
 
-        //return kill Participations
-        socket.on('getKillPart', function(player){
-          pg.connect(conString, function(err, client, done) {
-            if(err) {
-              return console.error('error fetching client from pool', err);
-            }
-            client.query(
-              "SELECT DISTINCT games.match_id, players.team FROM player_rounds \
-              JOIN rounds ON player_rounds.round_id=rounds.id \
-              JOIN games ON rounds.game_id=games.match_id \
-              JOIN players ON player_rounds.player_id=players.steam_id \
-              WHERE player_rounds.alias LIKE'%"+player+"%'",
-              function(err,results){
-                if(err) {
-                  return console.error('error occurred');
-                }
-                var teamNum = results.rows[0].team;
-                var str = "(";
-                results.rows.map(function(num){
-                  str += "'" + num.match_id + "',";
-                });
-                str = str.slice(0,-1) + ")";
-                client.query(
-                  "SELECT players.team, SUM(player_rounds.kills) AS sum_team_kills FROM rounds \
-                  JOIN player_rounds ON rounds.id=player_rounds.round_id \
-                  JOIN players ON player_rounds.player_id=players.steam_id \
-                  WHERE game_id IN " + str + " AND players.team = '" + teamNum + "' \
-                  GROUP BY players.team",
-                  function(err,results){
-                    if(err) {
-                      return console.error('error occurred');
-                    }
-                    socket.emit('printKillPart', results);
-                  });
-                });
-              });
-            });
+  //return kill Participations for ALL players stat table
+  socket.on('getKillPartALL', function(data){
+    var player = data.query;
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query(
+        "select p1.steam_id, pr1.round_id, pr1.kills as my_kills, sum(pr2.kills) as our_kills\
+        from players p1\
+        join players p2 on p2.team = p1.team\
+        join player_rounds pr1 on pr1.player_id = p1.steam_id\
+        join player_rounds pr2 on pr2.player_id = p2.steam_id\
+        where pr1.round_id = pr2.round_id\
+        group by p1.steam_id, pr1.round_id, pr1.kills\
+        order by p1.steam_id, pr1.round_id",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('printKillPartALL', {res:results, sk:data.sk});
+      });
+      done();
+    });
+  });
 
-            //return kill Participations for ALL players stat table
-            socket.on('getKillPartALL', function(player){
-              pg.connect(conString, function(err, client, done) {
-                if(err) {
-                  return console.error('error fetching client from pool', err);
-                }
-                client.query(
-                  "select p1.steam_id, pr1.round_id, pr1.kills as my_kills, sum(pr2.kills) as our_kills\
-                  from players p1\
-                  join players p2 on p2.team = p1.team\
-                  join player_rounds pr1 on pr1.player_id = p1.steam_id\
-                  join player_rounds pr2 on pr2.player_id = p2.steam_id\
-                  where pr1.round_id = pr2.round_id\
-                  group by p1.steam_id, pr1.round_id, pr1.kills\
-                  order by p1.steam_id, pr1.round_id",
-                  function(err,results){
-                    if(err) {
-                      return console.error('error occurred');
-                    }
-                    socket.emit('printKillPartALL', results);
-                  });
-                });
-              });
+//returns KDA to stat table
+  socket.on('getKDA', function(player){
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      } else {
+      }
+      client.query(
+        "SELECT SUM(player_rounds.kills) AS sum_kills,\
+        SUM(player_rounds.kills)*100/(COUNT(*)+1) AS avg_kills, \
+        SUM(player_rounds.deaths)*100/(COUNT(*)+1) AS avg_deaths, \
+        SUM(player_rounds.assists)*100/(COUNT(*)+1) AS avg_assists, \
+        SUM(player_rounds.damage)/(COUNT(*)+1) AS avg_damage \
+        FROM player_rounds \
+        JOIN players ON player_rounds.player_id=players.steam_id \
+        JOIN teams ON players.team=teams.id \
+        JOIN rounds ON player_rounds.round_id=rounds.id \
+        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          results.rows[0].playerName = player;
+          socket.emit('printKDA', results);
+      });
+      client.query(
+        "SELECT SUM(player_rounds.kills) AS sum_kills,\
+        SUM(player_rounds.kills)*100/(COUNT(*)+1) AS avg_kills, \
+        SUM(player_rounds.deaths)*100/(COUNT(*)+1) AS avg_deaths, \
+        SUM(player_rounds.assists)*100/(COUNT(*)+1) AS avg_assists, \
+        SUM(player_rounds.damage)/(COUNT(*)+1) AS avg_damage \
+        FROM player_rounds \
+        JOIN players ON player_rounds.player_id=players.steam_id \
+        JOIN teams ON players.team=teams.id \
+        JOIN rounds ON player_rounds.round_id=rounds.id",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          results.rows[0].playerName = player;
+          socket.emit('printKDAALL', results);
+      });
+      done();
+    });
+  });
 
-              //returns KDA to stat table
-              socket.on('getKDA', function(player){
-                pg.connect(conString, function(err, client, done) {
-                  if(err) {
-                    return console.error('error fetching client from pool', err);
-                  }
-                  client.query(
-                    "SELECT SUM(player_rounds.kills) AS sum_kills,\
-                    SUM(player_rounds.kills)*100/(COUNT(*)+1) AS avg_kills, \
-                    SUM(player_rounds.deaths)*100/(COUNT(*)+1) AS avg_deaths, \
-                    SUM(player_rounds.assists)*100/(COUNT(*)+1) AS avg_assists, \
-                    SUM(player_rounds.damage)/(COUNT(*)+1) AS avg_damage \
-                    FROM player_rounds \
-                    JOIN players ON player_rounds.player_id=players.steam_id \
-                    JOIN teams ON players.team=teams.id \
-                    JOIN rounds ON player_rounds.round_id=rounds.id \
-                    WHERE player_rounds.alias LIKE'%"+player+"%'",
-                    function(err,results){
-                      if(err) {
-                        return console.error('error occurred');
-                      }
-                      results.rows[0].playerName = player;
-                      socket.emit('printKDA', results);
-                    });
-                    client.query(
-                      "SELECT SUM(player_rounds.kills) AS sum_kills,\
-                      SUM(player_rounds.kills)*100/(COUNT(*)+1) AS avg_kills, \
-                      SUM(player_rounds.deaths)*100/(COUNT(*)+1) AS avg_deaths, \
-                      SUM(player_rounds.assists)*100/(COUNT(*)+1) AS avg_assists, \
-                      SUM(player_rounds.damage)/(COUNT(*)+1) AS avg_damage \
-                      FROM player_rounds \
-                      JOIN players ON player_rounds.player_id=players.steam_id \
-                      JOIN teams ON players.team=teams.id \
-                      JOIN rounds ON player_rounds.round_id=rounds.id",
-                      function(err,results){
-                        if(err) {
-                          return console.error('error occurred');
-                        }
-                        results.rows[0].playerName = player;
-                        socket.emit('printKDAALL', results);
-                      });
-                    });
-                  });
-
-
-                  pg.connect(conString, function(err, client, done) {
-                    if(err) {
-                      return console.error('error fetching client from pool', err);
-                    }
-                    client.query('SELECT * FROM players JOIN teams ON players.team = teams.id LIMIT 1', function(err,results){
-                      if(err) {
-                        return console.error('error occurred');
-                      }
-                      socket.emit('statData', results);
-                    });
-                  });
-                });
-
+  //Returns logo avatar names
+  socket.on('statData', function(player){
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query("SELECT * FROM players \
+        JOIN teams ON players.team = teams.id \
+        JOIN player_rounds ON players.steam_id=player_rounds.player_id\
+        WHERE player_rounds.alias LIKE'%"+player+"%'", 
+        function(err,results){
+        if(err) {
+          return console.error('error occurred');
+        }
+        socket.emit('statData', results);
+      });
+      done();
+    });
+  });
+});
 
 
                 http.listen(8888, '0.0.0.0', function() {

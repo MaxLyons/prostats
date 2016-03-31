@@ -24,17 +24,17 @@
           <li><a class="mainTab" id="mainLiveTab">Live</a></li>
           <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
         </ul>
-        <form>
-          <div class="input-field">
-            <input id="search" type="search" required>
-            <label for="search"><i class="material-icons">search</i></label>
-            <i class="material-icons">close</i>
-          </div>
-        </form>
+          <form id="searchbar">
+            <div class="input-field">
+              <input name="name" id="search" type="search" required>
+              <label for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
       </div>
     </nav>
   </div>
-
+  <div>
   <div class="landing">
     <div class="land">
       <img src="image/logo.png"/>
@@ -76,79 +76,6 @@
 <!-- FRIST TABLE  -->
           <table class="highlight mainStat" data-tableNum="statTable1">
             <thead>
-              <tr>
-                <th > GAME STATUS </th>
-                <th data-field="name"> Player </th>
-                <th data-field="price"> All Players' Average </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ProStat Ranking</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Win</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Winning as Terrorist</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Winning as Counter-Terrorist</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Losing as Terrorist</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Losing as Counter-Terrorist</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>KD</td>
-                <td></td>
-                <td></td>
-              </tr>
-              </tr>
-                <td>Kill Participation/Round</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Average Kills</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Average Deaths</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Average Assists</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Average Damage</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Average Damage/Kill</td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
           </table>
         </div>
   <!-- CONTAINERS AVATAR, LOGO, GRAPH-->
@@ -162,6 +89,7 @@
           Teal page content
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>
