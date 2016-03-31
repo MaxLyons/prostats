@@ -106,7 +106,6 @@ io.on('connection', function(socket){
           }
           socket.emit('getKDAmatches', results)
         });
-
       });
     });
 
@@ -296,10 +295,9 @@ socket.on('searchPlayerName', function(player){
           results.rows[0].playerName = player;
           socket.emit('printKDAALL', results);
       });
-      client.query("SELECT * FROM players \
+      client.query("SELECT players.picture, players.alias, teams.name, teams.logo FROM players \
         JOIN teams ON players.team = teams.id \
-        JOIN player_rounds ON players.steam_id=player_rounds.player_id\
-        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        WHERE players.alias LIKE'%"+player+"%'",
         function(err,results){
         if(err) {
           return console.error('error occurred');

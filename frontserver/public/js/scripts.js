@@ -24,7 +24,7 @@ $(function() {
 
 
   socket.on('getEvents', function(results){
-    console.log(results);
+
     for(var i = 0; i < results.rows.length; i++){
       if(games_collection[i] === undefined || results.rows[i].match_id != games_collection[i].match_id){
         games_collection[i] = new Object();
@@ -151,16 +151,18 @@ $(function() {
   //////////////////////////////////
 
   //load player page by player name
-  function clearOtherPage(page){
+  function clearOtherPage(callback){
     $(".landing").fadeOut();
     $("[data-mainTab=mainLiveTab]").fadeOut();
     $("[data-mainTab=mainStatTab]").fadeOut();
     $(".mainStat thead").remove();
     $(".mainStat tbody").remove();
-    $("#playerAvatar").find('img').remove();
-    $("#teamLogo").find('img').remove();
-    $("#statPlayerName").find('h1').remove();
+    $("#statPlayerName").empty();
 
+    callback();
+  };
+
+  function fadeInPage(page){
     $("[data-mainTab="+page+"]").fadeIn();
   };
 
@@ -171,14 +173,14 @@ $(function() {
   //Load Stat Page Function
   function LoadStatPage(searchPlayer){
     table = $(this)[0].id;
-    clearOtherPage("mainStatTab");
+    clearOtherPage(function(){ fadeInPage("mainStatTab")});
 
     var trHeadName = ['GAME STATS', 'Player', 'All Player Average'];
     var trBodyName = ['ProStat Ranking', 'Win', 'Winning as Terrorist', 'Winning as Counter-Terrorist',
       'Losing as Terrorist', 'Losing as Counter-Terrorist', 'KD', 'Kill Participation', 'Average Kills',
       'Average Deaths', 'Average Assists', 'Average Damage'];
 
-    var thead = $('<thead class="mainhead">').appendTo('.mainStat');
+    var thead = $('<thead>').appendTo('.mainStat');
     var trHead = $('<tr>').appendTo(thead);
     for (i=0;i<trHeadName.length;i++){
       $('<th>').text(trHeadName[i]).appendTo(trHead);
@@ -204,16 +206,10 @@ $(function() {
     }
   }
 
-
-
-
   //navbar search bar
-  $('#searchbar').on('input', function(){
-    clearOtherPage("mainStatTab");
-    if ($('#search').val() != '') {
+  $('#searchbar').on('submit', function(){
       var player = $('#search').val();
       searchPlayer(player);
-    }
     return false;
   });
 
@@ -223,33 +219,26 @@ $(function() {
   });
 
   socket.on('getPlayerName', function(data){
-    // var thisId = "mainStatTab";
-    // changeMainTabs(thisId);
-    LoadStatPage(data.rows[0].alias);
+    if (data.rows[0] != undefined){
+      LoadStatPage(data.rows[0].alias);
+    }
   });
 
   //GETTING DATA FROM DB RAW AND PARSING INTO VARIABLES
   var elo, avatar, alias, teamName, psr, logo;
   socket.on('statData', function(data){
     var parse = data.rows;
-    var i = 0;
-
-    avatar = parse[i].picture;
-    alias = parse[i].alias;
-    teamName = parse[i].name;
-    logo = parse[i].logo;
-
-    console.log(avatar);
-    console.log(alias);
-    console.log(teamName);
-    console.log(logo);
+    avatar = parse[0].picture;
+    alias = parse[0].alias;
+    teamName = parse[0].name;
+    logo = parse[0].logo;
 
     //APPENDING NAME
-    $('<div class="playname" >').text(alias).appendTo('#statPlayerName');
+    $('<h1>').text(alias).appendTo('#statPlayerName');
 
     //APPENDING PICTURE
-    $('#statPlayerName').prepend("<img id='playerAvatar' src='"+ avatar +"'/>");
-    $('#statPlayerName').prepend("<img id='teamLogo' src='"+ logo +"'/>");
+    $('#statPlayerName').append("<img src='"+ avatar +"'/>");    
+    $('#statPlayerName').append("<img src='"+ logo +"'/>");     
 
   });
 
@@ -265,7 +254,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(2)').text(checkNaN((gamesWon/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(2)').text(checkNaN((wonTerrorist/gamesWon*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(2)').text(checkNaN(((1-(wonTerrorist/gamesWon))*100).toFixed(2)) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text(checkNaN((lossTerrorist/gamesLost*100).toFixed(2)) + '%');
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text(checkNaN((lossTerrorist/gamesLost*100).toFixed(2)) + '%');    
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(2)').text(checkNaN(((1-(lossTerrorist/gamesLost))*100).toFixed(2)) + '%');
   });
 
@@ -282,7 +271,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(3)').text(checkNaN((gamesWon/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(3)').text(checkNaN((wonTerrorist/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(3)').text(checkNaN(((1-(wonTerrorist/totalGames))*100).toFixed(2)) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text(checkNaN((lossTerrorist/totalGames*100).toFixed(2)) + '%');
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text(checkNaN((lossTerrorist/totalGames*100).toFixed(2)) + '%');    
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(3)').text(checkNaN(((1-(lossTerrorist/totalGames))*100).toFixed(2)) + '%');
   });
 
@@ -296,9 +285,9 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(2)').text(checkNaN((data.avg_kills/data.avg_deaths).toFixed(2)));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(2)').text(checkNaN(data.avg_kills/100));
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(2)').text(checkNaN(data.avg_deaths/100));
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(checkNaN(data.avg_assists/100));
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(checkNaN(data.avg_assists/100));  
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(2)').text(checkNaN(data.avg_damage));
-
+    
     //kill participation
     socket.emit('getKillPart', {query: searchPlayer, sk: PSRArr, sa: sumKills});
   });
@@ -310,7 +299,7 @@ $(function() {
     console.log(data);
     console.log(sumKills);
     var killParticipation = (sumKills * 100 / data.rows[0].sum_team_kills).toFixed(2);
-    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(checkNaN(killParticipation) + '%');
+    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(checkNaN(killParticipation) + '%');      
   });
 
   socket.on('PSR', function(data0){
@@ -335,7 +324,7 @@ $(function() {
     //STATIC GRAPH PSR
     $('#statGraphContainer').highcharts({
       chart: {
-          backgroundColor: 'rgba(0,0,0,0.8)',
+          backgroundColor: 'rgba(255,225,225,0.8)',
       },
       title: {
         text: 'Player\'s Rating',
@@ -351,7 +340,7 @@ $(function() {
         plotLines: [{
           value: 0,
           width: 1,
-          color: '#808080'
+          color: 'rgb(128, 128, 128)'
         }]
       },
       legend: {
@@ -396,7 +385,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(3)').text(checkNaN((data.avg_kills/data.avg_deaths).toFixed(2)));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(3)').text(checkNaN(data.avg_kills/100));
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(3)').text(checkNaN(data.avg_deaths/100));
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(checkNaN(data.avg_assists/100));
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(checkNaN(data.avg_assists/100));  
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(3)').text(checkNaN(data.avg_damage));
 
     //kill participation
@@ -441,15 +430,15 @@ $(function() {
 
 
   socket.on('getKDAmatches', function(results){
+    console.log(games_collection);
+    console.log(results);
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
       games_collection[j].team2players = [];
-      ;
+
       for(var i = 0; i < results.rows.length; i++){
-
         if(games_collection[j].match_id == results.rows[i].game_id){
-          if (games_collection[j].team1 ==  results.rows[i].team) {
-
+          if(games_collection[j].team1 == results.rows[i].team) {
             games_collection[j].team1players.push(results.rows[i]);
           } else {
             games_collection[j].team2players.push(results.rows[i]);

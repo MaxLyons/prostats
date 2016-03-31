@@ -245,7 +245,6 @@ app.get('/', function(req, res){
                       }
                       done();
                     });
-                    if (ctScore )
                     roundNumber += 1;
                   }
                 });
