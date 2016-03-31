@@ -201,6 +201,12 @@ app.get('/', function(req, res){
                           var roundDamage = damageArray[damageArray.length - 1];
                           var roundDeath = deathArray[deathArray.length - 1];
                           var roundAssist = assistArray[assistArray.length - 1];
+                          if (roundDamage == undefined) {
+                            roundDamage = 0;
+                          }
+                          if (roundDeath == undefined) {
+                            roundDeath = 0;
+                          }
                           var steamId = player.getGuid();
                           steamId = "STEAM_0:" + steamId.substring(8);
                           if (roundAssist == undefined) {

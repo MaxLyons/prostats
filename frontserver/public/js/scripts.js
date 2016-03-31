@@ -15,10 +15,6 @@ $(function() {
     $("#totalteamstracked").text(data);
   });
 
-  socket.on('n0thing', function(data) {
-    $("#n0thing").attr("src", data);
-  });
-
   socket.on('player count', function(data) {
     $("#totalplayerstracked").text(data);
     $(".landstats").fadeIn(600);
@@ -90,7 +86,7 @@ $(function() {
         liveScoreboard += "<td class='k_row'>" + player.kills + "</td>";
         liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
         liveScoreboard += "<td class='a_row'>" + player.assists + "</td>";
-        liveScoreboard += "<td class='kd_row'>" + Math.round((player.kills/player.deaths) * 100) / 100  + "</td>";
+        liveScoreboard += "<td class='kd_row'>" + Math.round((player.kills/player.deaths) * 100) / 100 + "</td>";
         liveScoreboard += "<td class='psr_row'>47%</td>";
         liveScoreboard += "</tr>";
       }
@@ -129,6 +125,9 @@ $(function() {
       liveScoreboard += "</table>";
       liveScoreboard += "</div>";
       $("#livegames").append(liveScoreboard);
+      $(".alias_row").on('click', function() {
+        LoadStatPage($(this).text());
+      })
     }
   })
 

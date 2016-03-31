@@ -185,6 +185,10 @@ float:left;
   width: 75px;
 }
 
+.alias_row {
+  cursor: pointer;
+}
+
 .playeravatar {
   height: 30px;
   border-radius: 50%;

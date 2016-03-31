@@ -13,7 +13,7 @@ $(function() {
   });
 
   $('#player').submit(function(){
-    var player = {team_id: $('#team_list').val(), name: $('#player_name').val(), steam_id: $('#steam_id').val(), picture: "placeholder"}
+    var player = {team_id: $('#team_list').val(), name: $('#player_name').val(), steam_id: $('#steam_id').val(), picture: $('#picture_url').val()}
     socket.emit('add player', player);
     $('#player_name').val('');
     $('#steam_id').val('');

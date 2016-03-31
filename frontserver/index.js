@@ -44,13 +44,6 @@ io.on('connection', function(socket){
       }
       socket.emit('player count', results.rows[0].exact_count);
     });
-    client.query("SELECT picture FROM players WHERE alias = 'n0thing'",
-    function(err,results){
-      if(err) {
-        return console.error('error occurred');
-      }
-      socket.emit('n0thing', results.rows[0].picture);
-    });
 
     //Felix's queries
 
