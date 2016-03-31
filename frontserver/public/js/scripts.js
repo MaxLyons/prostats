@@ -64,7 +64,8 @@ $(function() {
 
   $("#mainLiveTab").on('click', function(){
     table = $(this)[0].id;
-    $("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
+    $(".landing").fadeOut();
+    $("[data-mainTab=" + table + "]").fadeIn();
     for (var y = 0; y < games_collection.length; y ++) {
       var game = games_collection[y];
       var liveScoreboard = "";
