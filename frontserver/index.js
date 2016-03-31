@@ -113,42 +113,6 @@ io.on('connection', function(socket){
     });
 
 
-  //returns Win Loss to stat table
-  socket.on('getWinLossData', function(player){
-    pg.connect(conString, function(err, client, done) {
-      if(err) {
-        return console.error('error fetching client from pool', err);
-      }
-      client.query(
-        "SELECT rounds.team_won, \
-        rounds.winning_side, \
-        player_rounds.kills \
-        FROM player_rounds \
-        JOIN rounds ON player_rounds.round_id=rounds.id \
-        WHERE player_rounds.alias LIKE'%"+player+"%'",
-        function(err,results){
-          // done();
-          if(err) {
-            return console.error('error occurred');
-          }
-          socket.emit('printWinLoss', results);
-      });
-      client.query(
-        "SELECT rounds.team_won, \
-        rounds.winning_side, \
-        player_rounds.kills \
-        FROM player_rounds \
-        JOIN rounds ON player_rounds.round_id=rounds.id",
-        function(err,results){
-          // done();
-          if(err) {
-            return console.error('error occurred');
-          }
-          socket.emit('printWinLossALL', results);
-      });
-      done();
-    });
-  });
 
   //return kill Participations
   socket.on('getKillPart', function(data){
@@ -184,7 +148,7 @@ io.on('connection', function(socket){
               if(err) {
                 return console.error('error occurred');
               }
-              socket.emit('printKillPart', {res: results, sk: data.sk});
+              socket.emit('printKillPart', {res: results, sk: data.sa});
           });
           client.query(
             "SELECT player_rounds.alias AS name,\
@@ -245,6 +209,26 @@ io.on('connection', function(socket){
     });
   });
 
+//Fuzzy search by player name
+socket.on('searchPlayerName', function(player){
+  console.log(player);
+  pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query(
+        "SELECT alias FROM player_rounds WHERE alias % '" + player +"' LIMIT 1",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          console.log(results);
+          socket.emit('getPlayerName', results);
+      });
+      done();
+    });
+});
+
 //returns KDA to stat table
   socket.on('getKDA', function(player){
     pg.connect(conString, function(err, client, done) {
@@ -252,6 +236,33 @@ io.on('connection', function(socket){
         return console.error('error fetching client from pool', err);
       } else {
       }
+      client.query(
+        "SELECT rounds.team_won, \
+        rounds.winning_side, \
+        player_rounds.kills \
+        FROM player_rounds \
+        JOIN rounds ON player_rounds.round_id=rounds.id \
+        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        function(err,results){
+          // done();
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('printWinLoss', results);
+      });
+      client.query(
+        "SELECT rounds.team_won, \
+        rounds.winning_side, \
+        player_rounds.kills \
+        FROM player_rounds \
+        JOIN rounds ON player_rounds.round_id=rounds.id",
+        function(err,results){
+          // done();
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('printWinLossALL', results);
+      });
       client.query(
         "SELECT SUM(player_rounds.kills) AS sum_kills,\
         SUM(player_rounds.kills)*100/(COUNT(*)+1) AS avg_kills, \
@@ -287,16 +298,6 @@ io.on('connection', function(socket){
           results.rows[0].playerName = player;
           socket.emit('printKDAALL', results);
       });
-      done();
-    });
-  });
-
-  //Returns logo avatar names
-  socket.on('statData', function(player){
-    pg.connect(conString, function(err, client, done) {
-      if(err) {
-        return console.error('error fetching client from pool', err);
-      }
       client.query("SELECT * FROM players \
         JOIN teams ON players.team = teams.id \
         JOIN player_rounds ON players.steam_id=player_rounds.player_id\
