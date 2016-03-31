@@ -151,6 +151,19 @@ $(function() {
   //////////////////////////////////
 
   //load player page by player name
+  function clearOtherPage(page){
+    $(".landing").fadeOut();
+    $("[data-mainTab=mainLiveTab]").fadeOut();
+    $("[data-mainTab=mainStatTab]").fadeOut();
+    $(".mainStat thead").remove();
+    $(".mainStat tbody").remove();
+    $("#playerAvatar").find('img').remove();
+    $("#teamLogo").find('img').remove();
+    $("#statPlayerName").find('h1').remove();
+
+    $("[data-mainTab="+page+"]").fadeIn();
+  };
+
   function searchPlayer(player){
     socket.emit('searchPlayerName', player);
   };
@@ -158,14 +171,7 @@ $(function() {
   //Load Stat Page Function
   function LoadStatPage(searchPlayer){
     table = $(this)[0].id;
-    $(".landing").fadeOut();
-    $("[data-mainTab=mainLiveTab]").fadeOut();
-    $("[data-mainTab=mainStatTab]").fadeIn();
-    $(".mainStat thead").remove();
-    $(".mainStat tbody").remove();
-    $("#playerAvatar").find('img').remove();
-    $("#teamLogo").find('img').remove();
-    $("#statPlayerName").find('h1').remove();
+    clearOtherPage("mainStatTab");
 
     var trHeadName = ['GAME STATS', 'Player', 'All Player Average'];
     var trBodyName = ['ProStat Ranking', 'Win', 'Winning as Terrorist', 'Winning as Counter-Terrorist',
@@ -203,6 +209,7 @@ $(function() {
 
   //navbar search bar
   $('#searchbar').on('input', function(){
+    clearOtherPage("mainStatTab");
     if ($('#search').val() != '') {
       var player = $('#search').val();
       searchPlayer(player);
@@ -232,12 +239,17 @@ $(function() {
     teamName = parse[i].name;
     logo = parse[i].logo;
 
+    console.log(avatar);
+    console.log(alias);
+    console.log(teamName);
+    console.log(logo);
+
     //APPENDING NAME
     $('<h1>').text(alias).appendTo('#statPlayerName');
 
     //APPENDING PICTURE
-    $('#playerAvatar').append('<img src='+ avatar +'/>');    
-    $('#teamLogo').append('<img src='+ logo +'/>');     
+    $('#playerAvatar').append("<img src='"+ avatar +"'/>");    
+    $('#teamLogo').append("<img src='"+ logo +"'/>");     
 
   });
 
