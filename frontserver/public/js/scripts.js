@@ -441,10 +441,21 @@ $(function() {
   socket.on('getKDAmatches', function(results){
     console.log(games_collection);
     console.log(results);
+
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
       games_collection[j].team2players = [];
+      var team1 = games_collection.team1;
+      var team2 = games_collection.team2;
 
+      if(games_collection[j].winning_side == "CT" && games_collection[j].team_won == team2){
+        games_collection[j].team1 == team2;
+        games_collection[j].team2 == team1;
+      }else if(games_collection[j].winning_side == "Terrorist" && games_collection[j].team_won == team1){
+        games_collection[j].team1 == team2;
+        games_collection[j].team2 == team1;
+      }
+      
       for(var i = 0; i < results.rows.length; i++){
         if(games_collection[j].match_id == results.rows[i].game_id){
           if(games_collection[j].team1 == results.rows[i].team) {
