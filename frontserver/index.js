@@ -127,8 +127,9 @@ io.on('connection', function(socket){
           if(err) {
             return console.error('error occurred');
           }
-          if(results.rows==undefined){
-            results.rows = [{ match_id: NaN, team: NaN}];
+          if(results.rows[0]==undefined){
+            console.log("HIII");
+            results.rows = [{ match_id: -1, team: -1}];
           }
           console.log(results);
           var teamNum = results.rows[0].team;
