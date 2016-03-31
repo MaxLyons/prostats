@@ -24,7 +24,7 @@
           <li><a class="mainTab" id="mainLiveTab">Live</a></li>
           <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
         </ul>
-          <form id="searchbar">
+          <form id="searchbar" onsubmit="event.preventDefault();">
             <div class="input-field">
               <input name="name" id="search" type="search" required>
               <label for="search"><i class="material-icons">search</i></label>
@@ -62,16 +62,7 @@
     <div class="fade" data-mainTab="mainStatTab">
       <div class="row page">
         <div class="col s5 offset-s1 statTable">
-          <div>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable1">Total</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable2">MAP 1</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable3">MAP 2</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable4">MAP 3</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable5">MAP 4</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable6">MAP 5</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable7">MAP 6</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable8">MAP 7</a>
-            <a class="waves-effect waves-light btn z-depth-0 statTableTabs" id="statTable9">MAP 8</a>
+          <div id="statPlayerName">            
           </div>
 <!-- FRIST TABLE  -->
           <table class="highlight mainStat" data-tableNum="statTable1">

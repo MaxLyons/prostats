@@ -274,6 +274,11 @@ td{
     width: 33%;
 }
 
+#statPlayerName {
+  color: #96BCD3;
+  text-align: center;
+}
+
 .statTeamIconContainer {
   height: 35vh;
   border-style: solid;
