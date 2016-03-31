@@ -132,6 +132,7 @@ io.on('connection', function(socket){
           }
           console.log(results);
           var teamNum = results.rows[0].team;
+          console.log(teamNum);
           var numOfGame = results.rows.length;
           var str = "(";
           results.rows.map(function(num){
