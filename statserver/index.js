@@ -207,6 +207,9 @@ app.get('/', function(req, res){
                           if (roundDeath == undefined) {
                             roundDeath = 0;
                           }
+                          if (roundDeath > 1) {
+                            roundDeath = 0;
+                          }
                           var steamId = player.getGuid();
                           steamId = "STEAM_0:" + steamId.substring(8);
                           if (roundAssist == undefined) {
