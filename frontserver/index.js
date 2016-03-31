@@ -55,7 +55,7 @@ io.on('connection', function(socket){
     //Felix's queries
 
     //events
-    client.query("SELECT g.match_id, g.map AS map, g.event, t1.name AS t1name, t1.id AS t1id, t2.name AS t2name, t2.id AS t2id\
+    client.query("SELECT g.match_id, g.map AS map, g.event, t1.logo AS t1logo, t2.logo AS t2logo, t1.name AS t1name, t1.id AS t1id, t2.name AS t2name, t2.id AS t2id\
     FROM games AS g \
     JOIN teams AS t1 ON g.team1 = t1.id\
     JOIN teams AS t2 ON g.team2 = t2.id",
@@ -63,8 +63,8 @@ io.on('connection', function(socket){
     function(err, results){
       if(err){
         console.error("Your query is flawed");
-
       }
+      console.log(results);
       socket.emit('getEvents', results);
     });
 
@@ -94,13 +94,18 @@ io.on('connection', function(socket){
       });
       uniqueGame_id = uniqueGame_id.slice(0,-1) + ")";
 
+
       client.query(
-        "SELECT rounds.game_id, teams.name AS team, players.alias, SUM(kills) AS kills, SUM(deaths) AS deaths, SUM(assists) AS assists, SUM(player_rounds.damage) AS TotalTeamDamage FROM rounds \
+        "SELECT rounds.game_id, teams.name AS team, players.alias,\
+        players.picture AS avatar,\
+        SUM(kills) AS kills, \
+        SUM(deaths) AS deaths, \
+        SUM(assists) AS assists, SUM(player_rounds.damage) AS TotalTeamDamage FROM rounds \
         JOIN player_rounds ON rounds.id=player_rounds.round_id \
         JOIN players ON player_rounds.player_id=players.steam_id \
         JOIN teams ON players.team=teams.id \
         WHERE rounds.game_id IN" + uniqueGame_id +"\
-        GROUP BY players.alias, teams.name, rounds.game_id\
+        GROUP BY players.alias, players.picture, teams.name, rounds.game_id\
         ORDER BY teams.name",
         function(err,results){
           if(err) {
@@ -172,7 +177,7 @@ io.on('connection', function(socket){
           var str = "(";
           results.rows.map(function(num){
             str += "'" + num.match_id + "',";
-          }); 
+          });
           str = str.slice(0,-1) + ")";
           client.query(
             "SELECT players.team, SUM(player_rounds.kills) AS sum_team_kills FROM rounds \
@@ -300,7 +305,7 @@ io.on('connection', function(socket){
       client.query("SELECT * FROM players \
         JOIN teams ON players.team = teams.id \
         JOIN player_rounds ON players.steam_id=player_rounds.player_id\
-        WHERE player_rounds.alias LIKE'%"+player+"%'", 
+        WHERE player_rounds.alias LIKE'%"+player+"%'",
         function(err,results){
         if(err) {
           return console.error('error occurred');
@@ -313,6 +318,6 @@ io.on('connection', function(socket){
 });
 
 
-                http.listen(8888, '0.0.0.0', function() {
-                  console.log('Listening to port:  ' + 8888);
-                });
+          http.listen(8888, '0.0.0.0', function() {
+          console.log('Listening to port:  ' + 8888);
+          });

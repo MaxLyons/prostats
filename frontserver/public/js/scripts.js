@@ -41,10 +41,10 @@ $(function() {
     };
   })
 
-  socket.on('getAlias', function(results){
-    for(var i = 0; i<results.rows.length; i++){
-    }
-  });
+  // socket.on('getAlias', function(results){
+  //   for(var i = 0; i<results.rows.length; i++){
+  //   }
+  // });
 
 
   $("#mainLiveTab").on('click', function(){
@@ -174,8 +174,8 @@ $(function() {
 
 
     var trHeadName = ['GAME STATS', 'Player', 'All Player Average'];
-    var trBodyName = ['ProStat Ranking', 'Win', 'Winning as Terrorist', 'Winning as Counter-Terrorist', 
-      'Losing as Terrorist', 'Losing as Counter-Terrorist', 'KD', 'Kill Participation', 'Average Kills', 
+    var trBodyName = ['ProStat Ranking', 'Win', 'Winning as Terrorist', 'Winning as Counter-Terrorist',
+      'Losing as Terrorist', 'Losing as Counter-Terrorist', 'KD', 'Kill Participation', 'Average Kills',
       'Average Deaths', 'Average Assists', 'Average Damage'];
 
     var thead = $('<thead>').appendTo('.mainStat');
@@ -233,7 +233,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(2)').text((gamesWon/totalGames*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(2)').text((wonTerrorist/gamesWon*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(2)').text(((1-(wonTerrorist/gamesWon))*100).toFixed(2) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text((lossTerrorist/gamesLost*100).toFixed(2) + '%');    
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text((lossTerrorist/gamesLost*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(2)').text(((1-(lossTerrorist/gamesLost))*100).toFixed(2) + '%');
   });
 
@@ -249,7 +249,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(3)').text((gamesWon/totalGames*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(3)').text((wonTerrorist/totalGames*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(3)').text(((1-(wonTerrorist/totalGames))*100).toFixed(2) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text((lossTerrorist/totalGames*100).toFixed(2) + '%');    
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text((lossTerrorist/totalGames*100).toFixed(2) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(3)').text(((1-(lossTerrorist/totalGames))*100).toFixed(2) + '%');
   });
 
@@ -263,9 +263,9 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(2)').text((data.avg_kills/data.avg_deaths).toFixed(2));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(2)').text(data.avg_kills/100);
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(2)').text(data.avg_deaths/100);
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(data.avg_assists/100);  
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(data.avg_assists/100);
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(2)').text(data.avg_damage);
-    
+
     //kill participation
     socket.emit('getKillPart', {query: searchPlayer, sk: PSRArr});
   });
@@ -275,7 +275,7 @@ $(function() {
     var data = data0.res;
     var sumKills = data0.sk;
     var killParticipation = (sumKills * 100 / data.rows[0].sum_team_kills).toFixed(2);
-    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(killParticipation + '%');      
+    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(killParticipation + '%');
   });
 
   socket.on('PSR', function(data0){
@@ -287,7 +287,7 @@ $(function() {
       var deaths = +data.rows[gameCount].sum_deaths;
       var damage = +data.rows[gameCount].sum_damage;
 
-      PSRArr[gameCount] = +((10*damage/kills)+(100*kills)-(75*deaths)).toFixed(0);    
+      PSRArr[gameCount] = +((10*damage/kills)+(100*kills)-(75*deaths)).toFixed(0);
       gameCount ++;
     }
     var PSR = PSRArr.reduce(function(a,b){
@@ -343,7 +343,7 @@ $(function() {
       var deaths = +data.rows[gameCount].sum_deaths;
       var damage = +data.rows[gameCount].sum_damage;
 
-      PSRArrAll[gameCount] = +((10*damage/kills)+(100*kills)-(75*deaths)).toFixed(0);    
+      PSRArrAll[gameCount] = +((10*damage/kills)+(100*kills)-(75*deaths)).toFixed(0);
       gameCount ++;
     }
     var PSR = PSRArrAll.reduce(function(a,b){
@@ -351,7 +351,7 @@ $(function() {
     });
     PSR = (PSR/PSRArrAll.length).toFixed(0);
     $('.mainStat').find('tbody').find('tr:nth-child(1)').find('td:nth-child(3)').text(PSR);
-  
+
   });
 
   //replacing KDA on stat table for All player's average
@@ -363,9 +363,9 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(3)').text((data.avg_kills/data.avg_deaths).toFixed(2));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(3)').text(data.avg_kills/100);
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(3)').text(data.avg_deaths/100);
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(data.avg_assists/100);  
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(data.avg_assists/100);
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(3)').text(data.avg_damage);
-  
+
     //kill participation
     socket.emit('getKillPartALL', {query: searchPlayer, sk: sumKills} );
 
@@ -384,7 +384,7 @@ $(function() {
 
     var killParticipation = (sumKills * 100 / data.rows[0].sum_team_kills).toFixed(2);
     $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(3)').text((myKills*100/ourKills).toFixed(2)+"%");
-    
+
   });
 
 /*LIVE STATS TAB */
@@ -421,7 +421,7 @@ $(function() {
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
       games_collection[j].team2players = [];
-
+      console.log(results);
       for(var i = 0; i < results.rows.length; i++){
 
         if(games_collection[j].match_id == results.rows[i].game_id){
