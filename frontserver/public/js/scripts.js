@@ -40,11 +40,14 @@ $(function() {
     };
   })
 
-  // socket.on('getAlias', function(results){
-  //   for(var i = 0; i<results.rows.length; i++){
-  //   }
-  // });
 
+  $("#logo").on('click', function(e){
+    e.preventDefault();
+    $(".fade").fadeOut();
+    $("#livegames").fadeOut();
+    $(".landing").fadeIn();
+    $(".landstats").hide().fadeIn(700);
+  });
 
   $("#mainLiveTab").on('click', function(){
     $("#livegames").empty();
