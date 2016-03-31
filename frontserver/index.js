@@ -130,9 +130,7 @@ io.on('connection', function(socket){
           if(results.rows[0]==undefined){
             results.rows = [{ match_id: -1, team: -1}];
           }
-          console.log(results);
           var teamNum = results.rows[0].team;
-          console.log(teamNum);
           var numOfGame = results.rows.length;
           var str = "(";
           results.rows.map(function(num){
@@ -256,10 +254,12 @@ socket.on('findRandPlayer', function(player){
       client.query(
         "SELECT rounds.team_won, \
         rounds.winning_side, \
-        player_rounds.kills \
+        player_rounds.kills, \
+        teams.name \
         FROM player_rounds \
         JOIN rounds ON player_rounds.round_id=rounds.id \
         JOIN players ON player_rounds.player_id=players.steam_id \
+        JOIN teams ON players.team=teams.id \
         WHERE players.alias LIKE '%"+player+"%'",
         function(err,results){
           if(err) {

@@ -214,21 +214,16 @@ $(function() {
     //LOADS STAT PAGE
   $("#mainStatTab").on('click', function(){
     // LoadStatPage("shroud");
-    console.log('clicked');
     socket.emit('findRandPlayer');
   });
 
   socket.on('loadRandPlayer', function(data){
-    console.log(data);
     var pick = (Math.random() * (data.rows.length - 0)).toFixed(0);
-    console.log(pick);
     var player = data.rows[pick].alias;
-    console.log(player);
     socket.emit('searchPlayerName', player);
   });
 
   socket.on('getPlayerName', function(data){
-    console.log(data)
     if (data.rows[0] != undefined){
       LoadStatPage(data.rows[0].alias);
     }
@@ -253,12 +248,12 @@ $(function() {
 
   //replacing KDA on stat table
   socket.on('printWinLoss', function(data){
-
+    console.log(data);
     var totalGames = data.rows.length;
-    var gamesWon = data.rows.filter(function(value) { return value.team_won === 'Cloud9' }).length;
+    var gamesWon = data.rows.filter(function(value) { return value.team_won == data.rows[0].name }).length;
     var gamesLost = totalGames - gamesWon;
-    var wonTerrorist = data.rows.filter(function(value) { return value.team_won === 'Cloud9' && value.winning_side === 'Terrorist' }).length;
-    var lossTerrorist = data.rows.filter(function(value) { return value.team_won !== 'Cloud9' && value.winning_side === 'Terrorist' }).length;
+    var wonTerrorist = data.rows.filter(function(value) { return value.team_won === data.rows[0].name && value.winning_side === 'Terrorist' }).length;
+    var lossTerrorist = data.rows.filter(function(value) { return value.team_won !== data.rows[0].name && value.winning_side === 'Terrorist' }).length;
 
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(2)').text(checkNaN((gamesWon/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(2)').text(checkNaN((wonTerrorist/gamesWon*100).toFixed(2)) + '%');
@@ -305,8 +300,6 @@ $(function() {
   socket.on('printKillPart', function(data0){
     var data = data0.res;
     var sumKills = data0.sk;
-    console.log(data);
-    console.log(sumKills);
     var killParticipation = (sumKills * 100 / data.rows[0].sum_team_kills).toFixed(2);
     $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(checkNaN(killParticipation) + '%');
   });
@@ -439,8 +432,6 @@ $(function() {
 
 
   socket.on('getKDAmatches', function(results){
-    console.log(games_collection);
-    console.log(results);
 
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
@@ -471,7 +462,6 @@ $(function() {
 
   //catching information about team sides
   socket.on('team_side', function(results){
-    console.log(results);
     for(var i = 0; i < results.rows.length; i ++){
       if(games_collection[i] === undefined || results.rows[i].ct_score != games_collection[i].ct_score){
         games_collection[i].ct_score = results.rows[i].ct_score;
@@ -480,7 +470,6 @@ $(function() {
         games_collection[i].winning_side = results.rows[i].winning_side;
       }
     }
-    console.log(games_collection);
   });
 
   //comparing length of uniqueGame_Arr as a secondary counter to the number of games to append
@@ -489,14 +478,12 @@ $(function() {
     for(var i = 0; i < results.rows.length; i++){
       uniqueGame_Arr.push(results.rows[i].match_id);
     }
-    console.log('there are ' + uniqueGame_Arr.length + " games to append");
   });
 
   var counter = 0;
 
   $(window).scroll(function () {
     if (current_tab == "mainLiveTab" && $(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
-      console.log($(window).scrollTop());//Add something at the end of the page
 
       if(counter < 10 && counter < games_collection.length){
         //html() doesn't work in this case. changes the html into an object. USE CLONE();
