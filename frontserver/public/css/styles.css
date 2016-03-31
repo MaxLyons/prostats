@@ -255,6 +255,12 @@ td{
  display: none;
 }
 
+#statGraphContainer {
+  width: 840px;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
 .mainStat tr {
     width: 100%;
     display: table;

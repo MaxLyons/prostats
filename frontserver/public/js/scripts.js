@@ -335,7 +335,7 @@ $(function() {
     //STATIC GRAPH PSR
     $('#statGraphContainer').highcharts({
       chart: {
-          backgroundColor: 'rgba(0,0,0,0.5)',
+          backgroundColor: 'rgba(0,0,0,0.8)',
       },
       title: {
         text: 'Player\'s Rating',
