@@ -57,7 +57,6 @@ io.on('connection', function(socket){
       if(err){
         console.error("Your query is flawed");
       }
-      console.log(results);
       socket.emit('getEvents', results);
     });
 
@@ -123,11 +122,15 @@ io.on('connection', function(socket){
         JOIN rounds ON player_rounds.round_id=rounds.id \
         JOIN games ON rounds.game_id=games.match_id \
         JOIN players ON player_rounds.player_id=players.steam_id \
-        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        WHERE players.alias LIKE '%"+player+"%'",
         function(err,results){
           if(err) {
             return console.error('error occurred');
           }
+          if(results.rows==undefined){
+            results.rows = [{ match_id: NaN, team: NaN}];
+          }
+          console.log(results);
           var teamNum = results.rows[0].team;
           var numOfGame = results.rows.length;
           var str = "(";
@@ -148,15 +151,15 @@ io.on('connection', function(socket){
               socket.emit('printKillPart', {res: results, sk: data.sa});
           });
           client.query(
-            "SELECT player_rounds.alias AS name,\
+            "SELECT players.alias AS name,\
             SUM(player_rounds.kills) AS sum_kills, \
             SUM(player_rounds.deaths) AS sum_deaths, \
             SUM(player_rounds.damage) AS sum_damage \
             FROM rounds\
             JOIN player_rounds ON rounds.id=player_rounds.round_id\
             JOIN players ON player_rounds.player_id=players.steam_id\
-            WHERE game_id IN " + str + " and player_rounds.alias LIKE '%"+player+"%'\
-            GROUP BY player_rounds.alias, game_id",
+            WHERE game_id IN " + str + " and players.alias LIKE '%"+player+"%'\
+            GROUP BY players.alias, game_id",
             function(err,results){
               if(err) {
                 return console.error('error occurred');
@@ -208,7 +211,6 @@ io.on('connection', function(socket){
 
 //Fuzzy search by player name
 socket.on('searchPlayerName', function(player){
-  console.log(player);
   pg.connect(conString, function(err, client, done) {
       if(err) {
         return console.error('error fetching client from pool', err);
@@ -219,8 +221,25 @@ socket.on('searchPlayerName', function(player){
           if(err) {
             return console.error('error occurred');
           }
-          console.log(results);
           socket.emit('getPlayerName', results);
+      });
+      done();
+    });
+});
+
+//find random player to load
+socket.on('findRandPlayer', function(player){
+  pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query(
+        "SELECT alias FROM players",
+        function(err,results){
+          if(err) {
+            return console.error('error occurred');
+          }
+          socket.emit('loadRandPlayer', results);
       });
       done();
     });
@@ -239,9 +258,9 @@ socket.on('searchPlayerName', function(player){
         player_rounds.kills \
         FROM player_rounds \
         JOIN rounds ON player_rounds.round_id=rounds.id \
-        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        JOIN players ON player_rounds.player_id=players.steam_id \
+        WHERE players.alias LIKE '%"+player+"%'",
         function(err,results){
-          // done();
           if(err) {
             return console.error('error occurred');
           }
@@ -270,7 +289,7 @@ socket.on('searchPlayerName', function(player){
         JOIN players ON player_rounds.player_id=players.steam_id \
         JOIN teams ON players.team=teams.id \
         JOIN rounds ON player_rounds.round_id=rounds.id \
-        WHERE player_rounds.alias LIKE'%"+player+"%'",
+        WHERE players.alias LIKE'%"+player+"%'",
         function(err,results){
           if(err) {
             return console.error('error occurred');
