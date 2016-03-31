@@ -213,7 +213,18 @@ $(function() {
 
     //LOADS STAT PAGE
   $("#mainStatTab").on('click', function(){
-    LoadStatPage("shroud");
+    // LoadStatPage("shroud");
+    console.log('clicked');
+    socket.emit('findRandPlayer');
+  });
+
+  socket.on('loadRandPlayer', function(data){
+    console.log(data);
+    var pick = (Math.random() * (data.rows.length - 0)).toFixed(0);
+    console.log(pick);
+    var player = data.rows[pick].alias;
+    console.log(player);
+    socket.emit('searchPlayerName', player);
   });
 
   socket.on('getPlayerName', function(data){
@@ -364,7 +375,7 @@ $(function() {
       var deaths = +data.rows[gameCount].sum_deaths;
       var damage = +data.rows[gameCount].sum_damage;
 
-      PSRArrAll[gameCount] = +((10*damage/kills)+(100*kills)-(75*deaths)).toFixed(0);
+      PSRArrAll[gameCount] = +(2*((10*damage/kills)+(100*kills)-(75*deaths))).toFixed(0);
       gameCount ++;
     }
     var PSR = PSRArrAll.reduce(function(a,b){
