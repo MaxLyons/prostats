@@ -28,6 +28,7 @@ $(function() {
 
 
   socket.on('getEvents', function(results){
+    console.log(results);
     for(var i = 0; i < results.rows.length; i++){
       if(games_collection[i] === undefined || results.rows[i].match_id != games_collection[i].match_id){
         games_collection[i] = new Object();
@@ -36,6 +37,8 @@ $(function() {
         games_collection[i].map = results.rows[i].map;
         games_collection[i].team1 = results.rows[i].t1name;
         games_collection[i].team2 = results.rows[i].t2name;
+        games_collection[i].team1logo = results.rows[i].t1logo;
+        games_collection[i].team2logo = results.rows[i].t2logo;
 
       }
     };
@@ -421,7 +424,7 @@ $(function() {
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
       games_collection[j].team2players = [];
-      console.log(results);
+      ;
       for(var i = 0; i < results.rows.length; i++){
 
         if(games_collection[j].match_id == results.rows[i].game_id){
