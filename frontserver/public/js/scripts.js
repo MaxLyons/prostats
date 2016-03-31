@@ -24,7 +24,7 @@ $(function() {
 
 
   socket.on('getEvents', function(results){
-    console.log(results);
+
     for(var i = 0; i < results.rows.length; i++){
       if(games_collection[i] === undefined || results.rows[i].match_id != games_collection[i].match_id){
         games_collection[i] = new Object();
@@ -430,15 +430,15 @@ $(function() {
 
 
   socket.on('getKDAmatches', function(results){
+    console.log(games_collection);
+    console.log(results);
     for(var j = 0; j < games_collection.length; j++){
       games_collection[j].team1players = [];
       games_collection[j].team2players = [];
-      ;
+
       for(var i = 0; i < results.rows.length; i++){
-
         if(games_collection[j].match_id == results.rows[i].game_id){
-          if (games_collection[j].team1 ==  results.rows[i].team) {
-
+          if(games_collection[j].team1 == results.rows[i].team) {
             games_collection[j].team1players.push(results.rows[i]);
           } else {
             games_collection[j].team2players.push(results.rows[i]);
