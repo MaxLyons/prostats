@@ -128,7 +128,6 @@ io.on('connection', function(socket){
             return console.error('error occurred');
           }
           if(results.rows[0]==undefined){
-            console.log("HIII");
             results.rows = [{ match_id: -1, team: -1}];
           }
           console.log(results);
