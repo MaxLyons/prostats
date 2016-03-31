@@ -113,7 +113,6 @@ io.on('connection', function(socket){
           }
           socket.emit('getKDAmatches', results)
         });
-
       });
     });
 
