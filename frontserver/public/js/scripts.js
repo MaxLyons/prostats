@@ -77,7 +77,6 @@ $(function() {
       liveScoreboard += "<th class='text-center'>D</th>";
       liveScoreboard += "<th class='text-center'>A</th>";
       liveScoreboard += "<th class='text-center'>K/D</th>";
-      liveScoreboard += "<th class='text-center'>PSR</th>";
       liveScoreboard += "</tr>";
       liveScoreboard += "</thead>";
       liveScoreboard += "<tbody class='ct'>";
@@ -90,7 +89,6 @@ $(function() {
         liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
         liveScoreboard += "<td class='a_row'>" + player.assists + "</td>";
         liveScoreboard += "<td class='kd_row'>" + Math.round((player.kills/player.deaths) * 100) / 100 + "</td>";
-        liveScoreboard += "<td class='psr_row'>47%</td>";
         liveScoreboard += "</tr>";
       }
       liveScoreboard += "</tbody>";
@@ -121,7 +119,6 @@ $(function() {
         liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
         liveScoreboard += "<td class='a_row'>" + player.assists + "</td>";
         liveScoreboard += "<td class='kd_row'>" + Math.round((player.kills/player.deaths) * 100) / 100 + "</td>";
-        liveScoreboard += "<td class='psr_row'>47%</td>";
         liveScoreboard += "</tr>";
       }
       liveScoreboard += "</tbody>";
@@ -255,7 +252,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(2)').text(checkNaN((gamesWon/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(2)').text(checkNaN((wonTerrorist/gamesWon*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(2)').text(checkNaN(((1-(wonTerrorist/gamesWon))*100).toFixed(2)) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text(checkNaN((lossTerrorist/gamesLost*100).toFixed(2)) + '%');    
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(2)').text(checkNaN((lossTerrorist/gamesLost*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(2)').text(checkNaN(((1-(lossTerrorist/gamesLost))*100).toFixed(2)) + '%');
   });
 
@@ -272,7 +269,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(2)').find('td:nth-child(3)').text(checkNaN((gamesWon/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(3)').find('td:nth-child(3)').text(checkNaN((wonTerrorist/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(4)').find('td:nth-child(3)').text(checkNaN(((1-(wonTerrorist/totalGames))*100).toFixed(2)) + '%');
-    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text(checkNaN((lossTerrorist/totalGames*100).toFixed(2)) + '%');    
+    $('.mainStat').find('tbody').find('tr:nth-child(5)').find('td:nth-child(3)').text(checkNaN((lossTerrorist/totalGames*100).toFixed(2)) + '%');
     $('.mainStat').find('tbody').find('tr:nth-child(6)').find('td:nth-child(3)').text(checkNaN(((1-(lossTerrorist/totalGames))*100).toFixed(2)) + '%');
   });
 
@@ -286,9 +283,9 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(2)').text(checkNaN((data.avg_kills/data.avg_deaths).toFixed(2)));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(2)').text(checkNaN(data.avg_kills/100));
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(2)').text(checkNaN(data.avg_deaths/100));
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(checkNaN(data.avg_assists/100));  
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(2)').text(checkNaN(data.avg_assists/100));
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(2)').text(checkNaN(data.avg_damage));
-    
+
     //kill participation
     socket.emit('getKillPart', {query: searchPlayer, sk: PSRArr, sa: sumKills});
   });
@@ -300,7 +297,7 @@ $(function() {
     console.log(data);
     console.log(sumKills);
     var killParticipation = (sumKills * 100 / data.rows[0].sum_team_kills).toFixed(2);
-    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(checkNaN(killParticipation) + '%');      
+    $('.mainStat').find('tbody').find('tr:nth-child(8)').find('td:nth-child(2)').text(checkNaN(killParticipation) + '%');
   });
 
   socket.on('PSR', function(data0){
@@ -386,7 +383,7 @@ $(function() {
     $('.mainStat').find('tbody').find('tr:nth-child(7)').find('td:nth-child(3)').text(checkNaN((data.avg_kills/data.avg_deaths).toFixed(2)));
     $('.mainStat').find('tbody').find('tr:nth-child(9)').find('td:nth-child(3)').text(checkNaN(data.avg_kills/100));
     $('.mainStat').find('tbody').find('tr:nth-child(10)').find('td:nth-child(3)').text(checkNaN(data.avg_deaths/100));
-    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(checkNaN(data.avg_assists/100));  
+    $('.mainStat').find('tbody').find('tr:nth-child(11)').find('td:nth-child(3)').text(checkNaN(data.avg_assists/100));
     $('.mainStat').find('tbody').find('tr:nth-child(12)').find('td:nth-child(3)').text(checkNaN(data.avg_damage));
 
     //kill participation
