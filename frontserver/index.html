@@ -16,53 +16,46 @@
 </head>
 
 <body>
-    <div class="navbar-fixed z-depth-0" id="navBar">
-      <nav class="transparent z-depth-0">
-        <div class="nav-wrapper z-depth-0">
-          <a href="" id="logo" class="brand-logo mainTab"><img src="image/logo.png"/></a>
-          <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a class="mainTab" id="mainLiveTab">Live</a></li>
-            <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
-          </ul>
-          <form>
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-      </nav>
-    </div>
-
-    <div>
-      <div class="land">
-        <img src="image/logo.png"/>
-        <p>ProStats is the leading Counter Strike: Global Offensive pro team and pro player stat tracking tool.</p>
+  <div class="navbar-fixed z-depth-0" id="navBar">
+    <nav class="transparent z-depth-0">
+      <div class="nav-wrapper z-depth-0">
+        <a href="" id="logo" class="brand-logo mainTab"><img src="image/logo.png"/></a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a class="mainTab" id="mainLiveTab">Live</a></li>
+          <li><a class="mainTab" id="mainStatTab">Statistics</a></li>
+        </ul>
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required>
+            <label for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
       </div>
+    </nav>
+  </div>
 
-    <div class="landstats">
-      <div class="row">
-        <div class="col s4">
-          <inline id="totalteamstracked" class="landtracked"></inline> Teams Tracked
-        </div>
-        <div class="col s4">
-          <inline id="totalgamestracked" class="landtracked"></inline> Games Tracked
-        </div>
-        <div class="col s4">
-          <inline id="totalplayerstracked" class="landtracked"></inline> Players Tracked
-        </div>
+  <div class="land">
+    <img src="image/logo.png"/>
+    <p>ProStats is the leading Counter Strike: Global Offensive pro team and pro player stat tracking tool.</p>
+  </div>
+
+  <div class="landstats">
+    <div class="row">
+      <div class="col s4">
+        <inline id="totalteamstracked" class="landtracked"></inline> Teams Tracked
+      </div>
+      <div class="col s4">
+        <inline id="totalgamestracked" class="landtracked"></inline> Games Tracked
+      </div>
+      <div class="col s4">
+        <inline id="totalplayerstracked" class="landtracked"></inline> Players Tracked
       </div>
     </div>
+  </div>
 
-    <div class="fade" data-mainTab="mainLiveTab">
-      <!-- counterterrorist table -->
-      <div class="livescoreboard">
-      
-          </table>
-        </div>
-      </div>
-    </div>
+  <div class="fade" data-mainTab="mainLiveTab">
+  </div>
     <!-- STATIC STATISTICS STARTS HERE -->
     <div class="fade" data-mainTab="mainStatTab">
       <div class="row page">

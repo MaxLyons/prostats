@@ -28,7 +28,6 @@ $(function() {
 
 
   socket.on('getEvents', function(results){
-    console.log(results);
     for(var i = 0; i < results.rows.length; i++){
       if(games_collection[i] === undefined || results.rows[i].match_id != games_collection[i].match_id){
         games_collection[i] = new Object();
@@ -44,7 +43,6 @@ $(function() {
 
   socket.on('getAlias', function(results){
     for(var i = 0; i<results.rows.length; i++){
-      console.log(results.rows[i]);
     }
   });
 
@@ -67,17 +65,18 @@ $(function() {
   $("#mainLiveTab").on('click', function(){
     table = $(this)[0].id;
     $("[data-mainTab=" + table + "]").fadeIn().siblings().hide();
-    console.log(games_collection);
-    // for (var game > 0; games_collection.length; game ++) {
+    for (var y = 0; y < games_collection.length; y ++) {
+      var game = games_collection[y];
       var liveScoreboard = "";
+      liveScoreboard += "<div class='livescoreboard'>";
       liveScoreboard += "<table class='table' cellspacing='0' cellpadding='0' text-center >";
       liveScoreboard += "<tr>";
       liveScoreboard += "<thead class='scoreheader'>";
       liveScoreboard += "<tr>";
       liveScoreboard += "<div class='gameheader'>";
       liveScoreboard += "<ul>";
-      liveScoreboard += "<span class='matchname'>ESEA PRO League Season 21</span>";
-      liveScoreboard += "<span class='map'>de_dust2</span>";
+      liveScoreboard += "<span class='matchname'>" + game.event + "</span>";
+      liveScoreboard += "<span class='map'>" + game.map + "</span>";
       liveScoreboard += "</ul>";
       liveScoreboard += "</div>";
       liveScoreboard += "</tr>";
@@ -92,52 +91,54 @@ $(function() {
       liveScoreboard += "</tr>";
       liveScoreboard += "</thead>";
       liveScoreboard += "<tbody class='ct'>";
-      // for (var i > 0; data.length; i ++) {
+      for (var i = 0; i < game.team1players.length; i ++) {
+        var player = game.team1players[i];
         liveScoreboard += "<tr>";
-        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
-        liveScoreboard += "<td class='alias_row'>n0thing</td>";
-        liveScoreboard += "<td class='k_row'>18</td>";
-        liveScoreboard += "<td class='d_row'>7</td>";
-        liveScoreboard += "<td class='a_row'>5</td>";
-        liveScoreboard += "<td class='kd_row'>7</td>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src=' + avatar + '></td>";
+        liveScoreboard += "<td class='alias_row'>" + player.alias + "</td>";
+        liveScoreboard += "<td class='k_row'>" + player.kills + "</td>";
+        liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
+        liveScoreboard += "<td class='a_row'>" + player.assists + "</td>";
+        liveScoreboard += "<td class='kd_row'>" + (player.kills/player.deaths) + "</td>";
         liveScoreboard += "<td class='psr_row'>47%</td>";
         liveScoreboard += "</tr>";
-      // }
+      }
       liveScoreboard += "</tbody>";
       liveScoreboard += "<tr>";
       liveScoreboard += "<td class='scoremiddle' colspan='9'>";
       liveScoreboard += "<div class='ct_score'>";
       liveScoreboard += "<ul>";
-      liveScoreboard += "<span class='score'>16</span>";
-      liveScoreboard += "<span class='team_score'>Cloud 9 <img class='teamavatar' src='image/cloud9.png'></span>";
+      liveScoreboard += "<span class='score'>" + game.ct_score + "</span>";
+      liveScoreboard += "<span class='team_score'>" + game.team1 + " <img class='teamavatar' src=' + team1logo + '></span>";
       liveScoreboard += "</ul>";
       liveScoreboard += "</div>";
       liveScoreboard += "</br>";
       liveScoreboard += "<div class='t_score'>";
       liveScoreboard += "<ul>";
-      liveScoreboard += "<span class='score'>10</span>";
-      liveScoreboard += "<span class='team_score'>Luminosity <img class='teamavatar' src='image/luminosity.png'></span>";
+      liveScoreboard += "<span class='score'>" + game.t_score + "</span>";
+      liveScoreboard += "<span class='team_score'>" + game.team2 + " <img class='teamavatar' src=' + team2logo + '></span>";
       liveScoreboard += "</ul>";
       liveScoreboard += "</div>";
       liveScoreboard += "</td>";
       liveScoreboard += "</tr>";
       liveScoreboard += "<tbody class='terrorist'>";
-      // for (var i > 0; data.length; i ++) {
+      for (var i = 0; i < game.team2players.length; i ++) {
+        var player = game.team2players[i];
         liveScoreboard += "<tr>";
-        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='image/n0thing.jpg'></td>";
-        liveScoreboard += "<td class='alias_row'>n0thing</td>";
-        liveScoreboard += "<td class='k_row'>18</td>";
-        liveScoreboard += "<td class='d_row'>7</td>";
-        liveScoreboard += "<td class='a_row'>5</td>";
-        liveScoreboard += "<td class='kd_row'>7</td>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src=' + avatar + '></td>";
+        liveScoreboard += "<td class='alias_row'>" + player.alias + "</td>";
+        liveScoreboard += "<td class='k_row'>" + player.kills + "</td>";
+        liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
+        liveScoreboard += "<td class='a_row'>" + player.assists + "</td>";
+        liveScoreboard += "<td class='kd_row'>" + (player.kills/player.deaths) + "</td>";
         liveScoreboard += "<td class='psr_row'>47%</td>";
         liveScoreboard += "</tr>";
-      // }
+      }
       liveScoreboard += "</tbody>";
       liveScoreboard += "</table>";
-    // }
-
-    $(".livescoreboard").append(liveScoreboard);
+      liveScoreboard += "</div>";
+      $(".fade").append(liveScoreboard);
+    }
   })
 
 
