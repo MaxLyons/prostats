@@ -214,7 +214,7 @@ socket.on('searchPlayerName', function(player){
         return console.error('error fetching client from pool', err);
       }
       client.query(
-        "SELECT alias FROM player_rounds WHERE alias % '" + player +"' LIMIT 1",
+        "SELECT alias FROM players WHERE alias % '" + player +"' LIMIT 1",
         function(err,results){
           if(err) {
             return console.error('error occurred');
