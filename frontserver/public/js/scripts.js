@@ -158,6 +158,7 @@ $(function() {
     $(".mainStat thead").remove();
     $(".mainStat tbody").remove();
     $("#statPlayerName").empty();
+    // $(".playname").empty();
 
     callback();
   };
@@ -180,7 +181,7 @@ $(function() {
       'Losing as Terrorist', 'Losing as Counter-Terrorist', 'KD', 'Kill Participation', 'Average Kills',
       'Average Deaths', 'Average Assists', 'Average Damage'];
 
-    var thead = $('<thead>').appendTo('.mainStat');
+    var thead = $('<thead class="mainhead">').appendTo('.mainStat');
     var trHead = $('<tr>').appendTo(thead);
     for (i=0;i<trHeadName.length;i++){
       $('<th>').text(trHeadName[i]).appendTo(trHead);
@@ -219,6 +220,7 @@ $(function() {
   });
 
   socket.on('getPlayerName', function(data){
+    console.log(data)
     if (data.rows[0] != undefined){
       LoadStatPage(data.rows[0].alias);
     }
@@ -234,12 +236,11 @@ $(function() {
     logo = parse[0].logo;
 
     //APPENDING NAME
-    $('<h1>').text(alias).appendTo('#statPlayerName');
+    $('<div class="playname" >').text(alias).appendTo('#statPlayerName');
 
     //APPENDING PICTURE
-    $('#statPlayerName').append("<img src='"+ avatar +"'/>");    
-    $('#statPlayerName').append("<img src='"+ logo +"'/>");     
-
+    $('#statPlayerName').prepend("<img id='playerAvatar' src='"+ avatar +"'/>");
+    $('#statPlayerName').prepend("<img id='teamLogo' src='"+ logo +"'/>");
   });
 
   //replacing KDA on stat table
@@ -324,7 +325,7 @@ $(function() {
     //STATIC GRAPH PSR
     $('#statGraphContainer').highcharts({
       chart: {
-          backgroundColor: 'rgba(255,225,225,0.8)',
+          bbackgroundColor: 'rgba(0,0,0,0.8)',
       },
       title: {
         text: 'Player\'s Rating',
