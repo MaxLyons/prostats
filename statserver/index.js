@@ -6,9 +6,10 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 var jsgo = require('jsgo');
 var pg = require('pg');
-var conString = "";
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+var dbKey = require('./dbKey.js');
+var conString = dbKey();
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');

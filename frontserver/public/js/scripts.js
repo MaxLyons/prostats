@@ -51,6 +51,7 @@ $(function() {
 
 
   $("#mainLiveTab").on('click', function(){
+    $("#livegames").empty();
     table = $(this)[0].id;
     $(".landing").fadeOut();
     $("[data-mainTab=mainStatTab]").fadeOut();
@@ -84,7 +85,7 @@ $(function() {
       for (var i = 0; i < game.team1players.length; i ++) {
         var player = game.team1players[i];
         liveScoreboard += "<tr>";
-        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src=' + avatar + '></td>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='" + player.avatar + "'></td>";
         liveScoreboard += "<td class='alias_row'>" + player.alias + "</td>";
         liveScoreboard += "<td class='k_row'>" + player.kills + "</td>";
         liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
@@ -99,14 +100,14 @@ $(function() {
       liveScoreboard += "<div class='ct_score'>";
       liveScoreboard += "<ul>";
       liveScoreboard += "<span class='score'>" + game.ct_score + "</span>";
-      liveScoreboard += "<span class='team_score'>" + game.team1 + " <img class='teamavatar' src=' + team1logo + '></span>";
+      liveScoreboard += "<span class='team_score'>" + game.team1 + " <img class='teamavatar' src='" + game.team1logo + "'></span>";
       liveScoreboard += "</ul>";
       liveScoreboard += "</div>";
       liveScoreboard += "</br>";
       liveScoreboard += "<div class='t_score'>";
       liveScoreboard += "<ul>";
       liveScoreboard += "<span class='score'>" + game.t_score + "</span>";
-      liveScoreboard += "<span class='team_score'>" + game.team2 + " <img class='teamavatar' src=' + team2logo + '></span>";
+      liveScoreboard += "<span class='team_score'>" + game.team2 + " <img class='teamavatar' src='" + game.team2logo + "'></span>";
       liveScoreboard += "</ul>";
       liveScoreboard += "</div>";
       liveScoreboard += "</td>";
@@ -115,7 +116,7 @@ $(function() {
       for (var i = 0; i < game.team2players.length; i ++) {
         var player = game.team2players[i];
         liveScoreboard += "<tr>";
-        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src=' + avatar + '></td>";
+        liveScoreboard += "<td class='avatar_row'><img class='playeravatar' src='" + player.avatar + "'></td>";
         liveScoreboard += "<td class='alias_row'>" + player.alias + "</td>";
         liveScoreboard += "<td class='k_row'>" + player.kills + "</td>";
         liveScoreboard += "<td class='d_row'>" + player.deaths + "</td>";
@@ -127,7 +128,7 @@ $(function() {
       liveScoreboard += "</tbody>";
       liveScoreboard += "</table>";
       liveScoreboard += "</div>";
-      $(".fade").append(liveScoreboard);
+      $("#livegames").append(liveScoreboard);
     }
   })
 

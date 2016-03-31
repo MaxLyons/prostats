@@ -30,7 +30,7 @@ $(function() {
 
   socket.on('populate select', function(data) {
     var select = '';
-    select += "<option value='" + data.id + "' data-icon='" + data.logo + "' class=''>" + data.name + "</option>";
+    select += "<option value='" + data.id + "' data-icon='../../frontserver/public/" + data.logo + "' class=''>" + data.name + "</option>";
     $("#team_list").append(select);
     $("#team1_name").append(select);
     $("#team2_name").append(select);
