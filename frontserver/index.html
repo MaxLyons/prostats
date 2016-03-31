@@ -35,52 +35,41 @@
     </nav>
   </div>
   <div>
-  <div class="landing">
-    <div class="land">
-      <img src="image/logo.png"/>
-      <p>ProStats is the leading Counter Strike: Global Offensive pro team and pro player stat tracking tool.</p>
-    </div>
+    <div class="landing">
+      <div class="land">
+        <img src="image/logo.png"/>
+        <p>ProStats is the leading Counter Strike: Global Offensive pro team and pro player stat tracking tool.</p>
+      </div>
 
-    <div class="landstats">
-      <div class="row">
-        <div class="col s4">
-          <inline id="totalteamstracked" class="landtracked"></inline> Teams Tracked
-        </div>
-        <div class="col s4">
-          <inline id="totalgamestracked" class="landtracked"></inline> Games Tracked
-        </div>
-        <div class="col s4">
-          <inline id="totalplayerstracked" class="landtracked"></inline> Players Tracked
+      <div class="landstats">
+        <div class="row">
+          <div class="col s4">
+            <inline id="totalteamstracked" class="landtracked"></inline> Teams Tracked
+          </div>
+          <div class="col s4">
+            <inline id="totalgamestracked" class="landtracked"></inline> Games Tracked
+          </div>
+          <div class="col s4">
+            <inline id="totalplayerstracked" class="landtracked"></inline> Players Tracked
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="livegames" class="fade" data-mainTab="mainLiveTab">
-  </div>
-    <!-- STATIC STATISTICS STARTS HERE -->
-    <div class="fade" data-mainTab="mainStatTab">
-      <div class="row page">
-        <div class="col s5 offset-s1 statTable">
-          <div id="statPlayerName">            
+    <div id="livegames" class="fade" data-mainTab="mainLiveTab">
+    </div>
+
+      <div class="fade" data-mainTab="mainStatTab">
+        <div class="statTable">
+          <div id="statPlayerName">
           </div>
-<!-- FRIST TABLE  -->
+  <!-- FRIST TABLE  -->
           <table class="highlight mainStat" data-tableNum="statTable1">
-            <thead>
           </table>
         </div>
-  <!-- CONTAINERS AVATAR, LOGO, GRAPH-->
-        <div class="col s2 offset-s1 statTeamIconContainer" id="playerAvatar">
-          Teal page content
-        </div>
-        <div class="col s2 statProfileContainer" id="teamLogo">
-          Teal page content
-        </div>
-        <div class="col s6 statGraph" id="statGraphContainer" >
-          Teal page content
+        <div class="statGraph" id="statGraphContainer" >
         </div>
       </div>
-    </div>
     </div>
   </body>
 </html>

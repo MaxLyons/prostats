@@ -106,7 +106,7 @@ float:left;
 }
 
 /* LIVE STAT TAB STARTS */
-.livescoreboard{
+.livescoreboard, .statTable {
   margin: auto;
   margin-top: 5%;
   text-align: center;
@@ -225,27 +225,18 @@ td{
 .fade {
   display: none;
 }
-/* LIVE STAT TAB ENDS HERE */
 
-/* STATIC STAT TAB STARTS HERE */
 .statTable {
-  background-color: black;
-  height: 80vh;
-  border-style: solid;
-  border-radius: 1%;
-  border-width: 3px;
-  border-color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  margin-bottom: 30px;
 }
 
 .statTable .statTableTabs {
   padding-left: 5px;
   padding-right: 5px;
-  background-color: transparent;
-  border-radius: 5%;
-  border-color: white;
-  border-style: solid;
-  border-width: 1px 1px 0px 1px;
   color: white;
+  border-width: 0px;
 }
 
 .mainStat {
@@ -258,7 +249,6 @@ td{
 }
 .mainStat tbody {
     overflow: auto;
-    height: 50vh;
 }
 
 .mainStat tbody::-webkit-scrollbar {
@@ -279,32 +269,31 @@ td{
   text-align: center;
 }
 
-.statTeamIconContainer {
-  height: 35vh;
-  border-style: solid;
-  border-width: 3px;
-  border-color: grey;
-  margin-bottom: 5vh;
-  margin-right: 2vw;
+#teamLogo{
+  margin: 10px;
+  height: 75px;
+  float: right;
 }
 
-.statProfileContainer {
-  height: 35vh;
-  border-style: solid;
-  border-width: 3px;
-  border-color: grey;
-  margin-bottom: 5vh;
-  margin-right: 2vw;
+.playname {
+  padding-top: 35px;
+  font-size: 25px;
 }
 
-.statGraph {
-  height: 40vh;
+.mainhead, .mainhead tr th {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-width: 0px;
+}
+
+#playerAvatar{
+  border-radius: 50%;
+  margin: 10px;
+  height: 75px;
+  float: left;
 }
 
 .mainStat tr, .mainStat td{
-  background-color: #233D4E;
+  background-color: rgba(35, 61, 78, 0.8);
   color: #96BCD3;
-  border-width: 4px;
-  border-color: black;
-  border-style: solid;
+  border-width: 0px;
 }
