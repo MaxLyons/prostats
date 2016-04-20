@@ -2,3 +2,4 @@ dbKey.js
 .DS_Store
 node_modules/
 backupindex.html
+scraper/

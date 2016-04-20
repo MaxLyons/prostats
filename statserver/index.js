@@ -11,6 +11,7 @@ app.use(express.static(__dirname + '/public'));
 var dbKey = require('./dbKey.js');
 var conString = dbKey();
 
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -38,7 +39,7 @@ app.get('/', function(req, res){
     //     console.log("hey");
     //   });
 
-    // client.query('CREATE TABLE teams(id serial PRIMARY KEY, name TEXT, psr INTEGER)', function(err, result) {
+    // client.query('CREATE TABLE teams(id serial PRIMARY KEY, name TEXT, psr INTEGER, logo TEXT)', function(err, result) {
     //
     //     if(err) {
     //       return console.error('error running query', err);
@@ -158,6 +159,7 @@ app.get('/', function(req, res){
             var event_name = 'game.round_end';
             var demo = new jsgo.Demo();
                 demo.on('server_info', function(event) {
+                  console.log(event.mapName);
                   map = event.mapName;
                   client.query("INSERT INTO games(match_id, event, team1, team2, map) VALUES ( '" + gameId + "', '" + gameData.title + "', '" + gameData.team1 + "', '" + gameData.team2 + "', '" + map + "');", function(err, result) {
                     if(err) {
