@@ -448,6 +448,7 @@ $(function() {
       var team1 = games_collection.team1;
       var team2 = games_collection.team2;
 
+
       if(games_collection[j].winning_side == "CT" && games_collection[j].team_won == team2){
         games_collection[j].team1 == team2;
         games_collection[j].team2 == team1;
@@ -455,7 +456,7 @@ $(function() {
         games_collection[j].team1 == team2;
         games_collection[j].team2 == team1;
       }
-      
+
       for(var i = 0; i < results.rows.length; i++){
         if(games_collection[j].match_id == results.rows[i].game_id){
           if(games_collection[j].team1 == results.rows[i].team) {
