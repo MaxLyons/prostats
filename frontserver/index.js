@@ -213,14 +213,17 @@ io.on('connection', function(socket){
 //Fuzzy search by player name
 socket.on('searchPlayerName', function(player){
   pg.connect(conString, function(err, client, done) {
+      console.log('we are in search player name: ' + player)
       if(err) {
         return console.error('error fetching client from pool', err);
       }
       client.query(
-        "SELECT alias FROM players WHERE alias % '" + player +"' LIMIT 1",
+        "SELECT alias FROM players WHERE alias LIKE'" + player + "%" + "'LIMIT 1",
         function(err,results){
           if(err) {
+            console.log('we are in query');
             return console.error('error occurred');
+            console.log('we are out of searchPlayerName');
           }
           socket.emit('getPlayerName', results);
       });

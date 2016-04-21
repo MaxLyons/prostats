@@ -170,6 +170,7 @@ $(function() {
 
   //Load Stat Page Function
   function LoadStatPage(searchPlayer){
+    console.log('we are in loadstatpage function');
     table = $(this)[0].id;
     clearOtherPage(function(){ fadeInPage("mainStatTab")});
 
@@ -223,12 +224,13 @@ $(function() {
     var pick = (Math.random() * (data.rows.length - 0)).toFixed(0);
     console.log(pick);
     var player = data.rows[pick].alias;
-    console.log(player);
+    console.log(player + 'we are in loadRandPlayer');
     socket.emit('searchPlayerName', player);
   });
 
   socket.on('getPlayerName', function(data){
     console.log(data)
+    console.log('we are in getPlayerName');
     if (data.rows[0] != undefined){
       LoadStatPage(data.rows[0].alias);
     }
@@ -475,6 +477,8 @@ $(function() {
     console.log(results);
     for(var i = 0; i < results.rows.length; i ++){
       if(games_collection[i] === undefined || results.rows[i].ct_score != games_collection[i].ct_score){
+        console.log(games_collection);
+        console.log(results.rows);
         games_collection[i].ct_score = results.rows[i].ct_score;
         games_collection[i].t_score = results.rows[i].t_score;
         games_collection[i].team_won = results.rows[i].team_won;
